@@ -1,0 +1,6 @@
+method: paring1V2
+namespaceUri: http://liiklusregister.x-road.eu
+registryCode: liiklusregister
+responseRootNode: null
+serviceCode: paring1
+serviceName: liiklusregisterXRoadDatabase

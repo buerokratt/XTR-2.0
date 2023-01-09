@@ -1,0 +1,531 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:arr="http://schemas.microsoft.com/2003/10/Serialization/Arrays" xmlns:dok="http://kr.x-road.eu/DokumendidNimekiri" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:sys="http://schemas.datacontract.org/2004/07/System" xmlns:tns="http://kr.x-road.eu" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:xrd="http://x-road.eu/xsd/xroad.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="Kr" targetNamespace="http://kr.x-road.eu">
+   <wsp:Policy wsu:Id="BasicHttpBinding_IKr_policy">
+      <wsp:ExactlyOne>
+         <wsp:All>
+            <wsoma:OptimizedMimeSerialization xmlns:wsoma="http://schemas.xmlsoap.org/ws/2004/09/policy/optimizedmimeserialization"/>
+         </wsp:All>
+      </wsp:ExactlyOne>
+   </wsp:Policy>
+   <wsdl:types>
+      <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://schemas.datacontract.org/2004/07/System.IO" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/System.IO">
+         <xs:import namespace="http://schemas.datacontract.org/2004/07/System"/>
+         <xs:complexType name="FileStream">
+            <xs:complexContent mixed="false">
+               <xs:extension base="tns:Stream">
+                  <xs:sequence/>
+               </xs:extension>
+            </xs:complexContent>
+         </xs:complexType>
+         <xs:element name="FileStream" nillable="true" type="tns:FileStream"/>
+         <xs:complexType name="Stream">
+            <xs:complexContent mixed="false">
+               <xs:extension base="sys:MarshalByRefObject">
+                  <xs:sequence/>
+               </xs:extension>
+            </xs:complexContent>
+         </xs:complexType>
+         <xs:element name="Stream" nillable="true" type="tns:Stream"/>
+      </xs:schema>
+      <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://schemas.datacontract.org/2004/07/System" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/System">
+         <xs:complexType name="MarshalByRefObject">
+            <xs:sequence>
+               <xs:element name="__identity" nillable="true" type="xs:anyType"/>
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="MarshalByRefObject" nillable="true" type="tns:MarshalByRefObject"/>
+      </xs:schema>
+      <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://schemas.microsoft.com/2003/10/Serialization/Arrays" targetNamespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" elementFormDefault="qualified">
+         <xs:complexType name="ArrayOfint">
+            <xs:sequence>
+               <xs:element name="int" type="xs:int" minOccurs="0" maxOccurs="unbounded"/>
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="ArrayOfint" type="tns:ArrayOfint" nillable="true"/>
+      </xs:schema>
+      <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://schemas.microsoft.com/2003/10/Serialization/" attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://schemas.microsoft.com/2003/10/Serialization/">
+         <xs:element name="anyType" nillable="true" type="xs:anyType"/>
+         <xs:element name="anyURI" nillable="true" type="xs:anyURI"/>
+         <xs:element name="base64Binary" nillable="true" type="xs:base64Binary"/>
+         <xs:element name="boolean" nillable="true" type="xs:boolean"/>
+         <xs:element name="byte" nillable="true" type="xs:byte"/>
+         <xs:element name="dateTime" nillable="true" type="xs:dateTime"/>
+         <xs:element name="decimal" nillable="true" type="xs:decimal"/>
+         <xs:element name="double" nillable="true" type="xs:double"/>
+         <xs:element name="float" nillable="true" type="xs:float"/>
+         <xs:element name="int" nillable="true" type="xs:int"/>
+         <xs:element name="long" nillable="true" type="xs:long"/>
+         <xs:element name="QName" nillable="true" type="xs:QName"/>
+         <xs:element name="short" nillable="true" type="xs:short"/>
+         <xs:element name="string" nillable="true" type="xs:string"/>
+         <xs:element name="unsignedByte" nillable="true" type="xs:unsignedByte"/>
+         <xs:element name="unsignedInt" nillable="true" type="xs:unsignedInt"/>
+         <xs:element name="unsignedLong" nillable="true" type="xs:unsignedLong"/>
+         <xs:element name="unsignedShort" nillable="true" type="xs:unsignedShort"/>
+         <xs:element name="char" nillable="true" type="tns:char"/>
+         <xs:simpleType name="char">
+            <xs:restriction base="xs:int"/>
+         </xs:simpleType>
+         <xs:element name="duration" nillable="true" type="tns:duration"/>
+         <xs:simpleType name="duration">
+            <xs:restriction base="xs:duration">
+               <xs:pattern value="\-?P(\d*D)?(T(\d*H)?(\d*M)?(\d*(\.\d*)?S)?)?"/>
+               <xs:minInclusive value="-P10675199DT2H48M5.4775808S"/>
+               <xs:maxInclusive value="P10675199DT2H48M5.4775807S"/>
+            </xs:restriction>
+         </xs:simpleType>
+         <xs:element name="guid" nillable="true" type="tns:guid"/>
+         <xs:simpleType name="guid">
+            <xs:restriction base="xs:string">
+               <xs:pattern value="[\da-fA-F]{8}-[\da-fA-F]{4}-[\da-fA-F]{4}-[\da-fA-F]{4}-[\da-fA-F]{12}"/>
+            </xs:restriction>
+         </xs:simpleType>
+         <xs:attribute name="FactoryType" type="xs:QName"/>
+         <xs:attribute name="Id" type="xs:ID"/>
+         <xs:attribute name="Ref" type="xs:IDREF"/>
+      </xs:schema>
+      <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://kr.x-road.eu">
+      </xs:schema>
+      <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://kr.x-road.eu/DokumendidNimekiri" elementFormDefault="qualified" targetNamespace="http://kr.x-road.eu/DokumendidNimekiri">
+      </xs:schema>
+      <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://kr.x-road.eu" elementFormDefault="qualified" targetNamespace="http://kr.x-road.eu">
+         <xs:complexType name="Teade">
+            <xs:sequence>
+               <xs:element minOccurs="0" name="KattetoimetamiseKP" nillable="true" type="xs:dateTime">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <xrd:title>Kattetoimetamise aeg</xrd:title>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:element>
+               <xs:element minOccurs="0" name="Kinnituse_vajadus" nillable="true" type="xs:string">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <xrd:title>Kinnituse vajadus</xrd:title>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:element>
+               <xs:element minOccurs="0" name="KoostamiseKP" type="xs:dateTime">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <xrd:title>Koostamise aeg</xrd:title>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:element>
+               <xs:element minOccurs="0" name="Link_teatele" nillable="true" type="xs:string">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <xrd:title>Link teatele</xrd:title>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:element>
+               <xs:element minOccurs="0" name="Saatmise_viis" nillable="true" type="xs:string">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <xrd:title>Saatmise viis</xrd:title>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:element>
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="Teade" nillable="true" type="tns:Teade"/>
+
+         <xs:complexType name="ArrayOfTeade">
+            <xs:sequence>
+               <xs:element minOccurs="0" maxOccurs="unbounded" name="Teade" nillable="true" type="tns:Teade"/>
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="ArrayOfTeade" nillable="true" type="tns:ArrayOfTeade"/>
+
+         <xs:element name="Puudutatud_Isiku_Teated">
+            <xs:complexType>
+               <xs:sequence/>
+            </xs:complexType>
+         </xs:element>
+         <xs:element name="Puudutatud_Isiku_TeatedResponse">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element minOccurs="0" name="Info" nillable="true" type="xs:string"/>
+                  <xs:element minOccurs="0" name="Kood" type="xs:int"/>
+                  <xs:element minOccurs="0" name="Teated" nillable="true" type="tns:ArrayOfTeade"/>
+               </xs:sequence>
+            </xs:complexType>
+         </xs:element>
+
+         <xs:complexType name="Avaldus">
+            <xs:sequence>
+               <xs:element minOccurs="0" name="Avalduse_aeg" nillable="true" type="xs:dateTime">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <xrd:title>Avalduse kuupäev</xrd:title>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:element>
+               <xs:element minOccurs="0" name="Avalduse_liik" nillable="true" type="xs:string">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <xrd:title>Avalduse liik</xrd:title>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:element>
+               <xs:element name="Avalduse_nr" nillable="true" type="xs:string">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <xrd:title>Avalduse number</xrd:title>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:element>
+               <xs:element minOccurs="0" name="Notar" nillable="true" type="xs:string">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <xrd:title>Notariaalse dokumendi andmed</xrd:title>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:element>
+               <xs:element minOccurs="0" name="Puudutatud_isikud" nillable="true" type="xs:string">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <xrd:title>Puudutatud isikud loendina</xrd:title>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:element>
+               <xs:element minOccurs="0" name="Puudutatud_kyd" nillable="true" type="xs:string">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <xrd:title>Puudutatud katastritunnused loendina</xrd:title>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:element>
+               <xs:element minOccurs="0" name="Puudutatud_rod" nillable="true" type="xs:string">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <xrd:title>Puudutatud registriosad loendina</xrd:title>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:element>
+               <xs:element minOccurs="0" name="Reg_aeg" nillable="true" type="xs:dateTime">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <xrd:title>Avalduse registreerimise kuupäev</xrd:title>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:element>
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="Avaldus" nillable="true" type="tns:Avaldus"/>
+
+         <xs:complexType name="ArrayOfAvaldus">
+            <xs:sequence>
+               <xs:element minOccurs="0" maxOccurs="unbounded" name="Avaldus" nillable="true" type="tns:Avaldus"/>
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="ArrayOfAvaldus" nillable="true" type="tns:ArrayOfAvaldus"/>
+
+         <xs:element name="Minu_Kinnistamisavaldused">
+            <xs:complexType>
+               <xs:sequence/>
+            </xs:complexType>
+         </xs:element>
+         <xs:element name="Minu_KinnistamisavaldusedResponse">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element minOccurs="0" name="Avaldused" nillable="true" type="tns:ArrayOfAvaldus"/>
+                  <xs:element minOccurs="0" name="Info" nillable="true" type="xs:string"/>
+                  <xs:element minOccurs="0" name="Kood" type="xs:int"/>
+               </xs:sequence>
+            </xs:complexType>
+         </xs:element>
+
+         <xs:complexType name="ArrayOfKatastriyksus">
+            <xs:sequence>
+               <xs:element minOccurs="0" maxOccurs="unbounded" name="Katastriyksus" nillable="true" type="tns:Katastriyksus"/>
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="ArrayOfKatastriyksus" nillable="true" type="tns:ArrayOfKatastriyksus"/>
+         <xs:complexType name="Katastriyksus">
+            <xs:sequence>
+               <xs:element minOccurs="0" name="Asukoht" nillable="true" type="xs:string">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <xrd:title>Asukoht</xrd:title>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:element>
+               <xs:element minOccurs="0" name="Katastritunnus" nillable="true" type="xs:string">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <xrd:title>Katastritunnus</xrd:title>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:element>
+               <xs:element minOccurs="0" name="aadressobjekt" nillable="true" type="tns:Aadressobjekt">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <xrd:title>Aadressobjekt</xrd:title>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:element>
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="Katastriyksus" nillable="true" type="tns:Katastriyksus"/>
+
+         <xs:complexType name="Aadressobjekt">
+            <xs:sequence>
+               <xs:element minOccurs="0" name="ADS_OID" nillable="true" type="xs:string">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <xrd:title>Aadressobjekti identifikaator</xrd:title>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:element>
+               <xs:element minOccurs="0" name="Objekti_aadressid" nillable="true" type="tns:ArrayOfObjekti_aadress">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <xrd:title>Objekti aadressid</xrd:title>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:element>
+               <xs:element minOccurs="0" name="Taisaadress" nillable="true" type="xs:string">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <xrd:title>Objekti aadress</xrd:title>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:element>
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="Aadressobjekt" nillable="true" type="tns:Aadressobjekt"/>
+
+         <xs:complexType name="ArrayOfObjekti_aadress">
+            <xs:sequence>
+               <xs:element minOccurs="0" maxOccurs="unbounded" name="Objekti_aadress" nillable="true" type="tns:Objekti_aadress"/>
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="ArrayOfObjekti_aadress" nillable="true" type="tns:ArrayOfObjekti_aadress"/>
+         <xs:complexType name="Objekti_aadress">
+            <xs:sequence>
+               <xs:element minOccurs="0" name="ADR_ID" nillable="true" type="xs:string">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <xrd:title>ADR_ID</xrd:title>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:element>
+               <xs:element minOccurs="0" name="Koodaadress" nillable="true" type="xs:string">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <xrd:title>Koodaadress</xrd:title>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:element>
+               <xs:element minOccurs="0" name="Taisaadress" nillable="true" type="xs:string">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <xrd:title>Täisaadress</xrd:title>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:element>
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="Objekti_aadress" nillable="true" type="tns:Objekti_aadress"/>
+
+         <xs:complexType name="ArrayOfKinnistu">
+            <xs:sequence>
+               <xs:element minOccurs="0" maxOccurs="unbounded" name="Kinnistu" nillable="true" type="tns:Kinnistu"/>
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="ArrayOfKinnistu" nillable="true" type="tns:ArrayOfKinnistu"/>
+         <xs:complexType name="Kinnistu">
+            <xs:sequence>
+               <xs:element minOccurs="0" name="Digitaalne_toimik" type="xs:boolean">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <xrd:title>Digitaalne toimik</xrd:title>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:element>
+               <xs:element minOccurs="0" name="Katastriyksused" nillable="true" type="tns:ArrayOfKatastriyksus">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <xrd:title>Katastriüksused</xrd:title>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:element>
+               <xs:element minOccurs="0" name="Kinnistu_nimi" nillable="true" type="xs:string">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <xrd:title>Kinnistu nimi</xrd:title>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:element>
+               <xs:element minOccurs="0" name="Kinnistu_number" type="xs:long">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <xrd:title>Kinnistu number</xrd:title>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:element>
+               <xs:element minOccurs="0" name="Kinnistusjaoskond" nillable="true" type="xs:string">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <xrd:title>Kinnistusjaoskond</xrd:title>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:element>
+               <xs:element minOccurs="0" name="Kood" type="xs:int">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <xrd:title>Kood</xrd:title>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:element>
+               <xs:element minOccurs="0" name="Registriosa_link" nillable="true" type="xs:string">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <xrd:title>Registrtiosa link</xrd:title>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:element>
+               <xs:element minOccurs="0" name="Teade" nillable="true" type="xs:string">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <xrd:title>Teade</xrd:title>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:element>
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="Kinnistu" nillable="true" type="tns:Kinnistu"/>
+
+         <xs:element name="Kodanik_Kinnistud">
+            <xs:complexType>
+               <xs:sequence/>
+            </xs:complexType>
+         </xs:element>
+         <xs:element name="Kodanik_KinnistudResponse">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element minOccurs="0" name="Info" nillable="true" type="xs:string"/>
+                  <xs:element minOccurs="0" name="Kinnistud" nillable="true" type="tns:ArrayOfKinnistu"/>
+                  <xs:element minOccurs="0" name="Kood" type="xs:int"/>
+               </xs:sequence>
+            </xs:complexType>
+         </xs:element>
+
+      </xs:schema>
+   </wsdl:types>
+   <wsdl:message name="Puudutatud_Isiku_Teated">
+      <wsdl:part name="parameters" element="tns:Puudutatud_Isiku_Teated"/>
+   </wsdl:message>
+   <wsdl:message name="Puudutatud_Isiku_TeatedResponse">
+      <wsdl:part name="parameters" element="tns:Puudutatud_Isiku_TeatedResponse"/>
+   </wsdl:message>
+   <wsdl:message name="Minu_Kinnistamisavaldused">
+      <wsdl:part name="parameters" element="tns:Minu_Kinnistamisavaldused"/>
+   </wsdl:message>
+   <wsdl:message name="Minu_KinnistamisavaldusedResponse">
+      <wsdl:part name="parameters" element="tns:Minu_KinnistamisavaldusedResponse"/>
+   </wsdl:message>
+   <wsdl:message name="Kodanik_Kinnistud">
+      <wsdl:part name="parameters" element="tns:Kodanik_Kinnistud"/>
+   </wsdl:message>
+   <wsdl:message name="Kodanik_KinnistudResponse">
+      <wsdl:part name="parameters" element="tns:Kodanik_KinnistudResponse"/>
+   </wsdl:message>
+   <wsdl:message name="requestHeader">
+      <wsdl:part name="client" element="xrd:client"/>
+      <wsdl:part name="service" element="xrd:service"/>
+      <wsdl:part name="userId" element="xrd:userId"/>
+      <wsdl:part name="id" element="xrd:id"/>
+      <wsdl:part name="protocolVersion" element="xrd:protocolVersion"/>
+   </wsdl:message>
+   <wsdl:portType name="IKr">
+      <wsdl:operation name="Puudutatud_Isiku_Teated">
+         <wsdl:documentation>
+            <xrd:title>Puudutatud isiku teated</xrd:title>
+         </wsdl:documentation>
+         <wsdl:input wsaw:Action="" name="Puudutatud_Isiku_Teated" message="tns:Puudutatud_Isiku_Teated"/>
+         <wsdl:output wsaw:Action="http://kr.x-road.eu/IKr/Puudutatud_Isiku_TeatedResponse" name="Puudutatud_Isiku_TeatedResponse" message="tns:Puudutatud_Isiku_TeatedResponse"/>
+      </wsdl:operation>
+      <wsdl:operation name="Minu_Kinnistamisavaldused">
+         <wsdl:documentation>
+            <xrd:title>Minu kinnistamisavaldused</xrd:title>
+         </wsdl:documentation>
+         <wsdl:input wsaw:Action="" name="Minu_Kinnistamisavaldused" message="tns:Minu_Kinnistamisavaldused"/>
+         <wsdl:output wsaw:Action="http://kr.x-road.eu/IKr/Minu_KinnistamisavaldusedResponse" name="Minu_KinnistamisavaldusedResponse" message="tns:Minu_KinnistamisavaldusedResponse"/>
+      </wsdl:operation>
+      <wsdl:operation name="Kodanik_Kinnistud">
+         <wsdl:documentation>
+            <xrd:title>Isiku kinnistu andmed</xrd:title>
+         </wsdl:documentation>
+         <wsdl:input wsaw:Action="" name="Kodanik_Kinnistud" message="tns:Kodanik_Kinnistud"/>
+         <wsdl:output wsaw:Action="http://kr.x-road.eu/IKr/Kodanik_KinnistudResponse" name="Kodanik_KinnistudResponse" message="tns:Kodanik_KinnistudResponse"/>
+      </wsdl:operation>
+   </wsdl:portType>
+   <wsdl:binding name="BasicHttpBinding_IKr" type="tns:IKr">
+      <wsp:PolicyReference URI="#BasicHttpBinding_IKr_policy"/>
+      <soap:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+      <wsdl:operation name="Puudutatud_Isiku_Teated">
+         <soap:operation soapAction="" style="document"/>
+         <wsdl:input name="Puudutatud_Isiku_Teated">
+            <soap:header message="tns:requestHeader" part="client" use="literal"/>
+            <soap:header message="tns:requestHeader" part="service" use="literal"/>
+            <soap:header message="tns:requestHeader" part="userId" use="literal"/>
+            <soap:header message="tns:requestHeader" part="id" use="literal"/>
+            <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"/>
+            <soap:body use="literal"/>
+         </wsdl:input>
+         <wsdl:output name="Puudutatud_Isiku_TeatedResponse">
+            <soap:header message="tns:requestHeader" part="client" use="literal"/>
+            <soap:header message="tns:requestHeader" part="service" use="literal"/>
+            <soap:header message="tns:requestHeader" part="userId" use="literal"/>
+            <soap:header message="tns:requestHeader" part="id" use="literal"/>
+            <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"/>
+            <soap:body use="literal"/>
+         </wsdl:output>
+      </wsdl:operation>
+      <wsdl:operation name="Minu_Kinnistamisavaldused">
+         <soap:operation soapAction="" style="document"/>
+         <wsdl:input name="Minu_Kinnistamisavaldused">
+            <soap:header message="tns:requestHeader" part="client" use="literal"/>
+            <soap:header message="tns:requestHeader" part="service" use="literal"/>
+            <soap:header message="tns:requestHeader" part="userId" use="literal"/>
+            <soap:header message="tns:requestHeader" part="id" use="literal"/>
+            <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"/>
+            <soap:body use="literal"/>
+         </wsdl:input>
+         <wsdl:output name="Minu_KinnistamisavaldusedResponse">
+            <soap:header message="tns:requestHeader" part="client" use="literal"/>
+            <soap:header message="tns:requestHeader" part="service" use="literal"/>
+            <soap:header message="tns:requestHeader" part="userId" use="literal"/>
+            <soap:header message="tns:requestHeader" part="id" use="literal"/>
+            <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"/>
+            <soap:body use="literal"/>
+         </wsdl:output>
+      </wsdl:operation>
+      <wsdl:operation name="Kodanik_Kinnistud">
+         <soap:operation soapAction="" style="document"/>
+         <wsdl:input name="Kodanik_Kinnistud">
+            <soap:header message="tns:requestHeader" part="client" use="literal"/>
+            <soap:header message="tns:requestHeader" part="service" use="literal"/>
+            <soap:header message="tns:requestHeader" part="userId" use="literal"/>
+            <soap:header message="tns:requestHeader" part="id" use="literal"/>
+            <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"/>
+            <soap:body use="literal"/>
+         </wsdl:input>
+         <wsdl:output name="Kodanik_KinnistudResponse">
+            <soap:header message="tns:requestHeader" part="client" use="literal"/>
+            <soap:header message="tns:requestHeader" part="service" use="literal"/>
+            <soap:header message="tns:requestHeader" part="userId" use="literal"/>
+            <soap:header message="tns:requestHeader" part="id" use="literal"/>
+            <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"/>
+            <soap:body use="literal"/>
+         </wsdl:output>
+      </wsdl:operation>
+   </wsdl:binding>
+   <wsdl:service name="Kr">
+      <wsdl:port name="BasicHttpBinding_IKr" binding="tns:BasicHttpBinding_IKr">
+         <soap:address location="http://example.org/xroad-endpoint"/>
+      </wsdl:port>
+   </wsdl:service>
+</wsdl:definitions>

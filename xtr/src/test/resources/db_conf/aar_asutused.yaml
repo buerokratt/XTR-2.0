@@ -1,0 +1,10 @@
+method: asutusedV1
+namespaceUri: http://producers.aar.xtee.riik.ee/producer/aar
+registryCode: aar
+responseRootNode: response
+serviceCode: asutused
+serviceName: aarXRoadDatabase
+attachments:
+  request:
+    type: LIST_TO_XML
+    header: <header>

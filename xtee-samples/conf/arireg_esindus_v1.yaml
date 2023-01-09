@@ -1,0 +1,6 @@
+method: esindusV1V1
+namespaceUri: http://arireg.x-road.eu/producer/
+registryCode: arireg
+responseRootNode: null
+serviceCode: esindus_v1
+serviceName: ariregXRoadDatabase

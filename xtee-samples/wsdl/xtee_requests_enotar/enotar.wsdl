@@ -1,0 +1,574 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xtee="http://x-road.eu/xsd/xroad.xsd"
+                  xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+                  xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:s="http://www.w3.org/2001/XMLSchema"
+                  xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" targetNamespace="http://e-notar.x-road.ee/producer"
+                  xmlns:tns="http://e-notar.x-road.ee/producer" xmlns:repr="http://x-road.eu/xsd/representation.xsd">
+
+  <wsdl:types>
+    <s:schema targetNamespace="http://e-notar.x-road.ee/producer">
+
+      <s:import namespace="http://x-road.eu/xsd/xroad.xsd" schemaLocation="http://x-road.eu/xsd/xroad.xsd"/>
+      <s:import namespace="http://x-road.eu/xsd/representation.xsd" schemaLocation="http://x-road.eu/xsd/representation.xsd"/>
+
+      <s:complexType name="MinuTehingudSisend">
+        <s:sequence>
+
+          <s:element minOccurs="0" maxOccurs="1" name="tehinguAlgusKuupaev" type="s:date">
+            <s:annotation>
+              <s:appinfo>
+                <xtee:title xml:lang="et">Tehingu kuupäev, alates</xtee:title>
+                <xtee:notes xml:lang="et">Kuupäev, millal või millest hiljem tõestatud tehinguid otsitakse</xtee:notes>
+              </s:appinfo>
+            </s:annotation>
+          </s:element>
+
+          <s:element minOccurs="0" maxOccurs="1" name="tehinguLoppKuupaev" type="s:date">
+            <s:annotation>
+              <s:appinfo>
+                <xtee:title xml:lang="et">Tehingu kuupäev, kuni</xtee:title>
+                <xtee:notes xml:lang="et">Kuupäev, millal või millest varem tõestatud tehinguid otsitakse</xtee:notes>
+              </s:appinfo>
+            </s:annotation>
+          </s:element>
+
+          <s:element minOccurs="0" maxOccurs="1" name="notariEesnimi" type="s:string">
+            <s:annotation>
+              <s:appinfo>
+                <xtee:title xml:lang="et">Notari eesnimi</xtee:title>
+                <xtee:notes xml:lang="et">Otsitava tehingu tõestanud notari eesnimi</xtee:notes>
+              </s:appinfo>
+            </s:annotation>
+          </s:element>
+
+          <s:element minOccurs="0" maxOccurs="1" name="notariPerenimi" type="s:string">
+            <s:annotation>
+              <s:appinfo>
+                <xtee:title xml:lang="et">Notari perekonnanimi</xtee:title>
+                <xtee:notes xml:lang="et">Otsitava tehingu tõestanud notari perekonnanimi</xtee:notes>
+              </s:appinfo>
+            </s:annotation>
+          </s:element>
+
+          <s:element minOccurs="0" maxOccurs="1" name="ametitoiminguNumber" type="s:int">
+            <s:annotation>
+              <s:appinfo>
+                <xtee:title xml:lang="et">Ametitegevuse number</xtee:title>
+                <xtee:notes xml:lang="et">Otsitava tehingu käigus toimunud ametitegevuse number</xtee:notes>
+              </s:appinfo>
+            </s:annotation>
+          </s:element>
+
+          <s:element minOccurs="0" maxOccurs="1" name="ametitoiminguAasta">
+            <s:annotation>
+              <s:appinfo>
+                <xtee:title xml:lang="et">Ametitegevuse aasta</xtee:title>
+                <xtee:notes xml:lang="et">Aastaarv</xtee:notes>
+              </s:appinfo>
+            </s:annotation>
+            <s:simpleType>
+              <s:restriction base="s:int">
+                <s:minInclusive value="1990"/>
+                <s:maxInclusive value="2050"/>
+              </s:restriction>
+            </s:simpleType>
+          </s:element>
+
+          <s:element minOccurs="1" maxOccurs="1" name="maxVastuseid" type="s:int" default="10">
+            <s:annotation>
+              <s:appinfo>
+                <xtee:title xml:lang="et">Maksimaalne vastuste arv</xtee:title>
+                <xtee:notes xml:lang="et">
+                  Suurim arv tehinguid, mida päringu vastuses näidatakse.
+                  Kui tehinguid on sellest rohkem, siis näidatakse ainult viimaste tehingute andmed.
+                </xtee:notes>
+              </s:appinfo>
+            </s:annotation>
+          </s:element>
+
+        </s:sequence>
+      </s:complexType>
+
+      <s:complexType name="MinuTehingudValjund">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="teade" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="tehingud" type="tns:ArrayOfTehing"/>
+        </s:sequence>
+      </s:complexType>
+
+      <s:complexType name="DokumentSisend">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="dokumentId" type="s:int">
+            <s:annotation>
+              <s:appinfo>
+                <xtee:title xml:lang="et">Dokumendi identifikaator</xtee:title>
+              </s:appinfo>
+            </s:annotation>
+          </s:element>
+
+        </s:sequence>
+      </s:complexType>
+
+      <s:complexType name="DokumentValjund">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="teade" type="s:string"/>
+
+          <s:element minOccurs="0" maxOccurs="1" name="sisu" type="s:base64Binary">
+            <s:annotation>
+              <s:appinfo>
+                <xtee:title xml:lang="et">Dokumendi fail</xtee:title>
+              </s:appinfo>
+            </s:annotation>
+          </s:element>
+
+        </s:sequence>
+      </s:complexType>
+
+      <s:complexType name="ArrayOfTehing">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="item" nillable="true" type="tns:Tehing"/>
+        </s:sequence>
+      </s:complexType>
+
+      <s:complexType name="Tehing">
+        <s:sequence>
+
+          <s:element minOccurs="1" maxOccurs="1" name="notar" type="tns:Notar">
+            <s:annotation>
+              <s:appinfo>
+                <xtee:title xml:lang="et">Notar</xtee:title>
+              </s:appinfo>
+            </s:annotation>
+          </s:element>
+
+          <s:element minOccurs="1" maxOccurs="1" name="digiarakirjad" type="tns:ArrayOfDigiarakiri">
+            <s:annotation>
+              <s:appinfo>
+                <xtee:title xml:lang="et">Digiärakirjad</xtee:title>
+              </s:appinfo>
+            </s:annotation>
+          </s:element>
+
+        </s:sequence>
+      </s:complexType>
+
+      <s:complexType name="Notar">
+        <s:sequence>
+
+          <s:element minOccurs="1" maxOccurs="1" name="kehtivNimi" type="tns:Nimi">
+            <s:annotation>
+              <s:appinfo>
+                <xtee:title xml:lang="et">Kehtiv nimi</xtee:title>
+              </s:appinfo>
+            </s:annotation>
+          </s:element>
+
+          <s:element minOccurs="0" maxOccurs="1" name="endineNimi" type="s:string">
+            <s:annotation>
+              <s:appinfo>
+                <xtee:title xml:lang="et">Tehingu ajal kehtinud nimi</xtee:title>
+              </s:appinfo>
+            </s:annotation>
+          </s:element>
+
+          <s:element minOccurs="1" maxOccurs="1" name="lyhikood" type="s:string">
+            <s:annotation>
+              <s:appinfo>
+                <xtee:title xml:lang="et">Lühikood</xtee:title>
+              </s:appinfo>
+            </s:annotation>
+          </s:element>
+
+          <s:element minOccurs="1" maxOccurs="1" name="kontaktinfo" type="tns:Kontaktinfo">
+            <s:annotation>
+              <s:appinfo>
+                <xtee:title xml:lang="et">Kehtiv kontaktinfo</xtee:title>
+              </s:appinfo>
+            </s:annotation>
+          </s:element>
+
+        </s:sequence>
+      </s:complexType>
+
+      <s:complexType name="Nimi">
+        <s:sequence>
+
+          <s:element minOccurs="1" maxOccurs="1" name="eesnimi" type="s:string">
+            <s:annotation>
+              <s:appinfo>
+                <xtee:title xml:lang="et">Eesnimi</xtee:title>
+              </s:appinfo>
+            </s:annotation>
+          </s:element>
+
+          <s:element minOccurs="1" maxOccurs="1" name="perenimi" type="s:string">
+            <s:annotation>
+              <s:appinfo>
+                <xtee:title xml:lang="et">Perekonnanimi</xtee:title>
+              </s:appinfo>
+            </s:annotation>
+          </s:element>
+
+        </s:sequence>
+      </s:complexType>
+
+      <s:complexType name="Kontaktinfo">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="aadress" type="s:string">
+            <s:annotation>
+              <s:appinfo>
+                <xtee:title xml:lang="et">Aadress</xtee:title>
+              </s:appinfo>
+            </s:annotation>
+          </s:element>
+
+          <s:element minOccurs="0" maxOccurs="1" name="telefon" type="s:string">
+            <s:annotation>
+              <s:appinfo>
+                <xtee:title xml:lang="et">Telefon</xtee:title>
+              </s:appinfo>
+            </s:annotation>
+          </s:element>
+
+          <s:element minOccurs="0" maxOccurs="1" name="epost" type="s:string">
+            <s:annotation>
+              <s:appinfo>
+                <xtee:title xml:lang="et">E-posti aadress</xtee:title>
+              </s:appinfo>
+            </s:annotation>
+          </s:element>
+
+        </s:sequence>
+      </s:complexType>
+
+      <s:complexType name="ArrayOfDigiarakiri">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="item" nillable="true" type="tns:Digiarakiri"/>
+        </s:sequence>
+      </s:complexType>
+
+      <s:complexType name="Digiarakiri">
+        <s:sequence>
+
+          <s:element minOccurs="1" maxOccurs="1" name="juurdepaasuoigusegaIsikud" type="tns:ArrayOfIsik">
+            <s:annotation>
+              <s:appinfo>
+                <xtee:title xml:lang="et">X-tee kaudu dokumentidele juurdepääsu omavad isikud</xtee:title>
+              </s:appinfo>
+            </s:annotation>
+          </s:element>
+
+          <s:element minOccurs="1" maxOccurs="1" name="toiminguKuupaev" type="s:date">
+            <s:annotation>
+              <s:appinfo>
+                <xtee:title xml:lang="et">Ametitoimingu kuupäev</xtee:title>
+              </s:appinfo>
+            </s:annotation>
+          </s:element>
+
+          <s:element minOccurs="1" maxOccurs="1" name="toiminguNumber" type="s:string">
+            <s:annotation>
+              <s:appinfo>
+                <xtee:title xml:lang="et">Ametitoimingu number</xtee:title>
+              </s:appinfo>
+            </s:annotation>
+          </s:element>
+
+          <s:element minOccurs="0" maxOccurs="1" name="digiarakirjaFailiNimi" type="s:string">
+            <s:annotation>
+              <s:appinfo>
+                <xtee:title xml:lang="et">Digiärakirja faili nimi</xtee:title>
+              </s:appinfo>
+            </s:annotation>
+          </s:element>
+
+          <s:element minOccurs="1" maxOccurs="1" name="digiarakiriID" type="s:int">
+            <s:annotation>
+              <s:appinfo>
+                <xtee:title xml:lang="et">Digiärakirja identifikaator</xtee:title>
+              </s:appinfo>
+            </s:annotation>
+          </s:element>
+
+        </s:sequence>
+      </s:complexType>
+
+      <s:complexType name="ArrayOfIsik">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="item" nillable="true" type="tns:Isik"/>
+        </s:sequence>
+      </s:complexType>
+
+      <s:complexType name="Isik">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="eesnimi" type="s:string">
+            <s:annotation>
+              <s:appinfo>
+                <xtee:title xml:lang="et">Eesnimi</xtee:title>
+              </s:appinfo>
+            </s:annotation>
+          </s:element>
+
+          <s:element minOccurs="0" maxOccurs="1" name="perenimi" type="s:string">
+            <s:annotation>
+              <s:appinfo>
+                <xtee:title xml:lang="et">Perekonnanimi</xtee:title>
+              </s:appinfo>
+            </s:annotation>
+          </s:element>
+
+          <s:element minOccurs="0" maxOccurs="1" name="arinimi" type="s:string">
+            <s:annotation>
+              <s:appinfo>
+                <xtee:title xml:lang="et">Ettevõtte nimi</xtee:title>
+              </s:appinfo>
+            </s:annotation>
+          </s:element>
+
+          <s:element minOccurs="1" maxOccurs="1" name="kood" type="s:string">
+            <s:annotation>
+              <s:appinfo>
+                <xtee:title xml:lang="et">Kood</xtee:title>
+              </s:appinfo>
+            </s:annotation>
+          </s:element>
+
+          <s:element minOccurs="0" maxOccurs="1" name="koodiRiik" type="s:string">
+            <s:annotation>
+              <s:appinfo>
+                <xtee:title xml:lang="et">Koodi riik</xtee:title>
+              </s:appinfo>
+            </s:annotation>
+          </s:element>
+
+        </s:sequence>
+      </s:complexType>
+		
+		<s:element name="minuTehingudRequest">
+		    <s:complexType>
+				<s:sequence>
+					<s:element name="request" type="tns:MinuTehingudSisend"/>
+				</s:sequence>
+			</s:complexType>
+		</s:element>
+		
+		<s:element name="minuTehingudResponse">
+		    <s:complexType>
+				<s:sequence>
+					<s:element name="response" type="tns:MinuTehingudValjund"/>
+				</s:sequence>
+			</s:complexType>
+		</s:element>
+		
+		<s:element name="dokumentRequest">
+		    <s:complexType>
+				<s:sequence>
+					<s:element name="request" type="tns:DokumentSisend"/>
+				</s:sequence>
+			</s:complexType>
+		</s:element>
+		
+		<s:element name="dokumentResponse">
+		    <s:complexType>
+				<s:sequence>
+					<s:element name="response" type="tns:DokumentValjund"/>
+				</s:sequence>
+			</s:complexType>
+		</s:element>
+		
+		<s:element name="DokumentFileResponse">
+		    <s:complexType>
+				<s:sequence>
+					<s:element name="response" type="tns:File"/>
+				</s:sequence>
+			</s:complexType>
+		</s:element>
+		
+		<s:complexType name="File">
+			<s:sequence>
+				<s:element name="Sisu" nillable="true" minOccurs="0" tns:mimeAttachment="true" type="s:base64Binary"/>
+			</s:sequence>
+		</s:complexType>
+		
+		<s:element name="seireRequest">
+		    <s:complexType>
+				<s:sequence>
+					<s:element name="test" type="s:string"/>
+				</s:sequence>
+			</s:complexType>
+		</s:element>
+		<s:element name="seireResponse">
+		    <s:complexType>
+				<s:sequence>
+					<s:element name="vastus" type="s:string"/>
+				</s:sequence>
+			</s:complexType>
+		</s:element>
+	  
+    </s:schema>
+	
+  </wsdl:types>
+
+  <wsdl:message name="minuTehingudRequest">
+    <wsdl:part name="keha" element="tns:minuTehingudRequest"/>
+  </wsdl:message>
+
+  <wsdl:message name="minuTehingudResponse">
+    <wsdl:part name="paring" element="tns:minuTehingudRequest"/>
+    <wsdl:part name="keha" element="tns:minuTehingudResponse"/>
+  </wsdl:message>
+
+  <wsdl:message name="dokumentRequest">
+    <wsdl:part name="keha" element="tns:dokumentRequest"/>
+  </wsdl:message>
+
+  <wsdl:message name="dokumentResponse">
+    <wsdl:part name="paring" element="tns:dokumentRequest"/>
+    <wsdl:part name="keha" element="tns:dokumentResponse"/>
+    <wsdl:part name="content" element="tns:DokumentFileResponse"/>
+  </wsdl:message>
+
+  <wsdl:message name="seireRequest">
+    <wsdl:part name="keha" element="tns:seireRequest"/>
+  </wsdl:message>
+
+  <wsdl:message name="seireResponse">
+    <wsdl:part name="paring" element="tns:seireRequest"/>
+    <wsdl:part name="keha" element="tns:seireResponse"/>
+  </wsdl:message>
+
+  <wsdl:message name="requestHeader">
+    <wsdl:part name="client" element="xtee:client"/>
+    <wsdl:part name="service" element="xtee:service"/>
+	<wsdl:part name="representedParty" element="repr:representedParty"/>
+    <wsdl:part name="id" element="xtee:id"/>
+    <wsdl:part name="userId" element="xtee:userId"/>
+    <wsdl:part name="requestHash" element="xtee:requestHash"/>
+    <wsdl:part name="issue" element="xtee:issue"/>
+    <wsdl:part name="protocolVersion" element="xtee:protocolVersion"/>
+  </wsdl:message>
+  
+  <wsdl:portType name="NotarServiceSoap">
+
+    <wsdl:operation name="minuTehingud">
+      <wsdl:documentation>
+        <xtee:title xml:lang="et">Minu tehingud</xtee:title>
+      </wsdl:documentation>
+      <wsdl:input message="tns:minuTehingudRequest"/>
+      <wsdl:output message="tns:minuTehingudResponse"/>
+    </wsdl:operation>
+
+    <wsdl:operation name="dokument">
+      <wsdl:documentation>
+        <xtee:title xml:lang="et">Dokument</xtee:title>
+      </wsdl:documentation>
+      <wsdl:input message="tns:dokumentRequest"/>
+      <wsdl:output message="tns:dokumentResponse"/>
+    </wsdl:operation>
+
+    <wsdl:operation name="seire">
+      <wsdl:documentation>
+        <xtee:title xml:lang="et">Seire</xtee:title>
+      </wsdl:documentation>
+      <wsdl:input message="tns:seireRequest"/>
+      <wsdl:output message="tns:seireResponse"/>
+    </wsdl:operation>
+
+  </wsdl:portType>
+
+  <wsdl:binding name="NotarServiceSoap" type="tns:NotarServiceSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+
+    <wsdl:operation name="minuTehingud">
+      <xtee:version>v1</xtee:version>
+      <soap:operation style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>	
+        <soap:header message="tns:requestHeader" part="client" use="literal"/>
+        <soap:header message="tns:requestHeader" part="service" use="literal"/>
+		<soap:header message="tns:requestHeader" part="representedParty" use="literal"/>
+        <soap:header message="tns:requestHeader" part="id" use="literal"/>
+        <soap:header message="tns:requestHeader" part="userId" use="literal"/>
+        <soap:header message="tns:requestHeader" part="issue" use="literal"/>
+        <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>	
+        <soap:header message="tns:requestHeader" part="client" use="literal"/>
+        <soap:header message="tns:requestHeader" part="service" use="literal"/>
+		<soap:header message="tns:requestHeader" part="representedParty" use="literal"/>
+        <soap:header message="tns:requestHeader" part="id" use="literal"/>
+        <soap:header message="tns:requestHeader" part="userId" use="literal"/>
+        <soap:header message="tns:requestHeader" part="requestHash" use="literal"/>
+        <soap:header message="tns:requestHeader" part="issue" use="literal"/>
+        <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+
+    <wsdl:operation name="dokument">
+       <xtee:version>v1</xtee:version>
+       <soap:operation style="document"/>
+       <wsdl:input>
+        <soap:body use="literal"/>	
+        <soap:header message="tns:requestHeader" part="client" use="literal"/>
+        <soap:header message="tns:requestHeader" part="service" use="literal"/>
+		<soap:header message="tns:requestHeader" part="representedParty" use="literal"/>
+        <soap:header message="tns:requestHeader" part="id" use="literal"/>
+        <soap:header message="tns:requestHeader" part="userId" use="literal"/>
+        <soap:header message="tns:requestHeader" part="issue" use="literal"/>
+        <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"/>
+       </wsdl:input>
+       <wsdl:output>
+        <mime:multipartRelated>
+          <mime:part>
+            <soap:body use="literal"/>	
+            <soap:header message="tns:requestHeader" part="client" use="literal"/>
+            <soap:header message="tns:requestHeader" part="service" use="literal"/>
+			<soap:header message="tns:requestHeader" part="representedParty" use="literal"/>
+            <soap:header message="tns:requestHeader" part="id" use="literal"/>
+            <soap:header message="tns:requestHeader" part="userId" use="literal"/>
+            <soap:header message="tns:requestHeader" part="requestHash" use="literal"/>
+            <soap:header message="tns:requestHeader" part="issue" use="literal"/>
+            <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"/>
+          </mime:part>
+          <mime:part>
+            <mime:content part="content" type="application/octet-stream"/>
+          </mime:part>
+        </mime:multipartRelated>
+       </wsdl:output>
+    </wsdl:operation>
+
+    <wsdl:operation name="seire">
+       <xtee:version>v1</xtee:version>
+       <soap:operation style="document"/>
+       <wsdl:input>
+        <soap:body use="literal"/>	
+        <soap:header message="tns:requestHeader" part="client" use="literal"/>
+        <soap:header message="tns:requestHeader" part="service" use="literal"/>
+        <soap:header message="tns:requestHeader" part="id" use="literal"/>
+        <soap:header message="tns:requestHeader" part="userId" use="literal"/>
+        <soap:header message="tns:requestHeader" part="issue" use="literal"/>
+        <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"/>
+      </wsdl:input>
+       <wsdl:output>
+        <soap:body use="literal"/>	
+        <soap:header message="tns:requestHeader" part="client" use="literal"/>
+        <soap:header message="tns:requestHeader" part="service" use="literal"/>
+        <soap:header message="tns:requestHeader" part="id" use="literal"/>
+        <soap:header message="tns:requestHeader" part="userId" use="literal"/>
+        <soap:header message="tns:requestHeader" part="requestHash" use="literal"/>
+        <soap:header message="tns:requestHeader" part="issue" use="literal"/>
+        <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+
+  </wsdl:binding>
+
+  <wsdl:service name="NotarService">
+    <wsdl:port name="NotarServiceSoap" binding="tns:NotarServiceSoap">
+      <soap:address location="http://example.org/xroad-endpoint"/>
+      <xtee:title>Notarite Koda</xtee:title>
+    </wsdl:port>
+  </wsdl:service>
+
+</wsdl:definitions>

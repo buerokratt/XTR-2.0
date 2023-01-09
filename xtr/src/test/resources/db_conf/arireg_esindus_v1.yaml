@@ -1,0 +1,10 @@
+method: esindusV1V1
+namespaceUri: http://arireg.x-road.eu/producer/
+registryCode: arireg
+responseRootNode: keha
+serviceCode: esindus_v1
+serviceName: ariregXRoadDatabase
+attachments:
+  request:
+    type: LIST_TO_XML
+    header: <header>

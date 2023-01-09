@@ -1,0 +1,4653 @@
+<?xml version="1.0" encoding="UTF-8"?><wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xrd="http://x-road.eu/xsd/xroad.xsd" xmlns:tns="http://producers.trelvaregister.xtee.riik.ee/producer/trelvaregister" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://producers.trelvaregister.xtee.riik.ee/producer/trelvaregister">
+  <wsdl:types>
+    <schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://producers.trelvaregister.xtee.riik.ee/producer/trelvaregister" elementFormDefault="qualified">
+      <import namespace="http://x-road.eu/xsd/xroad.xsd" schemaLocation="http://x-road.eu/xsd/xroad.xsd"/>
+      <xsd:element name="relvad">
+        <xsd:complexType>
+          <xsd:sequence/>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="relvadResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="relvad_jada" minOccurs="0" maxOccurs="unbounded" type="tns:relvdetail">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">relvad_jada</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="relvad2">
+        <xsd:complexType>
+          <xsd:sequence/>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="relvad2Response">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="relvad_jada" minOccurs="0" maxOccurs="unbounded" type="tns:relvdetail2">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">relvad_jada</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="relvaload">
+        <xsd:complexType>
+          <xsd:sequence/>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="relvaloadResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="relvaload_jada" minOccurs="0" maxOccurs="unbounded" type="tns:relvalubadetail">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">relvaload_jada</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="relvaload2">
+        <xsd:complexType>
+          <xsd:sequence/>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="relvaload2Response">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="relvaload_jada" minOccurs="0" maxOccurs="unbounded" type="tns:relvalubadetail2">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">relvaload_jada</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="syndmused">
+        <xsd:complexType>
+          <xsd:sequence/>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="syndmusedResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="syndmused_jada" minOccurs="0" maxOccurs="unbounded" type="tns:syndmusdetail">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">syndmuse_jada</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="klassifikaatorid">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="tunnus" type="xsd:integer">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">
+                    Klassifikaatori tunnus
+                  </xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="klassifikaatoridResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="klassif_jada" minOccurs="0" maxOccurs="unbounded" type="tns:klassifdetail">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">klassif_jada</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="isikud_isikuandmete_alusel">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="eesnimi" type="xsd:string">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">Eesnimi</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="perenimi" type="xsd:string">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">Perekonnanimi</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="synniaeg" type="xsd:string">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">Sünniaeg</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="isikukood" type="xsd:string">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">Isikukood</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="kodakondsus" type="xsd:string">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">Isiku kodakondsus</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="asutus" type="xsd:string">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">Asutuse nimetus</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="kood" type="xsd:string">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">Asutuse registrikood</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="isikud_isikuandmete_aluselResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="isikud_jada" type="tns:isikdetail" minOccurs="0" maxOccurs="unbounded">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">isikud_jada</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="isikud_aadressi_alusel">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="ehak" type="xsd:string">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">EHAK kood</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="tanavtalu" type="xsd:string">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">Tänav/talu</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="maja" type="xsd:string">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">Maja nr</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="korter" type="xsd:string">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">Korter</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="isikud_aadressi_aluselResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="isikud_jada" type="tns:isikdetail" minOccurs="0" maxOccurs="unbounded">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">isikud_jada</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="isik_relvaload_relvad">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="isik_id" type="xsd:integer">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">Isiku identifikaator</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="isikukood" type="xsd:string">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">Isikukood</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="kood" type="xsd:string">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">Asutuse registrikood</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="isik_relvaload_relvadResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="eesnimi" type="xsd:string">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">Eesnimi</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="perenimi" type="xsd:string">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">Perekonnanimi</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="synniaeg" type="xsd:string">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">Sünniaeg</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="isikukood" type="xsd:string">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">Isikukood</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="kodakondsus" type="xsd:string">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">Isiku kodakondsus</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="asutus" type="xsd:string">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">Asutuse nimi</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="kood" type="xsd:string">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">Asutuse registrikood</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="ehak" type="xsd:string">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">EHAK-kood</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="tanavtalu" type="xsd:string">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">Tänav/talu</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="maja" type="xsd:string">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">Maja nr</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="korter" type="xsd:string">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">Korteri nr</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="isikrelvaload_jada">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">Isiku relvaload</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+              <xsd:complexType>
+                <xsd:sequence>
+                  <xsd:element name="relvaluba" minOccurs="0" maxOccurs="unbounded" type="tns:isiklubadetail">
+                    <xsd:annotation>
+                      <xsd:appinfo>
+                        <xrd:title xml:lang="et">Relvaluba</xrd:title>
+                      </xsd:appinfo>
+                    </xsd:annotation>
+                  </xsd:element>
+                </xsd:sequence>
+              </xsd:complexType>
+            </xsd:element>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="isik_relvaload_relvad2">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="isik_id" type="xsd:integer">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">Isiku identifikaator</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="isikukood" type="xsd:string">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">Isikukood</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="kood" type="xsd:string">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">Asutuse registrikood</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="isik_relvaload_relvad2Response">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="eesnimi" type="xsd:string">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">Eesnimi</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="perenimi" type="xsd:string">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">Perekonnanimi</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="synniaeg" type="xsd:string">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">Sünniaeg</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="isikukood" type="xsd:string">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">Isikukood</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="kodakondsus" type="xsd:string">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">Isiku kodakondsus</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="asutus" type="xsd:string">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">Asutuse nimi</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="kood" type="xsd:string">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">Asutuse registrikood</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="ehak" type="xsd:string">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">EHAK-kood</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="tanavtalu" type="xsd:string">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">Tänav/talu</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="maja" type="xsd:string">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">Maja nr</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="korter" type="xsd:string">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">Korteri nr</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="isikrelvaload_jada">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">Isiku relvaload</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+              <xsd:complexType>
+                <xsd:sequence>
+                  <xsd:element name="relvaluba" minOccurs="0" maxOccurs="unbounded" type="tns:isiklubadetail2">
+                    <xsd:annotation>
+                      <xsd:appinfo>
+                        <xrd:title xml:lang="et">Relvaluba</xrd:title>
+                      </xsd:appinfo>
+                    </xsd:annotation>
+                  </xsd:element>
+                </xsd:sequence>
+              </xsd:complexType>
+            </xsd:element>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="isik_relvaload_relvad3">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="isik_id" type="xsd:integer">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">Isiku identifikaator</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="isikukood" type="xsd:string">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">Isikukood</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="kood" type="xsd:string">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">Asutuse registrikood</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="isik_relvaload_relvad3Response">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="eesnimi" type="xsd:string">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">Eesnimi</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="perenimi" type="xsd:string">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">Perekonnanimi</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="synniaeg" type="xsd:string">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">Sünniaeg</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="isikukood" type="xsd:string">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">Isikukood</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="kodakondsus" type="xsd:string">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">Isiku kodakondsus</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="asutus" type="xsd:string">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">Asutuse nimi</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="kood" type="xsd:string">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">Asutuse registrikood</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="isikrelvaload_jada">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">Isiku relvaload</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+              <xsd:complexType>
+                <xsd:sequence>
+                  <xsd:element name="relvaluba" minOccurs="0" maxOccurs="unbounded" type="tns:isiklubadetail3">
+                    <xsd:annotation>
+                      <xsd:appinfo>
+                        <xrd:title xml:lang="et">Relvaluba</xrd:title>
+                      </xsd:appinfo>
+                    </xsd:annotation>
+                  </xsd:element>
+                </xsd:sequence>
+              </xsd:complexType>
+            </xsd:element>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="relvad_nimekiri">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="liik" type="xsd:integer">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">Relva liik</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="olek" type="xsd:integer">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">Relva olek</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="staatus" type="xsd:integer">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">Relva staatus</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="tehasenr" type="xsd:string">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">Tehase nr</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="mark" type="xsd:string">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">Mark</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="mudel" type="xsd:string">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">Mudel</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="kaliiber" type="xsd:string">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">Kaliibritähis</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="relvad_nimekiriResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="relvad_jada">
+              <xsd:complexType>
+                <xsd:sequence>
+                  <xsd:element name="relv" minOccurs="0" maxOccurs="unbounded" type="tns:relvdetail_nimekiri">
+                    <xsd:annotation>
+                      <xsd:appinfo>
+                        <xrd:title xml:lang="et">
+                          relvdetail_nimekiri
+                        </xrd:title>
+                      </xsd:appinfo>
+                    </xsd:annotation>
+                  </xsd:element>
+                </xsd:sequence>
+              </xsd:complexType>
+            </xsd:element>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="relvad_nimekiri2">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="liik" type="xsd:integer">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">Relva liik</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="olek" type="xsd:integer">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">Relva olek</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="staatus" type="xsd:integer">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">Relva staatus</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="tehasenr" type="xsd:string">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">Tehase nr</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="mark" type="xsd:string">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">Mark</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="mudel" type="xsd:string">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">Mudel</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="kaliiber" type="xsd:string">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">Kaliibritähis</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="tyyp" type="xsd:integer">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">Relva tüüp</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="relvad_nimekiri2Response">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="relvad_jada">
+              <xsd:complexType>
+                <xsd:sequence>
+                  <xsd:element name="relv" minOccurs="0" maxOccurs="unbounded" type="tns:relvdetail_nimekiri2">
+                    <xsd:annotation>
+                      <xsd:appinfo>
+                        <xrd:title xml:lang="et">
+                          relvdetail_nimekiri2
+                        </xrd:title>
+                      </xsd:appinfo>
+                    </xsd:annotation>
+                  </xsd:element>
+                </xsd:sequence>
+              </xsd:complexType>
+            </xsd:element>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="relvad_nimekiri3">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="liik" type="xsd:integer">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">Relva liik</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="olek" type="xsd:integer">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">Relva olek</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="staatus" type="xsd:integer">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">Relva staatus</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="tehasenr" type="xsd:string">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">Tehase nr</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="mark" type="xsd:string">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">Mark</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="mudel" type="xsd:string">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">Mudel</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="kaliiber" type="xsd:string">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">Kaliibritähis</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="tyyp" type="xsd:integer">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">Relva tüüp</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="ehak" type="xsd:string">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">EHAK-kood</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="tanavtalu" type="xsd:string">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">Tänav/talu</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="maja" type="xsd:string">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">Maja nr</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="korter" type="xsd:string">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">Korteri nr</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="relvad_nimekiri3Response">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="relvad_jada">
+              <xsd:complexType>
+                <xsd:sequence>
+                  <xsd:element name="relv" minOccurs="0" maxOccurs="unbounded" type="tns:relvdetail_nimekiri3">
+                    <xsd:annotation>
+                      <xsd:appinfo>
+                        <xrd:title xml:lang="et">
+                          relvdetail_nimekiri3
+                        </xrd:title>
+                      </xsd:appinfo>
+                    </xsd:annotation>
+                  </xsd:element>
+                </xsd:sequence>
+              </xsd:complexType>
+            </xsd:element>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="relv_ajalugu">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="relv_id" type="xsd:integer">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">Relva identifikaator</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="relv_ajaluguResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="tehasenr" type="xsd:string">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">Relva tehase nr</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="mark" type="xsd:string">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">Relva mark</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="mudel" type="xsd:string">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">Relva mudel</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="kaliiber" type="xsd:string">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">Relva kaliibritähised</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="isikrelvaload_jada">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">Relvaga seotud isikud</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+              <xsd:complexType>
+                <xsd:sequence>
+                  <xsd:element name="relvisikload" minOccurs="0" maxOccurs="unbounded" type="tns:relvisikloaddetail">
+                    <xsd:annotation>
+                      <xsd:appinfo>
+                        <xrd:title xml:lang="et">relvisikloaddetail</xrd:title>
+                      </xsd:appinfo>
+                    </xsd:annotation>
+                  </xsd:element>
+                </xsd:sequence>
+              </xsd:complexType>
+            </xsd:element>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="relv_ajalugu2">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="relv_id" type="xsd:integer">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">Relva identifikaator</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="relv_ajalugu2Response">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="tehasenr" type="xsd:string">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">Relva tehase nr</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="mark" type="xsd:string">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">Relva mark</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="mudel" type="xsd:string">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">Relva mudel</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="kaliiber" type="xsd:string">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">Relva kaliibritähised</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="tyyp" type="xsd:string">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">Relva tüüp</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="liik" type="xsd:string">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">Relva liik</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="olek" type="xsd:string">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">Relva olek</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="staatus" type="xsd:string">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">Relva staatus</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="hoidja" type="xsd:string">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">Relva hoidja</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="isikrelvaload_jada">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">Relvaga seotud isikud</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+              <xsd:complexType>
+                <xsd:sequence>
+                  <xsd:element name="relvisikload" minOccurs="0" maxOccurs="unbounded" type="tns:relvisikloaddetail">
+                    <xsd:annotation>
+                      <xsd:appinfo>
+                        <xrd:title xml:lang="et">relvisikloaddetail</xrd:title>
+                      </xsd:appinfo>
+                    </xsd:annotation>
+                  </xsd:element>
+                </xsd:sequence>
+              </xsd:complexType>
+            </xsd:element>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="relv_ajalugu3">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="relv_id" type="xsd:integer">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">Relva identifikaator</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="relv_ajalugu3Response">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="tehasenr" type="xsd:string">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">Relva tehase nr</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="mark" type="xsd:string">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">Relva mark</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="mudel" type="xsd:string">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">Relva mudel</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="kaliiber" type="xsd:string">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">Relva kaliibritähised</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="tyyp" type="xsd:string">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">Relva tüüp</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="liik" type="xsd:string">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">Relva liik</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="olek" type="xsd:string">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">Relva olek</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="staatus" type="xsd:string">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">Relva staatus</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="hoidja" type="xsd:string">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">Relva hoidja</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="isikrelvaload_jada">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">Relvaga seotud isikud</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+              <xsd:complexType>
+                <xsd:sequence>
+                  <xsd:element name="relvisikload" minOccurs="0" maxOccurs="unbounded" type="tns:relvisikloaddetail3">
+                    <xsd:annotation>
+                      <xsd:appinfo>
+                        <xrd:title xml:lang="et">
+                          relvisikloaddetail3
+                        </xrd:title>
+                      </xsd:appinfo>
+                    </xsd:annotation>
+                  </xsd:element>
+                </xsd:sequence>
+              </xsd:complexType>
+            </xsd:element>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="isik_relvad_kpk">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="isikukood" type="xsd:string">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">Isikukood</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="kood" type="xsd:string">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">Asutuse registrikood</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="toimik" type="xsd:string">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">Toimik</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="isik_relvad_kpkResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="eesnimi" type="xsd:string">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">Eesnimi</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="perenimi" type="xsd:string">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">Perekonnanimi</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="synniaeg" type="xsd:string">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">Sünniaeg</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="isikukood" type="xsd:string">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">Isikukood</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="asutus" type="xsd:string">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">Asutuse nimetus</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="kood" type="xsd:string">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">Asutuse registrikood</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="ehak" type="xsd:string">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">EHAK-kood</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="tanavtalu" type="xsd:string">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">Tänav/talu</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="maja" type="xsd:string">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">Maja nr</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="korter" type="xsd:string">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">Korteri nr</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="isikrelvad_jada">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">Isiku relvad</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+              <xsd:complexType>
+                <xsd:sequence>
+                  <xsd:element name="isikrelv" minOccurs="0" maxOccurs="unbounded" type="tns:relvdetail_isik_relv">
+                    <xsd:annotation>
+                      <xsd:appinfo>
+                        <xrd:title xml:lang="et">Relvad</xrd:title>
+                      </xsd:appinfo>
+                    </xsd:annotation>
+                  </xsd:element>
+                </xsd:sequence>
+              </xsd:complexType>
+            </xsd:element>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="isik_relvad_kpk2">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="isikukood" type="xsd:string">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">Isikukood</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="kood" type="xsd:string">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">Asutuse registrikood</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="toimik" type="xsd:string">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">Toimik</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="isik_relvad_kpk2Response">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="eesnimi" type="xsd:string">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">Eesnimi</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="perenimi" type="xsd:string">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">Perekonnanimi</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="synniaeg" type="xsd:string">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">Sünniaeg</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="isikukood" type="xsd:string">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">Isikukood</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="asutus" type="xsd:string">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">Asutuse nimetus</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="kood" type="xsd:string">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">Asutuse registrikood</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="isikrelvad_jada">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">Isiku relvad</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+              <xsd:complexType>
+                <xsd:sequence>
+                  <xsd:element name="isikrelv" minOccurs="0" maxOccurs="unbounded" type="tns:relvdetail_isik_relv2">
+                    <xsd:annotation>
+                      <xsd:appinfo>
+                        <xrd:title xml:lang="et">Relvad</xrd:title>
+                      </xsd:appinfo>
+                    </xsd:annotation>
+                  </xsd:element>
+                </xsd:sequence>
+              </xsd:complexType>
+            </xsd:element>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="isik_relvaload_kpk">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="isikukood" type="xsd:string">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">Isikukood</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="toimik" type="xsd:string">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">Toimik</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="isik_relvaload_kpkResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="eesnimi" type="xsd:string">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">Eesnimi</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="perenimi" type="xsd:string">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">Perekonnanimi</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="synniaeg" type="xsd:string">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">Sünniaeg</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="isikukood" type="xsd:string">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">Isikukood</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="kodakondsus" type="xsd:string">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">Kodakondsus</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="isikrelvaload_jada">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">Isiku relvaload</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+              <xsd:complexType>
+                <xsd:sequence>
+                  <xsd:element name="isikrelvaluba" minOccurs="0" maxOccurs="unbounded" type="tns:relvalubadetail_kpk">
+                    <xsd:annotation>
+                      <xsd:appinfo>
+                        <xrd:title xml:lang="et">Relvaload</xrd:title>
+                      </xsd:appinfo>
+                    </xsd:annotation>
+                  </xsd:element>
+                </xsd:sequence>
+              </xsd:complexType>
+            </xsd:element>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="keelumarge_lisa">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="relv_id" type="xsd:integer">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">Relv ID</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="volgnik_kood" type="xsd:string">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">Võlgniku kood</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="taitur_kood" type="xsd:string">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">Kohtutäituri kood</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="taiteasja_nr" type="xsd:string">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">Täiteasja number</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="seadmise_kpv" type="xsd:string">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">
+                    Keelumärke seadmise kuupäev
+                  </xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="keelumarge_lisaResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="id" type="xsd:integer">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">Keelumärge ID</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="jrk" type="xsd:integer">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">
+                    Keelumärke järjekorra number
+                  </xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="seadmise_kpv" type="xsd:date">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">
+                    Keelumärke seadmise kuupäev
+                  </xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="keelumarge_eemalda">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="relv_id" type="xsd:integer">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">Relv ID</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="taitur_kood" type="xsd:string">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">Kohtutäituri kood</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="taiteasja_nr" type="xsd:string">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">Täiteasja number</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="seadmise_kpv" type="xsd:string">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">
+                    Keelumärke seadmise kuupäev
+                  </xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="keelumarge_eemaldaResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="result" type="xsd:string">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">Tulemus (OK/NOK)</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="relv_isiku_nimele">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="relv_id" type="xsd:integer">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">Relv ID</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="isikukood" type="xsd:string">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">Ostja isikukood</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>
+            <!--<xsd:element name="roll_id" type="xsd:integer">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">Roll ID</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>-->
+            <!--<xsd:element name="kasutamisoigus" type="xsd:integer">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">Kasutamisõigus</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>-->
+            <!--<xsd:element name="ostja_roll" type="xsd:integer">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">Ostja Roll</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>-->
+            <!--<xsd:element name="syndmus_liik_id" type="xsd:integer">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">Sündmuse liik</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>-->
+            <!--<xsd:element name="toim_kuup" type="xsd:string">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">Sündmuse toimumise kuupäev</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>-->
+            <!--<xsd:element name="relv_olek_id" type="xsd:integer">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">Relva uue oleku ID</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>-->
+            <!--<xsd:element name="arhiivis" type="xsd:string">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">Arhiivi lisamise kuupäev</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>-->
+            <!--<xsd:element name="lisa_uus_versioon" type="xsd:integer">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">Lisa uus relva versioon (1 või 0)</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>-->
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="relv_isiku_nimeleResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="result" type="xsd:string">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">Tulemus (OK/NOK)</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="soetusluba_kehtetuks">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="luba_id" type="xsd:integer">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">Luba ID</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="soetusluba_kehtetuksResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="result" type="xsd:string">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">Tulemus (OK/NOK)</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="myyja_relvad_otsing">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="kood" type="xsd:string">
+              <xsd:annotation>
+                <xsd:appinfo>
+                  <xrd:title xml:lang="et">Asutuse registrikood</xrd:title>
+                </xsd:appinfo>
+              </xsd:annotation>
+            </xsd:element>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="myyja_relvad_otsingResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+        <xsd:element name="myyja_relvad_jada">
+          <xsd:annotation>
+            <xsd:appinfo>
+              <xrd:title xml:lang="et">Isiku relvaload</xrd:title>
+            </xsd:appinfo>
+          </xsd:annotation>
+          <xsd:complexType>
+            <xsd:sequence>
+              <xsd:element name="myyja_relv" minOccurs="0" maxOccurs="unbounded" type="tns:myyjaRelvDetail">
+                <xsd:annotation>
+                  <xsd:appinfo>
+                    <xrd:title xml:lang="et">Müüja relvad</xrd:title>
+                  </xsd:appinfo>
+                </xsd:annotation>
+              </xsd:element>
+            </xsd:sequence>
+          </xsd:complexType>
+        </xsd:element>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      
+      <xsd:complexType name="relvdetail">
+        <xsd:sequence>
+          <xsd:element name="isikuroll" type="xsd:string" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Roll</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="tehasenr" type="xsd:string" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Tehase nr.</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="mark" type="xsd:string" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Mark</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="mudel" type="xsd:string" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Mudel</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="kaliiber" type="xsd:string" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Kaliibritähis</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="regkp" type="xsd:string" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Reg. kuupäev</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="relvdetail2">
+        <xsd:sequence>
+          <xsd:element name="isikuroll" type="xsd:string" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Roll</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="tehasenr" type="xsd:string" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Tehase nr.</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="mark" type="xsd:string" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Mark</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="mudel" type="xsd:string" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Mudel</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="kaliiber" type="xsd:string" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Kaliibritähis</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="regkp" type="xsd:string" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Reg. kuupäev</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="omandisuhe_algus" type="xsd:string" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Alates</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="omandisuhe_lopp" type="xsd:string" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Kuni</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="ehak" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">EHAK-kood</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="tanavtalu" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Tänav/talu</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="maja" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Maja nr</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="korter" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Korteri nr</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="piirangud" type="tns:piirangud" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Piirangud</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="piirangud">
+        <xsd:sequence>
+          <xsd:element name="keelumarge" type="tns:keelumarge" minOccurs="0" maxOccurs="unbounded">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">keelumarge</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="keelumarge">
+        <xsd:sequence>
+          <xsd:element name="jrk" type="xsd:integer" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Jrk</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="taitur" type="xsd:string" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Täitur</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="taiteasja_nr" type="xsd:string" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Täiteasja nr</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="seadmise_kpv" type="xsd:string" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Seadmise kuupäev</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="relvalubadetail">
+        <xsd:sequence>
+          <xsd:element name="liik" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Liik</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="loanr" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Loa number</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="valjastkp" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Väljastatud</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="kehtivkp" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Kehtiv kuni</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="relvalubadetail2">
+        <xsd:sequence>
+          <xsd:element name="liik" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Liik</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="loanr" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Loa number</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="valjastkp" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Väljastatud</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="kehtivkp" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Kehtiv kuni</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="olek" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Loa olek</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="syndmusdetail">
+        <xsd:sequence>
+          <xsd:element name="registreerija" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Registreerija</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="syndmusliik" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Sündmus</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="toimumise_kp" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Toimumise kp.</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="dokument_nr" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Dokument nr.</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="tehase_nr" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Tehase nr.</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="klassifdetail">
+        <xsd:sequence>
+          <xsd:element name="klassif_id" type="xsd:integer">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Klassifikaatori ID</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="vaartus" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">
+                  Klassifikaatori nimetus
+                </xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="isikdetail">
+        <xsd:sequence>
+          <xsd:element name="isik_id" type="xsd:integer">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Isiku ID</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="eesnimi" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Eesnimi</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="perenimi" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Perekonnanimi</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="synniaeg" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Sünniaeg</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="isikukood" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Isikukood</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="kodakondsus" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Isiku kodakondsus</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="asutus" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Asutuse nimi</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="kood" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Asutuse registrikood</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="ehak" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">EHAK-kood</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="tanavtalu" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Tänav/talu</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="maja" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Maja nr</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="korter" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Korteri nr</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="isiklubadetail">
+        <xsd:sequence>
+          <xsd:element name="liik" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Liik</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="loanr" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Loa number</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="valjastkp" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Väljastatud</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="kehtivkp" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Kehtiv kuni</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="olek" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Olek</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="relvalubarelvad_jada">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">
+                  Relvaloaga seotud relvad
+                </xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="isikrelvaluba" minOccurs="0" maxOccurs="unbounded" type="tns:relvdetail_isik_relvaload">
+                  <xsd:annotation>
+                    <xsd:appinfo>
+                      <xrd:title xml:lang="et">Relv</xrd:title>
+                    </xsd:appinfo>
+                  </xsd:annotation>
+                </xsd:element>
+              </xsd:sequence>
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="relvdetail_isik_relvaload">
+        <xsd:sequence>
+          <xsd:element name="relv_id" type="xsd:integer" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Relva identifikaator.</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="staatus" type="xsd:string" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Staatus</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="tehasenr" type="xsd:string" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Tehase nr.</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="mark" type="xsd:string" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Mark</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="mudel" type="xsd:string" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Mudel</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="kaliiber" type="xsd:string" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Kaliibritähis</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="liik" type="xsd:string" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Liik</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="olek" type="xsd:string" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Olek</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="tyyp" type="xsd:string" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Tüüp</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="isiklubadetail2">
+        <xsd:sequence>
+          <xsd:element name="liik" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Liik</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="loanr" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Loa number</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="valjastkp" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Väljastatud</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="kehtivkp" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Kehtiv kuni</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="olek" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Olek</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="relvalubarelvad_jada">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">
+                  Relvaloaga seotud relvad
+                </xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="relvalubarelv" minOccurs="0" maxOccurs="unbounded" type="tns:relvdetail_isik_relvaload2">
+                  <xsd:annotation>
+                    <xsd:appinfo>
+                      <xrd:title xml:lang="et">Relv</xrd:title>
+                    </xsd:appinfo>
+                  </xsd:annotation>
+                </xsd:element>
+              </xsd:sequence>
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="relvdetail_isik_relvaload2">
+        <xsd:sequence>
+          <xsd:element name="relv_id" type="xsd:integer" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Relva identifikaator.</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="staatus" type="xsd:string" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Staatus</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="tehasenr" type="xsd:string" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Tehase nr.</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="mark" type="xsd:string" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Mark</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="mudel" type="xsd:string" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Mudel</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="kaliiber" type="xsd:string" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Kaliibritähis</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="liik" type="xsd:string" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Liik</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="olek" type="xsd:string" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Olek</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="tyyp" type="xsd:string" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Tüüp</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="hoidja" type="xsd:string" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Hoidja</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="isiklubadetail3">
+        <xsd:sequence>
+          <xsd:element name="liik" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Liik</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="loanr" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Loa number</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="valjastkp" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Väljastatud</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="kehtivkp" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Kehtiv kuni</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="olek" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Olek</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="luba_id" type="xsd:integer" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Loa identifikaator.</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="ehak" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">EHAK-kood</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="tanavtalu" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Tänav/talu</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="maja" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Maja nr</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="korter" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Korteri nr</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="relvalubarelvad_jada">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">
+                  Relvaloaga seotud relvad
+                </xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="relvalubarelv" minOccurs="0" maxOccurs="unbounded" type="tns:relvdetail_isik_relvaload3">
+                  <xsd:annotation>
+                    <xsd:appinfo>
+                      <xrd:title xml:lang="et">Relv</xrd:title>
+                    </xsd:appinfo>
+                  </xsd:annotation>
+                </xsd:element>
+              </xsd:sequence>
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="relvdetail_isik_relvaload3">
+        <xsd:sequence>
+          <xsd:element name="relv_id" type="xsd:integer" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Relva identifikaator.</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="staatus" type="xsd:string" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Staatus</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="tehasenr" type="xsd:string" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Tehase nr.</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="mark" type="xsd:string" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Mark</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="mudel" type="xsd:string" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Mudel</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="kaliiber" type="xsd:string" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Kaliibritähis</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="liik" type="xsd:string" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Liik</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="olek" type="xsd:string" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Olek</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="tyyp" type="xsd:string" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Tüüp</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="hoidja" type="xsd:string" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Hoidja</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <!--<xsd:element name="otstarbed" minOccurs="0" maxOccurs="unbounded"
+						type="tns:otstarvedetail">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Otstarbed</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>-->
+          <xsd:element name="otstarbed">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="otstarve" minOccurs="0" maxOccurs="unbounded" type="tns:otstarvedetail">
+                  <xsd:annotation>
+                    <xsd:appinfo>
+                      <xrd:title xml:lang="et">otstarvedetail</xrd:title>
+                    </xsd:appinfo>
+                  </xsd:annotation>
+                </xsd:element>
+              </xsd:sequence>
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="relvdetail_nimekiri">
+        <xsd:sequence>
+          <xsd:element name="relv_id" type="xsd:integer" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Relva identifikaator.</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="tehasenr" type="xsd:string" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Tehase nr.</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="mark" type="xsd:string" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Mark</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="mudel" type="xsd:string" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Mudel</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="kaliiber" type="xsd:string" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Kaliibritähis</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="regkp" type="xsd:string" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Reg. kuupäev</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="relvdetail_nimekiri2">
+        <xsd:sequence>
+          <xsd:element name="relv_id" type="xsd:integer" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Relva identifikaator</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="tehasenr" type="xsd:string" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Tehase nr.</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="mark" type="xsd:string" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Mark</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="mudel" type="xsd:string" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Mudel</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="kaliiber" type="xsd:string" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Kaliibritähis</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="regkp" type="xsd:string" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Reg. kuupäev</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="tyyp" type="xsd:string" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Tüüp</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="liik" type="xsd:string" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Liik</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="olek" type="xsd:string" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Olek</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="staatus" type="xsd:string" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Staatus</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="hoidja" type="xsd:string" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Hoidja</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="relvdetail_nimekiri3">
+        <xsd:sequence>
+          <xsd:element name="relv_id" type="xsd:integer" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Relva identifikaator</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="tehasenr" type="xsd:string" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Tehase nr.</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="mark" type="xsd:string" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Mark</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="mudel" type="xsd:string" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Mudel</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="kaliiber" type="xsd:string" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Kaliibritähis</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="regkp" type="xsd:string" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Reg. kuupäev</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="tyyp" type="xsd:string" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Tüüp</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="liik" type="xsd:string" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Liik</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="olek" type="xsd:string" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Olek</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="staatus" type="xsd:string" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Staatus</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="hoidja" type="xsd:string" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Hoidja</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="hoiukohad" minOccurs="0" maxOccurs="unbounded" type="tns:hoiukohtdetail">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Relva hoiukohad</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="hoiukohtdetail">
+        <xsd:sequence>
+          <xsd:element name="loaliik" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Loa liik</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="loanr" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Loa number</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="ehak" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">EHAK-kood</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="tanavtalu" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Tänav/talu</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="maja" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Maja nr</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="korter" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Korteri nr</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="relvisikloaddetail">
+        <xsd:sequence>
+          <xsd:element name="eesnimi" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Eesnimi</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="perenimi" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Perekonnanimi</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="isikukood" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Isikukood</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="kodakondsus" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Isiku kodakondsus</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="asutus" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Asutus</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="kood" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Asutuse registrikood</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="roll" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Roll</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="seosAlgus" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Seose algus</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="seosLopp" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Seose lõpp</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="relvaload_jada">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">
+                  Relva ja isikuga seotud relvaload
+                </xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="relvaluba" minOccurs="0" maxOccurs="unbounded" type="tns:relvalubadetail_relv_ajalugu">
+                  <xsd:annotation>
+                    <xsd:appinfo>
+                      <xrd:title xml:lang="et">Relvaluba</xrd:title>
+                    </xsd:appinfo>
+                  </xsd:annotation>
+                </xsd:element>
+              </xsd:sequence>
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="relvalubadetail_relv_ajalugu">
+        <xsd:sequence>
+          <xsd:element name="liik" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Liik</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="loanr" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Loa number</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="valjastkp" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Kehtivuse algus</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="kehtivkp" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Kehtivuse lõpp</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="olek" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Loa olek</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="relvisikloaddetail3">
+        <xsd:sequence>
+          <xsd:element name="eesnimi" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Eesnimi</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="perenimi" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Perekonnanimi</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="isikukood" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Isikukood</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="kodakondsus" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Isiku kodakondsus</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="asutus" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Asutus</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="kood" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Asutuse registrikood</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="roll" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Roll</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="seosAlgus" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Seose algus</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="seosLopp" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Seose lõpp</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="relvaload_jada">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">
+                  Relva ja isikuga seotud relvaload
+                </xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="relvaluba" minOccurs="0" maxOccurs="unbounded" type="tns:relvalubadetail_relv_ajalugu3">
+                  <xsd:annotation>
+                    <xsd:appinfo>
+                      <xrd:title xml:lang="et">Relvaluba</xrd:title>
+                    </xsd:appinfo>
+                  </xsd:annotation>
+                </xsd:element>
+              </xsd:sequence>
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="relvalubadetail_relv_ajalugu3">
+        <xsd:sequence>
+          <xsd:element name="liik" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Liik</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="loanr" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Loa number</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="valjastkp" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Kehtivuse algus</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="kehtivkp" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Kehtivuse lõpp</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="olek" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Loa olek</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="ehak" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">EHAK-kood</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="tanavtalu" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Tänav/talu</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="maja" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Maja nr</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="korter" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Korteri nr</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="relvdetail_isik_relv">
+        <xsd:sequence>
+          <xsd:element name="omandisuhe_algus" type="xsd:string" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">
+                  Relva ja isiku seose algus
+                </xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="staatus" type="xsd:string" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Relva staatus</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="tehasenr" type="xsd:string" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Relva tehase nr</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="mark" type="xsd:string" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Relva mark</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="mudel" type="xsd:string" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Relva mudel</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="kaliiber" type="xsd:string" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Kaliibritähis</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="liik" type="xsd:string" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Relva liik</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="olek" type="xsd:string" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Relva olek</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="tyyp" type="xsd:string" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Relva tüüp</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="hoidja" type="xsd:string" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Relva hoidja</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="myyja" type="xsd:string" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Relva müüja</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="relvdetail_isik_relv2">
+        <xsd:sequence>
+          <xsd:element name="relv_id" type="xsd:integer" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Relva ID</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="omandisuhe_algus" type="xsd:string" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">
+                  Relva ja isiku seose algus
+                </xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="staatus" type="xsd:string" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Relva staatus</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="tehasenr" type="xsd:string" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Relva tehase nr</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="mark" type="xsd:string" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Relva mark</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="mudel" type="xsd:string" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Relva mudel</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="kaliiber" type="xsd:string" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Kaliibritähis</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="liik" type="xsd:string" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Relva liik</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="olek" type="xsd:string" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Relva olek</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="olek_kuup" type="xsd:string" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Relva oleku kuupäev</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="tyyp" type="xsd:string" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Relva tüüp</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="ehak" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">EHAK-kood</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="tanavtalu" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Tänav/talu</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="maja" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Maja nr</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="korter" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Korteri nr</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="hoidja" type="xsd:string" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Relva hoidja</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="myyja" type="xsd:string" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Relva müüja</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="prl_number" type="xsd:string" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">
+                  Relvale väljastatud
+                  paralleelrelvaloa number
+                </xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="taiteasja_nr" type="xsd:string" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Täiteasja number</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="vl_valjastatud" type="xsd:date" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Võõrandamisloa kuupäev</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="vl_number" type="xsd:string" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Võõrandamisloa number</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="vl_myygikoht" type="xsd:string" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Müügikoht</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="vl_kehtib" type="xsd:date" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Loa kehtivuse kuupäev</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="vl_kellele" type="xsd:string" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">
+                  Kellele on luba väljastatud
+                </xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="relvalubadetail_kpk">
+        <xsd:sequence>
+          <xsd:element name="liik" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Liik</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="loanr" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Loa number</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="valjastkp" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Väljastatud</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="kehtivkp" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Kehtiv kuni</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="olek" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Loa olek</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="ehak" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">EHAK-kood</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="tanavtalu" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Tänav/talu</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="maja" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Maja nr</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="korter" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Korteri nr</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="relvalubarelvad_jada">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">
+                  Relvaloaga seotud relvad
+                </xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="relvalubarelv" minOccurs="0" maxOccurs="unbounded" type="tns:relvdetail_isik_relvaload_kpk">
+                  <xsd:annotation>
+                    <xsd:appinfo>
+                      <xrd:title xml:lang="et">Relv</xrd:title>
+                    </xsd:appinfo>
+                  </xsd:annotation>
+                </xsd:element>
+              </xsd:sequence>
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="relvdetail_isik_relvaload_kpk">
+        <xsd:sequence>
+          <xsd:element name="relv_id" type="xsd:integer" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Relva ID</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="staatus" type="xsd:string" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Relva staatus</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="tehasenr" type="xsd:string" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Relva tehase nr</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="mark" type="xsd:string" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Relva mark</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="mudel" type="xsd:string" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Relva mudel</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="kaliiber" type="xsd:string" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Kaliibritähis</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="liik" type="xsd:string" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Relva liik</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="olek" type="xsd:string" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Relva olek</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="tyyp" type="xsd:string" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Relva tüüp</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="hoidja" type="xsd:string" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Relva hoidja</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="otstarbed">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="otstarve" minOccurs="0" maxOccurs="unbounded" type="tns:otstarvedetail">
+                  <xsd:annotation>
+                    <xsd:appinfo>
+                      <xrd:title xml:lang="et">otstarvedetail</xrd:title>
+                    </xsd:appinfo>
+                  </xsd:annotation>
+                </xsd:element>
+              </xsd:sequence>
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="otstarvedetail">
+        <xsd:sequence>
+          <xsd:element name="tahis" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Tähis</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="nimetus" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Otstarbe nimetus</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="myyjaRelvDetail">
+        <xsd:sequence>
+          <xsd:element name="myyjaNimi" type="xsd:string" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Müüja</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="myyjaRegKood" type="xsd:string" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Müüja reg. kood</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="myyjaIsikId" type="xsd:string" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Müüja ID</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="tehasenr" type="xsd:string" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Tehase nr</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="mark" type="xsd:string" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Relva mark</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="mudel" type="xsd:string" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Relva mudel</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="liik" type="xsd:string" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Relva liik</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="kaliibritahis" type="xsd:string" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Relva kaliibritähis</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="relv_id" type="xsd:string" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Relva ID</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="omanik" type="xsd:string" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Relva omanik</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="omanikukood" type="xsd:string" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Relva omaniku kood</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="myyjaAlates" type="xsd:string" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Müüja alates</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="seotudIsikud" type="xsd:string" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Seotud isikud</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="keelumarge" type="xsd:string" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <xrd:title xml:lang="et">Keelumärge</xrd:title>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+
+    </schema>
+  </wsdl:types>
+
+  <wsdl:message name="requestHeader">
+    <wsdl:part name="client" element="xrd:client"/>
+    <wsdl:part name="service" element="xrd:service"/>
+    <wsdl:part name="id" element="xrd:id"/>
+    <wsdl:part name="userId" element="xrd:userId"/>
+    <wsdl:part name="requestHash" element="xrd:requestHash"/>
+    <wsdl:part name="issue" element="xrd:issue"/>
+    <wsdl:part name="protocolVersion" element="xrd:protocolVersion"/>
+  </wsdl:message>
+
+  <wsdl:message name="getRelvadMsg">
+    <wsdl:part name="request" element="tns:relvad"/>
+  </wsdl:message>
+  <wsdl:message name="getRelvadResponseMsg">
+    <wsdl:part name="response" element="tns:relvadResponse"/>
+  </wsdl:message>
+  <wsdl:message name="getRelvad2Msg">
+    <wsdl:part name="request" element="tns:relvad2"/>
+  </wsdl:message>
+  <wsdl:message name="getRelvad2ResponseMsg">
+    <wsdl:part name="response" element="tns:relvad2Response"/>
+  </wsdl:message>
+  <wsdl:message name="getRelvaloadMsg">
+    <wsdl:part name="request" element="tns:relvaload"/>
+  </wsdl:message>
+  <wsdl:message name="getRelvaloadResponseMsg">
+    <wsdl:part name="response" element="tns:relvaloadResponse"/>
+  </wsdl:message>
+  <wsdl:message name="getRelvaload2Msg">
+    <wsdl:part name="request" element="tns:relvaload2"/>
+  </wsdl:message>
+  <wsdl:message name="getRelvaload2ResponseMsg">
+    <wsdl:part name="response" element="tns:relvaload2Response"/>
+  </wsdl:message>
+  <wsdl:message name="getSyndmusMsg">
+    <wsdl:part name="request" element="tns:syndmused"/>
+  </wsdl:message>
+  <wsdl:message name="getSyndmusResponseMsg">
+    <wsdl:part name="response" element="tns:syndmusedResponse"/>
+  </wsdl:message>
+  <wsdl:message name="getKlassifikaatoridMsg">
+    <wsdl:part name="request" element="tns:klassifikaatorid"/>
+  </wsdl:message>
+  <wsdl:message name="getKlassifikaatoridResponseMsg">
+    <wsdl:part name="response" element="tns:klassifikaatoridResponse"/>
+  </wsdl:message>
+  <wsdl:message name="getTTRR004Msg">
+    <wsdl:part name="request" element="tns:isikud_isikuandmete_alusel"/>
+  </wsdl:message>
+  <wsdl:message name="getTTRR004ResponseMsg">
+    <wsdl:part name="response" element="tns:isikud_isikuandmete_aluselResponse"/>
+  </wsdl:message>
+  <wsdl:message name="getTTRR005Msg">
+    <wsdl:part name="request" element="tns:isikud_aadressi_alusel"/>
+  </wsdl:message>
+  <wsdl:message name="getTTRR005ResponseMsg">
+    <wsdl:part name="response" element="tns:isikud_aadressi_aluselResponse"/>
+  </wsdl:message>
+  <wsdl:message name="getTTRR006Msg">
+    <wsdl:part name="request" element="tns:isik_relvaload_relvad"/>
+  </wsdl:message>
+  <wsdl:message name="getTTRR006ResponseMsg">
+    <wsdl:part name="response" element="tns:isik_relvaload_relvadResponse"/>
+  </wsdl:message>
+  <wsdl:message name="getTTRR006v2Msg">
+    <wsdl:part name="request" element="tns:isik_relvaload_relvad2"/>
+  </wsdl:message>
+  <wsdl:message name="getTTRR006v2ResponseMsg">
+    <wsdl:part name="response" element="tns:isik_relvaload_relvad2Response"/>
+  </wsdl:message>
+  <wsdl:message name="getTTRR006v3Msg">
+    <wsdl:part name="request" element="tns:isik_relvaload_relvad3"/>
+  </wsdl:message>
+  <wsdl:message name="getTTRR006v3ResponseMsg">
+    <wsdl:part name="response" element="tns:isik_relvaload_relvad3Response"/>
+  </wsdl:message>
+  <wsdl:message name="getRelvadNimekiriMsg">
+    <wsdl:part name="request" element="tns:relvad_nimekiri"/>
+  </wsdl:message>
+  <wsdl:message name="getRelvadNimekiriResponseMsg">
+    <wsdl:part name="response" element="tns:relvad_nimekiriResponse"/>
+  </wsdl:message>
+  <wsdl:message name="getRelvadNimekiriv2Msg">
+    <wsdl:part name="request" element="tns:relvad_nimekiri2"/>
+  </wsdl:message>
+  <wsdl:message name="getRelvadNimekiriv2ResponseMsg">
+    <wsdl:part name="response" element="tns:relvad_nimekiri2Response"/>
+  </wsdl:message>
+  <wsdl:message name="getRelvadNimekiriv3Msg">
+    <wsdl:part name="request" element="tns:relvad_nimekiri3"/>
+  </wsdl:message>
+  <wsdl:message name="getRelvadNimekiriv3ResponseMsg">
+    <wsdl:part name="response" element="tns:relvad_nimekiri3Response"/>
+  </wsdl:message>
+  <wsdl:message name="getRelvAjaluguMsg">
+    <wsdl:part name="request" element="tns:relv_ajalugu"/>
+  </wsdl:message>
+  <wsdl:message name="getRelvAjaluguResponseMsg">
+    <wsdl:part name="response" element="tns:relv_ajaluguResponse"/>
+  </wsdl:message>
+  <wsdl:message name="getRelvAjaluguv2Msg">
+    <wsdl:part name="request" element="tns:relv_ajalugu2"/>
+  </wsdl:message>
+  <wsdl:message name="getRelvAjaluguv2ResponseMsg">
+    <wsdl:part name="response" element="tns:relv_ajalugu2Response"/>
+  </wsdl:message>
+  <wsdl:message name="getRelvAjaluguv3Msg">
+    <wsdl:part name="request" element="tns:relv_ajalugu3"/>
+  </wsdl:message>
+  <wsdl:message name="getRelvAjaluguv3ResponseMsg">
+    <wsdl:part name="response" element="tns:relv_ajalugu3Response"/>
+  </wsdl:message>
+  <wsdl:message name="getIsikRelvadKpkMsg">
+    <wsdl:part name="request" element="tns:isik_relvad_kpk"/>
+  </wsdl:message>
+  <wsdl:message name="getIsikRelvadKpkResponseMsg">
+    <wsdl:part name="response" element="tns:isik_relvad_kpkResponse"/>
+  </wsdl:message>
+  <wsdl:message name="getIsikRelvadKpkv2Msg">
+    <wsdl:part name="request" element="tns:isik_relvad_kpk2"/>
+  </wsdl:message>
+  <wsdl:message name="getIsikRelvadKpkv2ResponseMsg">
+    <wsdl:part name="response" element="tns:isik_relvad_kpk2Response"/>
+  </wsdl:message>
+  <wsdl:message name="getisikRelvaloadKpkMsg">
+    <wsdl:part name="request" element="tns:isik_relvaload_kpk"/>
+  </wsdl:message>
+  <wsdl:message name="getisikRelvaloadKpkResponseMsg">
+    <wsdl:part name="response" element="tns:isik_relvaload_kpkResponse"/>
+  </wsdl:message>
+  <wsdl:message name="getKeelumargeLisaMsg">
+    <wsdl:part name="request" element="tns:keelumarge_lisa"/>
+  </wsdl:message>
+  <wsdl:message name="getKeelumargeLisaResponseMsg">
+    <wsdl:part name="response" element="tns:keelumarge_lisaResponse"/>
+  </wsdl:message>
+  <wsdl:message name="getKeelumargeEemaldaMsg">
+    <wsdl:part name="request" element="tns:keelumarge_eemalda"/>
+  </wsdl:message>
+  <wsdl:message name="getKeelumargeEemaldaResponseMsg">
+    <wsdl:part name="response" element="tns:keelumarge_eemaldaResponse"/>
+  </wsdl:message>
+  <wsdl:message name="getRelvIsikuNimeleMsg">
+    <wsdl:part name="request" element="tns:relv_isiku_nimele"/>
+  </wsdl:message>
+  <wsdl:message name="getRelvIsikuNimeleResponseMsg">
+    <wsdl:part name="response" element="tns:relv_isiku_nimeleResponse"/>
+  </wsdl:message>
+  <wsdl:message name="getSoetuslubaKehtetuksMsg">
+    <wsdl:part name="request" element="tns:soetusluba_kehtetuks"/>
+  </wsdl:message>
+  <wsdl:message name="getSoetuslubaKehtetuksResponseMsg">
+    <wsdl:part name="response" element="tns:soetusluba_kehtetuksResponse"/>
+  </wsdl:message>
+  <wsdl:message name="getMyyjaRelvadMsg">
+    <wsdl:part name="request" element="tns:myyja_relvad_otsing"/>
+  </wsdl:message>
+  <wsdl:message name="getMyyjaRelvadResponseMsg">
+    <wsdl:part name="response" element="tns:myyja_relvad_otsingResponse"/>
+  </wsdl:message>
+
+  <wsdl:portType name="relvaregisterPortType">
+    <wsdl:operation name="relvad">
+      <wsdl:documentation>
+        <xrd:title xml:lang="et">Relvad</xrd:title>
+        <!--<xrd:version>1</xrd:version>-->
+        <xrd:notes>...</xrd:notes>
+        <xrd:techNotes>...</xrd:techNotes>
+      </wsdl:documentation>
+      <wsdl:input message="tns:getRelvadMsg"/>
+      <wsdl:output message="tns:getRelvadResponseMsg"/>
+    </wsdl:operation>
+    <wsdl:operation name="relvad2">
+      <wsdl:documentation>
+        <xrd:title xml:lang="et">Relvad2</xrd:title>
+        <!--<xrd:version>1</xrd:version>-->
+        <xrd:notes>...</xrd:notes>
+        <xrd:techNotes>...</xrd:techNotes>
+      </wsdl:documentation>
+      <wsdl:input message="tns:getRelvad2Msg"/>
+      <wsdl:output message="tns:getRelvad2ResponseMsg"/>
+    </wsdl:operation>
+    <wsdl:operation name="relvaload">
+      <wsdl:documentation>
+        <xrd:title xml:lang="et">Relvaload</xrd:title>
+        <!--<xrd:version>1</xrd:version>-->
+        <xrd:notes>...</xrd:notes>
+        <xrd:techNotes>...</xrd:techNotes>
+      </wsdl:documentation>
+      <wsdl:input message="tns:getRelvaloadMsg"/>
+      <wsdl:output message="tns:getRelvaloadResponseMsg"/>
+    </wsdl:operation>
+    <wsdl:operation name="relvaload2">
+      <wsdl:documentation>
+        <xrd:title xml:lang="et">Relvaload 2</xrd:title>
+        <!--<xrd:version>1</xrd:version>-->
+        <xrd:notes>...</xrd:notes>
+        <xrd:techNotes>...</xrd:techNotes>
+      </wsdl:documentation>
+      <wsdl:input message="tns:getRelvaload2Msg"/>
+      <wsdl:output message="tns:getRelvaload2ResponseMsg"/>
+    </wsdl:operation>
+    <wsdl:operation name="syndmused">
+      <wsdl:documentation>
+        <xrd:title xml:lang="et">Sündmused</xrd:title>
+        <!--<xrd:version>1</xrd:version>-->
+        <xrd:notes>...</xrd:notes>
+        <xrd:techNotes>...</xrd:techNotes>
+      </wsdl:documentation>
+      <wsdl:input message="tns:getSyndmusMsg"/>
+      <wsdl:output message="tns:getSyndmusResponseMsg"/>
+    </wsdl:operation>
+    <wsdl:operation name="klassifikaatorid">
+      <wsdl:documentation>
+        <xrd:title xml:lang="et">Klassifikaatorid</xrd:title>
+        <!--<xrd:version>1</xrd:version>-->
+        <xrd:notes>...</xrd:notes>
+        <xrd:techNotes>...</xrd:techNotes>
+      </wsdl:documentation>
+      <wsdl:input message="tns:getKlassifikaatoridMsg"/>
+      <wsdl:output message="tns:getKlassifikaatoridResponseMsg"/>
+    </wsdl:operation>
+    <wsdl:operation name="isikud_isikuandmete_alusel">
+      <wsdl:documentation>
+        <xrd:title xml:lang="et">Isikud isikuandmete alusel</xrd:title>
+        <!--<xrd:version>1</xrd:version>-->
+        <xrd:notes/>
+        <xrd:techNotes>TTRR004</xrd:techNotes>
+      </wsdl:documentation>
+      <wsdl:input message="tns:getTTRR004Msg"/>
+      <wsdl:output message="tns:getTTRR004ResponseMsg"/>
+    </wsdl:operation>
+    <wsdl:operation name="isikud_aadressi_alusel">
+      <wsdl:documentation>
+        <xrd:title xml:lang="et">Isikud aadressi alusel</xrd:title>
+        <!--<xrd:version>1</xrd:version>-->
+        <xrd:notes/>
+        <xrd:techNotes>TTRR005</xrd:techNotes>
+      </wsdl:documentation>
+      <wsdl:input message="tns:getTTRR005Msg"/>
+      <wsdl:output message="tns:getTTRR005ResponseMsg"/>
+    </wsdl:operation>
+    <wsdl:operation name="isik_relvaload_relvad">
+      <wsdl:documentation>
+        <xrd:title xml:lang="et">Isiku relvaload ja relvad</xrd:title>
+        <!--<xrd:version>1</xrd:version>-->
+        <xrd:notes/>
+        <xrd:techNotes>TTRR006</xrd:techNotes>
+      </wsdl:documentation>
+      <wsdl:input message="tns:getTTRR006Msg"/>
+      <wsdl:output message="tns:getTTRR006ResponseMsg"/>
+    </wsdl:operation>
+    <wsdl:operation name="isik_relvaload_relvad2">
+      <wsdl:documentation>
+        <xrd:title xml:lang="et">
+          Isiku relvaload ja relvad 2
+        </xrd:title>
+        <!--<xrd:version>2</xrd:version>-->
+        <xrd:notes/>
+        <xrd:techNotes>TTRR006 versioon 2</xrd:techNotes>
+      </wsdl:documentation>
+      <wsdl:input message="tns:getTTRR006v2Msg"/>
+      <wsdl:output message="tns:getTTRR006v2ResponseMsg"/>
+    </wsdl:operation>
+    <wsdl:operation name="isik_relvaload_relvad3">
+      <wsdl:documentation>
+        <xrd:title xml:lang="et">
+          Isiku relvaload ja relvad 3
+        </xrd:title>
+        <!--<xrd:version>3</xrd:version>-->
+        <xrd:notes/>
+        <xrd:techNotes>TTRR006 versioon 3</xrd:techNotes>
+      </wsdl:documentation>
+      <wsdl:input message="tns:getTTRR006v3Msg"/>
+      <wsdl:output message="tns:getTTRR006v3ResponseMsg"/>
+    </wsdl:operation>
+    <wsdl:operation name="relvad_nimekiri">
+      <wsdl:documentation>
+        <xrd:title xml:lang="et">Relvade nimekiri</xrd:title>
+        <!--<xrd:version>1</xrd:version>-->
+        <xrd:notes/>
+        <xrd:techNotes>...</xrd:techNotes>
+      </wsdl:documentation>
+      <wsdl:input message="tns:getRelvadNimekiriMsg"/>
+      <wsdl:output message="tns:getRelvadNimekiriResponseMsg"/>
+    </wsdl:operation>
+    <wsdl:operation name="relvad_nimekiri2">
+      <wsdl:documentation>
+        <xrd:title xml:lang="et">Relvade nimekiri 2</xrd:title>
+        <!--<xrd:version>2</xrd:version>-->
+        <xrd:notes/>
+        <xrd:techNotes>...</xrd:techNotes>
+      </wsdl:documentation>
+      <wsdl:input message="tns:getRelvadNimekiriv2Msg"/>
+      <wsdl:output message="tns:getRelvadNimekiriv2ResponseMsg"/>
+    </wsdl:operation>
+    <wsdl:operation name="relvad_nimekiri3">
+      <wsdl:documentation>
+        <xrd:title xml:lang="et">Relvade nimekiri 3</xrd:title>
+        <!--<xrd:version>3</xrd:version>-->
+        <xrd:notes/>
+        <xrd:techNotes>...</xrd:techNotes>
+      </wsdl:documentation>
+      <wsdl:input message="tns:getRelvadNimekiriv3Msg"/>
+      <wsdl:output message="tns:getRelvadNimekiriv3ResponseMsg"/>
+    </wsdl:operation>
+    <wsdl:operation name="relv_ajalugu">
+      <wsdl:documentation>
+        <xrd:title xml:lang="et">Relva ajalugu</xrd:title>
+        <!--<xrd:version>1</xrd:version>-->
+        <xrd:notes/>
+        <xrd:techNotes>...</xrd:techNotes>
+      </wsdl:documentation>
+      <wsdl:input message="tns:getRelvAjaluguMsg"/>
+      <wsdl:output message="tns:getRelvAjaluguResponseMsg"/>
+    </wsdl:operation>
+    <wsdl:operation name="relv_ajalugu2">
+      <wsdl:documentation>
+        <xrd:title xml:lang="et">Relva ajalugu 2</xrd:title>
+        <!--<xrd:version>2</xrd:version>-->
+        <xrd:notes/>
+        <xrd:techNotes>...</xrd:techNotes>
+      </wsdl:documentation>
+      <wsdl:input message="tns:getRelvAjaluguv2Msg"/>
+      <wsdl:output message="tns:getRelvAjaluguv2ResponseMsg"/>
+    </wsdl:operation>
+    <wsdl:operation name="relv_ajalugu3">
+      <wsdl:documentation>
+        <xrd:title xml:lang="et">Relva ajalugu 3</xrd:title>
+        <!--<xrd:version>3</xrd:version>-->
+        <xrd:notes/>
+        <xrd:techNotes>...</xrd:techNotes>
+      </wsdl:documentation>
+      <wsdl:input message="tns:getRelvAjaluguv3Msg"/>
+      <wsdl:output message="tns:getRelvAjaluguv3ResponseMsg"/>
+    </wsdl:operation>
+    <wsdl:operation name="isik_relvad_kpk">
+      <wsdl:documentation>
+        <xrd:title xml:lang="et">Isiku relvad KPK</xrd:title>
+        <!--<xrd:version>1</xrd:version>-->
+        <xrd:notes/>
+        <xrd:techNotes>...</xrd:techNotes>
+      </wsdl:documentation>
+      <wsdl:input message="tns:getIsikRelvadKpkMsg"/>
+      <wsdl:output message="tns:getIsikRelvadKpkResponseMsg"/>
+    </wsdl:operation>
+    <wsdl:operation name="isik_relvad_kpk2">
+      <wsdl:documentation>
+        <xrd:title xml:lang="et">Isiku relvad KPK2</xrd:title>
+        <!--<xrd:version>1</xrd:version>-->
+        <xrd:notes/>
+        <xrd:techNotes>...</xrd:techNotes>
+      </wsdl:documentation>
+      <wsdl:input message="tns:getIsikRelvadKpkv2Msg"/>
+      <wsdl:output message="tns:getIsikRelvadKpkv2ResponseMsg"/>
+    </wsdl:operation>
+    <wsdl:operation name="isik_relvaload_kpk">
+      <wsdl:documentation>
+        <xrd:title xml:lang="et">Isiku relvaload KPK</xrd:title>
+        <!--<xrd:version>1</xrd:version>-->
+        <xrd:notes/>
+        <xrd:techNotes/>
+      </wsdl:documentation>
+      <wsdl:input message="tns:getisikRelvaloadKpkMsg"/>
+      <wsdl:output message="tns:getisikRelvaloadKpkResponseMsg"/>
+    </wsdl:operation>
+    <wsdl:operation name="keelumarge_lisa">
+      <wsdl:documentation>
+        <xrd:title xml:lang="et">Keelumärke lisamine</xrd:title>
+        <!--<xrd:version>1</xrd:version>-->
+        <xrd:notes/>
+        <xrd:techNotes/>
+      </wsdl:documentation>
+      <wsdl:input message="tns:getKeelumargeLisaMsg"/>
+      <wsdl:output message="tns:getKeelumargeLisaResponseMsg"/>
+    </wsdl:operation>
+    <wsdl:operation name="keelumarge_eemalda">
+      <wsdl:documentation>
+        <xrd:title xml:lang="et">Keelumärke eemaldamine</xrd:title>
+        <!--<xrd:version>1</xrd:version>-->
+        <xrd:notes/>
+        <xrd:techNotes/>
+      </wsdl:documentation>
+      <wsdl:input message="tns:getKeelumargeEemaldaMsg"/>
+      <wsdl:output message="tns:getKeelumargeEemaldaResponseMsg"/>
+    </wsdl:operation>
+    <wsdl:operation name="relv_isiku_nimele">
+      <wsdl:documentation>
+        <xrd:title xml:lang="et">Relva registreerimine isiku nimele</xrd:title>
+        <!--<xrd:version>1</xrd:version>-->
+        <xrd:notes/>
+        <xrd:techNotes/>
+      </wsdl:documentation>
+      <wsdl:input message="tns:getRelvIsikuNimeleMsg"/>
+      <wsdl:output message="tns:getRelvIsikuNimeleResponseMsg"/>
+    </wsdl:operation>
+    <wsdl:operation name="myyja_relvad_otsing">
+      <wsdl:documentation>
+        <xrd:title xml:lang="et">Müüja relvade otsing</xrd:title>
+        <!--<xrd:version>1</xrd:version>-->
+        <xrd:notes/>
+        <xrd:techNotes/>
+      </wsdl:documentation>
+      <wsdl:input message="tns:getMyyjaRelvadMsg"/>
+      <wsdl:output message="tns:getMyyjaRelvadResponseMsg"/>
+    </wsdl:operation>
+    <wsdl:operation name="soetusluba_kehtetuks">
+      <wsdl:documentation>
+        <xrd:title xml:lang="et">Soetusloa kehtetuks muutmine</xrd:title>
+        <!--<xrd:version>1</xrd:version>-->
+        <xrd:notes/>
+        <xrd:techNotes/>
+      </wsdl:documentation>
+      <wsdl:input message="tns:getSoetuslubaKehtetuksMsg"/>
+      <wsdl:output message="tns:getSoetuslubaKehtetuksResponseMsg"/>
+    </wsdl:operation>
+  </wsdl:portType>
+
+  <wsdl:binding name="relvaregisterBinding" type="tns:relvaregisterPortType">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="relvad">
+      <soap:operation soapAction="relvad" style="document"/>
+      <xrd:version>v1</xrd:version>
+      <wsdl:input>
+        <soap:body use="literal"/>
+        <soap:header message="tns:requestHeader" part="client" use="literal"/>
+        <soap:header message="tns:requestHeader" part="service" use="literal"/>
+        <soap:header message="tns:requestHeader" part="id" use="literal"/>
+        <soap:header message="tns:requestHeader" part="userId" use="literal"/>
+        <soap:header message="tns:requestHeader" part="issue" use="literal"/>
+        <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+        <soap:header message="tns:requestHeader" part="client" use="literal"/>
+        <soap:header message="tns:requestHeader" part="service" use="literal"/>
+        <soap:header message="tns:requestHeader" part="id" use="literal"/>
+        <soap:header message="tns:requestHeader" part="userId" use="literal"/>
+        <soap:header message="tns:requestHeader" part="requestHash" use="literal"/>
+        <soap:header message="tns:requestHeader" part="issue" use="literal"/>
+        <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="relvad2">
+      <soap:operation soapAction="relvad2" style="document"/>
+      <xrd:version>v1</xrd:version>
+      <wsdl:input>
+        <soap:body use="literal"/>
+        <soap:header message="tns:requestHeader" part="client" use="literal"/>
+        <soap:header message="tns:requestHeader" part="service" use="literal"/>
+        <soap:header message="tns:requestHeader" part="id" use="literal"/>
+        <soap:header message="tns:requestHeader" part="userId" use="literal"/>
+        <soap:header message="tns:requestHeader" part="issue" use="literal"/>
+        <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+        <soap:header message="tns:requestHeader" part="client" use="literal"/>
+        <soap:header message="tns:requestHeader" part="service" use="literal"/>
+        <soap:header message="tns:requestHeader" part="id" use="literal"/>
+        <soap:header message="tns:requestHeader" part="userId" use="literal"/>
+        <soap:header message="tns:requestHeader" part="requestHash" use="literal"/>
+        <soap:header message="tns:requestHeader" part="issue" use="literal"/>
+        <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="relvaload">
+      <soap:operation soapAction="relvaload" style="document"/>
+      <xrd:version>v1</xrd:version>
+      <wsdl:input>
+        <soap:body use="literal"/>
+        <soap:header message="tns:requestHeader" part="client" use="literal"/>
+        <soap:header message="tns:requestHeader" part="service" use="literal"/>
+        <soap:header message="tns:requestHeader" part="id" use="literal"/>
+        <soap:header message="tns:requestHeader" part="userId" use="literal"/>
+        <soap:header message="tns:requestHeader" part="issue" use="literal"/>
+        <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+        <soap:header message="tns:requestHeader" part="client" use="literal"/>
+        <soap:header message="tns:requestHeader" part="service" use="literal"/>
+        <soap:header message="tns:requestHeader" part="id" use="literal"/>
+        <soap:header message="tns:requestHeader" part="userId" use="literal"/>
+        <soap:header message="tns:requestHeader" part="requestHash" use="literal"/>
+        <soap:header message="tns:requestHeader" part="issue" use="literal"/>
+        <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="relvaload2">
+      <soap:operation soapAction="relvaload2" style="document"/>
+      <xrd:version>v1</xrd:version>
+      <wsdl:input>
+        <soap:body use="literal"/>
+        <soap:header message="tns:requestHeader" part="client" use="literal"/>
+        <soap:header message="tns:requestHeader" part="service" use="literal"/>
+        <soap:header message="tns:requestHeader" part="id" use="literal"/>
+        <soap:header message="tns:requestHeader" part="userId" use="literal"/>
+        <soap:header message="tns:requestHeader" part="issue" use="literal"/>
+        <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+        <soap:header message="tns:requestHeader" part="client" use="literal"/>
+        <soap:header message="tns:requestHeader" part="service" use="literal"/>
+        <soap:header message="tns:requestHeader" part="id" use="literal"/>
+        <soap:header message="tns:requestHeader" part="userId" use="literal"/>
+        <soap:header message="tns:requestHeader" part="requestHash" use="literal"/>
+        <soap:header message="tns:requestHeader" part="issue" use="literal"/>
+        <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="syndmused">
+      <soap:operation soapAction="syndmused" style="document"/>
+      <xrd:version>v1</xrd:version>
+      <wsdl:input>
+        <soap:body use="literal"/>
+        <soap:header message="tns:requestHeader" part="client" use="literal"/>
+        <soap:header message="tns:requestHeader" part="service" use="literal"/>
+        <soap:header message="tns:requestHeader" part="id" use="literal"/>
+        <soap:header message="tns:requestHeader" part="userId" use="literal"/>
+        <soap:header message="tns:requestHeader" part="issue" use="literal"/>
+        <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+        <soap:header message="tns:requestHeader" part="client" use="literal"/>
+        <soap:header message="tns:requestHeader" part="service" use="literal"/>
+        <soap:header message="tns:requestHeader" part="id" use="literal"/>
+        <soap:header message="tns:requestHeader" part="userId" use="literal"/>
+        <soap:header message="tns:requestHeader" part="requestHash" use="literal"/>
+        <soap:header message="tns:requestHeader" part="issue" use="literal"/>
+        <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="klassifikaatorid">
+      <soap:operation soapAction="klassifikaatorid" style="document"/>
+      <xrd:version>v1</xrd:version>
+      <wsdl:input>
+        <soap:body use="literal"/>
+        <soap:header message="tns:requestHeader" part="client" use="literal"/>
+        <soap:header message="tns:requestHeader" part="service" use="literal"/>
+        <soap:header message="tns:requestHeader" part="id" use="literal"/>
+        <soap:header message="tns:requestHeader" part="userId" use="literal"/>
+        <soap:header message="tns:requestHeader" part="issue" use="literal"/>
+        <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+        <soap:header message="tns:requestHeader" part="client" use="literal"/>
+        <soap:header message="tns:requestHeader" part="service" use="literal"/>
+        <soap:header message="tns:requestHeader" part="id" use="literal"/>
+        <soap:header message="tns:requestHeader" part="userId" use="literal"/>
+        <soap:header message="tns:requestHeader" part="requestHash" use="literal"/>
+        <soap:header message="tns:requestHeader" part="issue" use="literal"/>
+        <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="isikud_isikuandmete_alusel">
+      <soap:operation soapAction="isikud_isikuandmete_alusel" style="document"/>
+      <xrd:version>v1</xrd:version>
+      <wsdl:input>
+        <soap:body use="literal"/>
+        <soap:header message="tns:requestHeader" part="client" use="literal"/>
+        <soap:header message="tns:requestHeader" part="service" use="literal"/>
+        <soap:header message="tns:requestHeader" part="id" use="literal"/>
+        <soap:header message="tns:requestHeader" part="userId" use="literal"/>
+        <soap:header message="tns:requestHeader" part="issue" use="literal"/>
+        <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+        <soap:header message="tns:requestHeader" part="client" use="literal"/>
+        <soap:header message="tns:requestHeader" part="service" use="literal"/>
+        <soap:header message="tns:requestHeader" part="id" use="literal"/>
+        <soap:header message="tns:requestHeader" part="userId" use="literal"/>
+        <soap:header message="tns:requestHeader" part="requestHash" use="literal"/>
+        <soap:header message="tns:requestHeader" part="issue" use="literal"/>
+        <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="isikud_aadressi_alusel">
+      <soap:operation soapAction="isikud_aadressi_alusel" style="document"/>
+      <xrd:version>v1</xrd:version>
+      <wsdl:input>
+        <soap:body use="literal"/>
+        <soap:header message="tns:requestHeader" part="client" use="literal"/>
+        <soap:header message="tns:requestHeader" part="service" use="literal"/>
+        <soap:header message="tns:requestHeader" part="id" use="literal"/>
+        <soap:header message="tns:requestHeader" part="userId" use="literal"/>
+        <soap:header message="tns:requestHeader" part="issue" use="literal"/>
+        <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+        <soap:header message="tns:requestHeader" part="client" use="literal"/>
+        <soap:header message="tns:requestHeader" part="service" use="literal"/>
+        <soap:header message="tns:requestHeader" part="id" use="literal"/>
+        <soap:header message="tns:requestHeader" part="userId" use="literal"/>
+        <soap:header message="tns:requestHeader" part="requestHash" use="literal"/>
+        <soap:header message="tns:requestHeader" part="issue" use="literal"/>
+        <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="isik_relvaload_relvad">
+      <soap:operation soapAction="isik_relvaload_relvad" style="document"/>
+      <xrd:version>v1</xrd:version>
+      <wsdl:input>
+        <soap:body use="literal"/>
+        <soap:header message="tns:requestHeader" part="client" use="literal"/>
+        <soap:header message="tns:requestHeader" part="service" use="literal"/>
+        <soap:header message="tns:requestHeader" part="id" use="literal"/>
+        <soap:header message="tns:requestHeader" part="userId" use="literal"/>
+        <soap:header message="tns:requestHeader" part="issue" use="literal"/>
+        <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+        <soap:header message="tns:requestHeader" part="client" use="literal"/>
+        <soap:header message="tns:requestHeader" part="service" use="literal"/>
+        <soap:header message="tns:requestHeader" part="id" use="literal"/>
+        <soap:header message="tns:requestHeader" part="userId" use="literal"/>
+        <soap:header message="tns:requestHeader" part="requestHash" use="literal"/>
+        <soap:header message="tns:requestHeader" part="issue" use="literal"/>
+        <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="isik_relvaload_relvad2">
+      <soap:operation soapAction="isik_relvaload_relvad2" style="document"/>
+      <xrd:version>v1</xrd:version>
+      <wsdl:input>
+        <soap:body use="literal"/>
+        <soap:header message="tns:requestHeader" part="client" use="literal"/>
+        <soap:header message="tns:requestHeader" part="service" use="literal"/>
+        <soap:header message="tns:requestHeader" part="id" use="literal"/>
+        <soap:header message="tns:requestHeader" part="userId" use="literal"/>
+        <soap:header message="tns:requestHeader" part="issue" use="literal"/>
+        <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+        <soap:header message="tns:requestHeader" part="client" use="literal"/>
+        <soap:header message="tns:requestHeader" part="service" use="literal"/>
+        <soap:header message="tns:requestHeader" part="id" use="literal"/>
+        <soap:header message="tns:requestHeader" part="userId" use="literal"/>
+        <soap:header message="tns:requestHeader" part="requestHash" use="literal"/>
+        <soap:header message="tns:requestHeader" part="issue" use="literal"/>
+        <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="isik_relvaload_relvad3">
+      <soap:operation soapAction="isik_relvaload_relvad3" style="document"/>
+      <xrd:version>v1</xrd:version>
+      <wsdl:input>
+        <soap:body use="literal"/>
+        <soap:header message="tns:requestHeader" part="client" use="literal"/>
+        <soap:header message="tns:requestHeader" part="service" use="literal"/>
+        <soap:header message="tns:requestHeader" part="id" use="literal"/>
+        <soap:header message="tns:requestHeader" part="userId" use="literal"/>
+        <soap:header message="tns:requestHeader" part="issue" use="literal"/>
+        <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+        <soap:header message="tns:requestHeader" part="client" use="literal"/>
+        <soap:header message="tns:requestHeader" part="service" use="literal"/>
+        <soap:header message="tns:requestHeader" part="id" use="literal"/>
+        <soap:header message="tns:requestHeader" part="userId" use="literal"/>
+        <soap:header message="tns:requestHeader" part="requestHash" use="literal"/>
+        <soap:header message="tns:requestHeader" part="issue" use="literal"/>
+        <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="relvad_nimekiri">
+      <soap:operation soapAction="relvad_nimekiri" style="document"/>
+      <xrd:version>v1</xrd:version>
+      <wsdl:input>
+        <soap:body use="literal"/>
+        <soap:header message="tns:requestHeader" part="client" use="literal"/>
+        <soap:header message="tns:requestHeader" part="service" use="literal"/>
+        <soap:header message="tns:requestHeader" part="id" use="literal"/>
+        <soap:header message="tns:requestHeader" part="userId" use="literal"/>
+        <soap:header message="tns:requestHeader" part="issue" use="literal"/>
+        <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+        <soap:header message="tns:requestHeader" part="client" use="literal"/>
+        <soap:header message="tns:requestHeader" part="service" use="literal"/>
+        <soap:header message="tns:requestHeader" part="id" use="literal"/>
+        <soap:header message="tns:requestHeader" part="userId" use="literal"/>
+        <soap:header message="tns:requestHeader" part="requestHash" use="literal"/>
+        <soap:header message="tns:requestHeader" part="issue" use="literal"/>
+        <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="relvad_nimekiri2">
+      <soap:operation soapAction="relvad_nimekiri2" style="document"/>
+      <xrd:version>v1</xrd:version>
+      <wsdl:input>
+        <soap:body use="literal"/>
+        <soap:header message="tns:requestHeader" part="client" use="literal"/>
+        <soap:header message="tns:requestHeader" part="service" use="literal"/>
+        <soap:header message="tns:requestHeader" part="id" use="literal"/>
+        <soap:header message="tns:requestHeader" part="userId" use="literal"/>
+        <soap:header message="tns:requestHeader" part="issue" use="literal"/>
+        <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+        <soap:header message="tns:requestHeader" part="client" use="literal"/>
+        <soap:header message="tns:requestHeader" part="service" use="literal"/>
+        <soap:header message="tns:requestHeader" part="id" use="literal"/>
+        <soap:header message="tns:requestHeader" part="userId" use="literal"/>
+        <soap:header message="tns:requestHeader" part="requestHash" use="literal"/>
+        <soap:header message="tns:requestHeader" part="issue" use="literal"/>
+        <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="relvad_nimekiri3">
+      <soap:operation soapAction="relvad_nimekiri3" style="document"/>
+      <xrd:version>v1</xrd:version>
+      <wsdl:input>
+        <soap:body use="literal"/>
+        <soap:header message="tns:requestHeader" part="client" use="literal"/>
+        <soap:header message="tns:requestHeader" part="service" use="literal"/>
+        <soap:header message="tns:requestHeader" part="id" use="literal"/>
+        <soap:header message="tns:requestHeader" part="userId" use="literal"/>
+        <soap:header message="tns:requestHeader" part="issue" use="literal"/>
+        <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+        <soap:header message="tns:requestHeader" part="client" use="literal"/>
+        <soap:header message="tns:requestHeader" part="service" use="literal"/>
+        <soap:header message="tns:requestHeader" part="id" use="literal"/>
+        <soap:header message="tns:requestHeader" part="userId" use="literal"/>
+        <soap:header message="tns:requestHeader" part="requestHash" use="literal"/>
+        <soap:header message="tns:requestHeader" part="issue" use="literal"/>
+        <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="relv_ajalugu">
+      <soap:operation soapAction="relv_ajalugu" style="document"/>
+      <xrd:version>v1</xrd:version>
+      <wsdl:input>
+        <soap:body use="literal"/>
+        <soap:header message="tns:requestHeader" part="client" use="literal"/>
+        <soap:header message="tns:requestHeader" part="service" use="literal"/>
+        <soap:header message="tns:requestHeader" part="id" use="literal"/>
+        <soap:header message="tns:requestHeader" part="userId" use="literal"/>
+        <soap:header message="tns:requestHeader" part="issue" use="literal"/>
+        <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+        <soap:header message="tns:requestHeader" part="client" use="literal"/>
+        <soap:header message="tns:requestHeader" part="service" use="literal"/>
+        <soap:header message="tns:requestHeader" part="id" use="literal"/>
+        <soap:header message="tns:requestHeader" part="userId" use="literal"/>
+        <soap:header message="tns:requestHeader" part="requestHash" use="literal"/>
+        <soap:header message="tns:requestHeader" part="issue" use="literal"/>
+        <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="relv_ajalugu2">
+      <soap:operation soapAction="relv_ajalugu2" style="document"/>
+      <xrd:version>v1</xrd:version>
+      <wsdl:input>
+        <soap:body use="literal"/>
+        <soap:header message="tns:requestHeader" part="client" use="literal"/>
+        <soap:header message="tns:requestHeader" part="service" use="literal"/>
+        <soap:header message="tns:requestHeader" part="id" use="literal"/>
+        <soap:header message="tns:requestHeader" part="userId" use="literal"/>
+        <soap:header message="tns:requestHeader" part="issue" use="literal"/>
+        <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+        <soap:header message="tns:requestHeader" part="client" use="literal"/>
+        <soap:header message="tns:requestHeader" part="service" use="literal"/>
+        <soap:header message="tns:requestHeader" part="id" use="literal"/>
+        <soap:header message="tns:requestHeader" part="userId" use="literal"/>
+        <soap:header message="tns:requestHeader" part="requestHash" use="literal"/>
+        <soap:header message="tns:requestHeader" part="issue" use="literal"/>
+        <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="relv_ajalugu3">
+      <soap:operation soapAction="relv_ajalugu3" style="document"/>
+      <xrd:version>v1</xrd:version>
+      <wsdl:input>
+        <soap:body use="literal"/>
+        <soap:header message="tns:requestHeader" part="client" use="literal"/>
+        <soap:header message="tns:requestHeader" part="service" use="literal"/>
+        <soap:header message="tns:requestHeader" part="id" use="literal"/>
+        <soap:header message="tns:requestHeader" part="userId" use="literal"/>
+        <soap:header message="tns:requestHeader" part="issue" use="literal"/>
+        <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+        <soap:header message="tns:requestHeader" part="client" use="literal"/>
+        <soap:header message="tns:requestHeader" part="service" use="literal"/>
+        <soap:header message="tns:requestHeader" part="id" use="literal"/>
+        <soap:header message="tns:requestHeader" part="userId" use="literal"/>
+        <soap:header message="tns:requestHeader" part="requestHash" use="literal"/>
+        <soap:header message="tns:requestHeader" part="issue" use="literal"/>
+        <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="isik_relvad_kpk">
+      <soap:operation soapAction="isik_relvad_kpk" style="document"/>
+      <xrd:version>v1</xrd:version>
+      <wsdl:input>
+        <soap:body use="literal"/>
+        <soap:header message="tns:requestHeader" part="client" use="literal"/>
+        <soap:header message="tns:requestHeader" part="service" use="literal"/>
+        <soap:header message="tns:requestHeader" part="id" use="literal"/>
+        <soap:header message="tns:requestHeader" part="userId" use="literal"/>
+        <soap:header message="tns:requestHeader" part="issue" use="literal"/>
+        <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+        <soap:header message="tns:requestHeader" part="client" use="literal"/>
+        <soap:header message="tns:requestHeader" part="service" use="literal"/>
+        <soap:header message="tns:requestHeader" part="id" use="literal"/>
+        <soap:header message="tns:requestHeader" part="userId" use="literal"/>
+        <soap:header message="tns:requestHeader" part="requestHash" use="literal"/>
+        <soap:header message="tns:requestHeader" part="issue" use="literal"/>
+        <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="isik_relvad_kpk2">
+      <soap:operation soapAction="isik_relvad_kpk2" style="document"/>
+      <xrd:version>v1</xrd:version>
+      <wsdl:input>
+        <soap:body use="literal"/>
+        <soap:header message="tns:requestHeader" part="client" use="literal"/>
+        <soap:header message="tns:requestHeader" part="service" use="literal"/>
+        <soap:header message="tns:requestHeader" part="id" use="literal"/>
+        <soap:header message="tns:requestHeader" part="userId" use="literal"/>
+        <soap:header message="tns:requestHeader" part="issue" use="literal"/>
+        <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+        <soap:header message="tns:requestHeader" part="client" use="literal"/>
+        <soap:header message="tns:requestHeader" part="service" use="literal"/>
+        <soap:header message="tns:requestHeader" part="id" use="literal"/>
+        <soap:header message="tns:requestHeader" part="userId" use="literal"/>
+        <soap:header message="tns:requestHeader" part="requestHash" use="literal"/>
+        <soap:header message="tns:requestHeader" part="issue" use="literal"/>
+        <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="isik_relvaload_kpk">
+      <soap:operation soapAction="isik_relvaload_kpk" style="document"/>
+      <xrd:version>v1</xrd:version>
+      <wsdl:input>
+        <soap:body use="literal"/>
+        <soap:header message="tns:requestHeader" part="client" use="literal"/>
+        <soap:header message="tns:requestHeader" part="service" use="literal"/>
+        <soap:header message="tns:requestHeader" part="id" use="literal"/>
+        <soap:header message="tns:requestHeader" part="userId" use="literal"/>
+        <soap:header message="tns:requestHeader" part="issue" use="literal"/>
+        <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+        <soap:header message="tns:requestHeader" part="client" use="literal"/>
+        <soap:header message="tns:requestHeader" part="service" use="literal"/>
+        <soap:header message="tns:requestHeader" part="id" use="literal"/>
+        <soap:header message="tns:requestHeader" part="userId" use="literal"/>
+        <soap:header message="tns:requestHeader" part="requestHash" use="literal"/>
+        <soap:header message="tns:requestHeader" part="issue" use="literal"/>
+        <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="keelumarge_lisa">
+      <soap:operation soapAction="keelumarge_lisa" style="document"/>
+      <xrd:version>v1</xrd:version>
+      <wsdl:input>
+        <soap:body use="literal"/>
+        <soap:header message="tns:requestHeader" part="client" use="literal"/>
+        <soap:header message="tns:requestHeader" part="service" use="literal"/>
+        <soap:header message="tns:requestHeader" part="id" use="literal"/>
+        <soap:header message="tns:requestHeader" part="userId" use="literal"/>
+        <soap:header message="tns:requestHeader" part="issue" use="literal"/>
+        <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+        <soap:header message="tns:requestHeader" part="client" use="literal"/>
+        <soap:header message="tns:requestHeader" part="service" use="literal"/>
+        <soap:header message="tns:requestHeader" part="id" use="literal"/>
+        <soap:header message="tns:requestHeader" part="userId" use="literal"/>
+        <soap:header message="tns:requestHeader" part="requestHash" use="literal"/>
+        <soap:header message="tns:requestHeader" part="issue" use="literal"/>
+        <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="keelumarge_eemalda">
+      <soap:operation soapAction="keelumarge_eemalda" style="document"/>
+      <xrd:version>v1</xrd:version>
+      <wsdl:input>
+        <soap:body use="literal"/>
+        <soap:header message="tns:requestHeader" part="client" use="literal"/>
+        <soap:header message="tns:requestHeader" part="service" use="literal"/>
+        <soap:header message="tns:requestHeader" part="id" use="literal"/>
+        <soap:header message="tns:requestHeader" part="userId" use="literal"/>
+        <soap:header message="tns:requestHeader" part="issue" use="literal"/>
+        <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+        <soap:header message="tns:requestHeader" part="client" use="literal"/>
+        <soap:header message="tns:requestHeader" part="service" use="literal"/>
+        <soap:header message="tns:requestHeader" part="id" use="literal"/>
+        <soap:header message="tns:requestHeader" part="userId" use="literal"/>
+        <soap:header message="tns:requestHeader" part="requestHash" use="literal"/>
+        <soap:header message="tns:requestHeader" part="issue" use="literal"/>
+        <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="relv_isiku_nimele">
+      <soap:operation soapAction="relv_isiku_nimele" style="document"/>
+       <xrd:version>v1</xrd:version> 
+      <wsdl:input>
+        <soap:body use="literal"/>
+        <soap:header message="tns:requestHeader" part="client" use="literal"/>
+        <soap:header message="tns:requestHeader" part="service" use="literal"/>
+        <soap:header message="tns:requestHeader" part="id" use="literal"/>
+        <soap:header message="tns:requestHeader" part="userId" use="literal"/>
+        <soap:header message="tns:requestHeader" part="issue" use="literal"/>
+        <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+        <soap:header message="tns:requestHeader" part="client" use="literal"/>
+        <soap:header message="tns:requestHeader" part="service" use="literal"/>
+        <soap:header message="tns:requestHeader" part="id" use="literal"/>
+        <soap:header message="tns:requestHeader" part="userId" use="literal"/>
+        <soap:header message="tns:requestHeader" part="requestHash" use="literal"/>
+        <soap:header message="tns:requestHeader" part="issue" use="literal"/>
+        <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="myyja_relvad_otsing">
+      <soap:operation soapAction="myyja_relvad_otsing" style="document"/>
+      <xrd:version>v1</xrd:version>
+      <wsdl:input>
+        <soap:body use="literal"/>
+        <soap:header message="tns:requestHeader" part="client" use="literal"/>
+        <soap:header message="tns:requestHeader" part="service" use="literal"/>
+        <soap:header message="tns:requestHeader" part="id" use="literal"/>
+        <soap:header message="tns:requestHeader" part="userId" use="literal"/>
+        <soap:header message="tns:requestHeader" part="issue" use="literal"/>
+        <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+        <soap:header message="tns:requestHeader" part="client" use="literal"/>
+        <soap:header message="tns:requestHeader" part="service" use="literal"/>
+        <soap:header message="tns:requestHeader" part="id" use="literal"/>
+        <soap:header message="tns:requestHeader" part="userId" use="literal"/>
+        <soap:header message="tns:requestHeader" part="requestHash" use="literal"/>
+        <soap:header message="tns:requestHeader" part="issue" use="literal"/>
+        <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  <wsdl:operation name="soetusluba_kehtetuks">
+      <soap:operation soapAction="soetusluba_kehtetuks" style="document"/>
+      <xrd:version>v1</xrd:version>
+      <wsdl:input>
+        <soap:body use="literal"/>
+        <soap:header message="tns:requestHeader" part="client" use="literal"/>
+        <soap:header message="tns:requestHeader" part="service" use="literal"/>
+        <soap:header message="tns:requestHeader" part="id" use="literal"/>
+        <soap:header message="tns:requestHeader" part="userId" use="literal"/>
+        <soap:header message="tns:requestHeader" part="issue" use="literal"/>
+        <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+        <soap:header message="tns:requestHeader" part="client" use="literal"/>
+        <soap:header message="tns:requestHeader" part="service" use="literal"/>
+        <soap:header message="tns:requestHeader" part="id" use="literal"/>
+        <soap:header message="tns:requestHeader" part="userId" use="literal"/>
+        <soap:header message="tns:requestHeader" part="requestHash" use="literal"/>
+        <soap:header message="tns:requestHeader" part="issue" use="literal"/>
+        <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+
+  <wsdl:service name="relvaregister">
+    <wsdl:port binding="tns:relvaregisterBinding" name="relvaregisterServicePort">
+      <soap:address location="http://example.org/xroad-endpoint"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

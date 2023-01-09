@@ -1,0 +1,209 @@
+x-road:
+  security-server: http://example.com/
+  client-object-type: SUBSYSTEM
+  client-xroad-instance: ee-dev
+  client-member-class: GOV
+  client-member-code: 70006317
+  client-subsystem-code: riigiportaal-citizen
+# arireg
+  arireg-protocol-version: 4.0
+  arireg-xroad-instance: ee-dev
+  arireg-member-class: GOV
+  arireg-member-code: 70000310
+  arireg-subsystem-code: arireg
+# ehis
+  ehis-protocol-version: 4.0
+  ehis-xroad-instance: ee-dev
+  ehis-member-class: GOV
+  ehis-member-code: 70000740
+  ehis-subsystem-code: ehis
+# kirst
+  kirst-protocol-version: 4.0
+  kirst-xroad-instance: ee-dev
+  kirst-member-class: GOV
+  kirst-member-code: 74000091
+  kirst-subsystem-code: kirst
+# rr
+  rr-protocol-version: 4.0
+  rr-xroad-instance: ee-dev
+  rr-member-class: GOV
+  rr-member-code: 70008440
+  rr-subsystem-code: rr
+# liiklusregister
+  liiklusregister-protocol-version: 4.0
+  liiklusregister-xroad-instance: ee-dev
+  liiklusregister-member-class: GOV
+  liiklusregister-member-code: 70001490
+  liiklusregister-subsystem-code: liiklusregister
+# producers-kpr
+  producers-kpr-protocol-version: 4.0
+  producers-kpr-xroad-instance: ee-dev
+  producers-kpr-member-class: COM
+  producers-kpr-member-code: 10111982
+  producers-kpr-subsystem-code: kpr
+# kr
+  kr-protocol-version: 4.0
+  kr-xroad-instance: ee-dev
+  kr-member-class: GOV
+  kr-member-code: 70000310
+  kr-subsystem-code: kr
+# adit
+  adit-protocol-version: 4.0
+  adit-xroad-instance: ee-dev
+  adit-member-class: GOV
+  adit-member-code: 70006317
+  adit-subsystem-code: adit
+# ehr
+  ehr-protocol-version: 4.0
+  ehr-xroad-instance: ee-dev
+  ehr-member-class: GOV
+  ehr-member-code: 70003158
+  ehr-subsystem-code: ehr
+# makis
+  makis-protocol-version: 4.0
+  makis-xroad-instance: ee-dev
+  makis-member-class: GOV
+  makis-member-code: 70003098
+  makis-subsystem-code: makis
+# itdak
+  itdak-protocol-version: 4.0
+  itdak-xroad-instance: ee-dev
+  itdak-member-class: GOV
+  itdak-member-code: 70008747
+  itdak-subsystem-code: itdak
+# rets
+  rets-protocol-version: 4.0
+  rets-xroad-instance: ee-dev
+  rets-member-class: GOV
+  rets-member-code: 74000091
+  rets-subsystem-code: rets
+# parimisregister
+  parimisregister-protocol-version: 4.0
+  parimisregister-xroad-instance: ee-dev
+  parimisregister-member-class: GOV
+  parimisregister-member-code: 70000310
+  parimisregister-subsystem-code: parimisregister
+# enotar
+  enotar-protocol-version: 4.0
+  enotar-xroad-instance: ee-dev
+  enotar-member-class: GOV
+  enotar-member-code: 70000310
+  enotar-subsystem-code: enotar
+# trelvaregister
+  trelvaregister-protocol-version: 4.0
+  trelvaregister-xroad-instance: ee-dev
+  trelvaregister-member-class: GOV
+  trelvaregister-member-code: 70008747
+  trelvaregister-subsystem-code: trelvaregister
+# eis
+  eis-protocol-version: 4.0
+  eis-xroad-instance: ee-dev
+  eis-member-class: NGO
+  eis-member-code: 90008287
+  eis-subsystem-code: eis-adapter
+#ria-teavitused
+  ria-protocol-version: 4.0
+  ria-xroad-instance: ee-dev
+  ria-member-class: GOV
+  ria-member-code: 70006317
+  ria-subsystem-code: notifications
+# pkr
+  pkr-protocol-version: 4.0
+  pkr-xroad-instance: ee-dev
+  pkr-member-class: GOV
+  pkr-member-code: 70001975
+  pkr-subsystem-code: pkr
+# kvkr
+  kvkr-protocol-version: 4.0
+  kvkr-xroad-instance: ee-dev
+  kvkr-member-class: GOV
+  kvkr-member-code: 70007647
+  kvkr-subsystem-code: kvkr
+# kutseregister
+  kutseregister-protocol-version: 4.0
+  kutseregister-xroad-instance: ee-dev
+  kutseregister-member-class: NGO
+  kutseregister-member-code: 90006414
+  kutseregister-subsystem-code: kutseregister
+# lkf
+  lkf-protocol-version: 4.0
+  lkf-xroad-instance: ee-dev
+  lkf-member-class: NGO
+  lkf-member-code: 80206477
+  lkf-subsystem-code: lkf
+# aar
+  aar-protocol-version: 4.0
+  aar-xroad-instance: ee-dev
+  aar-member-class: GOV
+  aar-member-code: 70006317
+  aar-subsystem-code: aar
+
+# findUsages-RR
+  find-usages-rr-protocol-version: 4.0
+  find-usages-rr-xroad-instance: ee-dev
+  find-usages-rr-member-class: GOV
+  find-usages-rr-member-code: 70008440
+  find-usages-rr-subsystem-code: rr
+
+# findUsages-Haudi
+  find-usages-haudi-protocol-version: 4.0
+  find-usages-haudi-xroad-instance: ee-dev
+  find-usages-haudi-member-class: COM
+  find-usages-haudi-member-code: 10098106
+  find-usages-haudi-subsystem-code: haudi
+
+# findUsages-Star
+  find-usages-star-protocol-version: 4.0
+  find-usages-star-xroad-instance: ee-dev
+  find-usages-star-member-class: GOV
+  find-usages-star-member-code: 70001952
+  find-usages-star-subsystem-code: starandmejalgija
+
+# findUsages-Aar
+  find-usages-aar-protocol-version: 4.0
+  find-usages-aar-xroad-instance: ee-dev
+  find-usages-aar-member-class: GOV
+  find-usages-aar-member-code: 70006317
+  find-usages-aar-subsystem-code: aar
+
+# findUsages-Tkis
+  find-usages-tkis-protocol-version: 4.0
+  find-usages-tkis-xroad-instance: ee-dev
+  find-usages-tkis-member-class: GOV
+  find-usages-tkis-member-code: 74000085
+  find-usages-tkis-subsystem-code: tkis
+
+# findUsages-Rets
+  find-usages-rets-protocol-version: 4.0
+  find-usages-rets-xroad-instance: ee-dev
+  find-usages-rets-member-class: GOV
+  find-usages-rets-member-code: 74000091
+  find-usages-rets-subsystem-code: rets
+
+# findUsages-MTA
+  find-usages-mta-protocol-version: 4.0
+  find-usages-mta-xroad-instance: ee-dev
+  find-usages-mta-member-class: GOV
+  find-usages-mta-member-code: 70000349
+  find-usages-mta-subsystem-code: andmejalgija
+
+# findUsages-EHR
+  find-usages-ehr-protocol-version: 4.0
+  find-usages-ehr-xroad-instance: ee-dev
+  find-usages-ehr-member-class: GOV
+  find-usages-ehr-member-code: 70003158
+  find-usages-ehr-subsystem-code: ehr
+
+# findUsages-Digilugu
+  find-usages-digilugu-protocol-version: 4.0
+  find-usages-digilugu-xroad-instance: ee-dev
+  find-usages-digilugu-member-class: GOV
+  find-usages-digilugu-member-code: 70009770
+  find-usages-digilugu-subsystem-code: digilugu
+
+  # getDocumentsAndCertificatesV1-mydata (sk-certdata)
+  mydata-protocol-version: 4.0
+  mydata-xroad-instance: ee-dev
+  mydata-member-class: GOV
+  mydata-member-code: 10747013
+  mydata-subsystem-code: mydata-xroad

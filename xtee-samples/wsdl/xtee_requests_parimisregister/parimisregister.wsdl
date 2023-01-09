@@ -1,0 +1,3554 @@
+<?xml version="1.0" encoding="UTF-8"?><definitions xmlns="http://schemas.xmlsoap.org/wsdl/" name="PRServices" targetNamespace="http://parimisregister.x-road.ee/producer" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://parimisregister.x-road.ee/producer" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xrd="http://x-road.eu/xsd/xroad.xsd" xmlns:xforms="http://www.w3.org/2002/xforms" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:repr="http://x-road.eu/xsd/representation.xsd" xmlns:xmime="http://www.w3.org/2005/05/xmlmime">
+  <types>
+    <xs:schema xmlns:global="http://parimisregister.x-road.ee/producer" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://parimisregister.x-road.ee/producer">
+      <xs:import schemaLocation="http://x-road.eu/xsd/xroad.xsd" namespace="http://x-road.eu/xsd/xroad.xsd"/>
+      <xs:import schemaLocation="http://x-road.eu/xsd/representation.xsd" namespace="http://x-road.eu/xsd/representation.xsd"/>
+  
+      <xs:attribute name="mimeAttachment" type="xs:boolean"/>
+
+      <xs:simpleType name="Email">
+        <xs:annotation>
+          <xs:appinfo>
+            <xrd:title>E-posti aadress</xrd:title>
+            <xrd:title xml:lang="en">In english...</xrd:title>
+            <xrd:title xml:lang="ru">По русски ...</xrd:title>
+            <xforms:help xml:lang="et">Eesti</xforms:help>
+            <xforms:help xml:lang="en">English</xforms:help>
+            <xforms:help xml:lang="ru">Русский</xforms:help>
+          </xs:appinfo>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+          <xs:pattern value="^([a-zA-Z0-9]+([._-]?[a-zA-Z0-9]+)*@[a-zA-Z0-9]+([.-]?[a-zA-Z0-9]+)*(\.[a-zA-Z]{2,4})+[;,]{0,1})+$"/>
+        </xs:restriction>
+      </xs:simpleType>
+
+      <!--ArvelevoetavaDokumendiLiik-->
+      <xs:simpleType name="ArvelevoetavaDokumendiLiik">
+        <xs:annotation>
+          <xs:appinfo>
+            <xrd:title>Arvelevõetava dokumendi liik</xrd:title>
+            <xrd:title xml:lang="en">In english...</xrd:title>
+            <xrd:title xml:lang="ru">По русски ...</xrd:title>
+            <xforms:help xml:lang="et">Eesti</xforms:help>
+            <xforms:help xml:lang="en">English</xforms:help>
+            <xforms:help xml:lang="ru">Русский</xforms:help>
+          </xs:appinfo>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="TunnistajateJuuresolekulAllakirjutatud">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Tunnistajate juuresolekul alla kirjutatud testament</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="OmakaeliseltAllakirjutatud">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Omakäeliselt kirjutatud testament</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+        </xs:restriction>
+      </xs:simpleType>
+
+      <!--Hoiumeetmete kande liik -->
+      <xs:simpleType name="HoiumeetmeteKandeLiik">
+        <xs:annotation>
+          <xs:appinfo>
+            <xrd:title>Kande liik</xrd:title>
+          </xs:appinfo>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="H1">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>hoiumeetme lõpetamine</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="HM">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>hoiumeetme muutmine</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="HR">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>hoiumeetme rakendamine</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+        </xs:restriction>
+      </xs:simpleType>
+
+      <!--Rakendatud hoiumeetmete liik -->
+      <xs:simpleType name="HoiumeetmeteLiik">
+        <xs:annotation>
+          <xs:appinfo>
+            <xrd:title>Rakendatud hoiumeetmete liik </xrd:title>
+          </xs:appinfo>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="ParandvaraValitsemine">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Pärandvara valitsemine</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="Muu">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Muu</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+        </xs:restriction>
+      </xs:simpleType>
+
+      <!--Kohtud -->
+      <xs:simpleType name="KohtuLiik">
+        <xs:restriction base="xs:int">
+          <xs:enumeration value="1">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Harju Maakohus</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="2">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Riigikohus</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="3">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Tallinna Ringkonnakohus</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="4">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Tartu Maakohus</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="5">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Viru Maakohus</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="6">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Pärnu Maakohus</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="7">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Tartu Ringkonnakohus</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="8">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Viru Ringkonnakohus</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+        </xs:restriction>
+      </xs:simpleType>
+
+      <!--Isiku tüüp -->
+      <xs:simpleType name="IsikuLiik">
+        <xs:annotation>
+          <xs:appinfo>
+            <xrd:title>Isiku liik</xrd:title>
+          </xs:appinfo>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="FyysilineIsik">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Füüsiline isik</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="JuriidilineIsik">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Juuriidiline isik</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+        </xs:restriction>
+      </xs:simpleType>
+
+      <!--Pärimisleping kande liik -->
+      <xs:simpleType name="ParimislepingkandeLiik">
+        <xs:annotation>
+          <xs:appinfo>
+            <xrd:title>Arvelevõetava dokumendi liik</xrd:title>
+          </xs:appinfo>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="EL">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>abikaasade vastastikuse testamendi tõestamine</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="HF">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>abikaasade vastastikuse testamendi tühistamine</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="HD">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>pärimislepingu lõpetamine</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="HA">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>pärimislepingu tõestamine</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="HC">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>pärimislepingu tühistamine</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="HE">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>pärimislepingust taganemine</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="EE">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>testamendi hoiult võtmine</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="CA">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>testamendi notariaalne tõestamine</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="ED">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>testamendi notarile hoiuleandmine</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="GA">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>testamendi tegemine - omakäeline</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="FA">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>testamendi tegemine - tunnistajatega</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="LA">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>testamendi tõestamine küla täitevkomitees</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="AV">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>testamendi tõestamine linna täitevkomitees</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="LE">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>testamendi tõestamine linna- või vallavalitsuses</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="LI">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>testamendi tõestamine riiklikus notariaalkontoris</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="AC">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>testamendi tühistamine </xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+        </xs:restriction>
+      </xs:simpleType>
+
+      <!--Countries-->
+      <xs:simpleType name="Country">
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="AFG">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Afganistan</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="ALA">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Ahvenamaa (FIN)</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="ALB">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Albaania</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="DZA">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Alžeeria</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="ASM">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Ameerika Samoa (USA)</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="USA">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Ameerika Ühendriigid</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="AND">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Andorra</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="AGO">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Angola</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="AIA">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Anguilla (GBR)</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="ATA">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Antarktis</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="ATG">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Antigua ja Barbuda</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="MAC">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Aomen (Macau) (CHN)</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="ARE">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Araabia Ühendemiraadid</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="ARG">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Argentina</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="ARM">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Armeenia</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="ABW">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Aruba (NLD)</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="AZE">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Aserbaidžaan</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="AUS">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Austraalia</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="AUT">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Austria</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="BHS">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Bahama</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="BHR">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Bahrein</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="BGD">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Bangladesh</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="BRB">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Barbados</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="PLW">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Belau</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="BEL">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Belgia</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="BLZ">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Belize</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="BEN">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Benin</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="BMU">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Bermuda (GBR)</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="BTN">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Bhutan</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="BOL">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Boliivia</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="BES">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Bonaire, Sint Eustatius ja Saba (NLD)</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="BIH">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Bosnia ja Hertsegoviina</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="BWA">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Botswana</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="BVT">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Bouvet' saar (NOR)</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="BRA">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Brasiilia</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="IOT">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Briti India ookeani ala (GBR)</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="VGB">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Briti Neitsisaared (GBR)</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="BRN">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Brunei</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="BGR">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Bulgaaria</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="BFA">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Burkina Faso</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="BDI">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Burundi</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="COL">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Colombia (Kolumbia)</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="COK">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Cooki saared (NZL)</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="CRI">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Costa Rica</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="CUW">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Cura?ao (NLD)</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="DJI">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Djibouti</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="DMA">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Dominica</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="DOM">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Dominikaani Vabariik</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="ECU">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Ecuador</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="EST">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Eesti</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="EGY">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Egiptus</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="GNQ">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Ekvatoriaal-Guinea</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="SLV">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>El Salvador</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="CIV">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Elevandiluurannik</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="ERI">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Eritrea</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="ETH">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Etioopia</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="FLK">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Falklandi (Malviini) saared (GBR)</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="FJI">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Fidži</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="PHL">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Filipiinid</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="FRO">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Fääri saared (DNK)</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="GAB">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Gabon</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="GMB">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Gambia</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="GHA">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Ghana</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="GIB">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Gibraltar (GBR)</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="GRD">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Grenada</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="GEO">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Gruusia</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="GRL">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Gröönimaa (DNK)</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="GLP">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Guadeloupe (FRA)</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="GUM">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Guam (USA)</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="GTM">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Guatemala</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="GGY">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Guernsey (GBR)</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="GIN">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Guinea</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="GNB">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Guinea-Bissau</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="GUY">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Guyana</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="HTI">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Haiti</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="HMD">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Heard ja McDonald (AUS)</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="CHN">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Hiina</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="ESP">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Hispaania</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="NLD">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Holland</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="HND">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Honduras</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="HKG">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Hongkong (CHN)</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="HRV">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Horvaatia</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="IRL">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Iirimaa</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="ISR">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Iisrael</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="IND">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>India</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="IDN">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Indoneesia</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="IRQ">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Iraak</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="IRN">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Iraan</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="ISL">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Island</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="ITA">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Itaalia</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="JPN">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Jaapan</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="JAM">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Jamaica</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="YEM">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Jeemen</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="JEY">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Jersey (GBR)</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="JOR">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Jordaania</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="CXR">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Jõulusaar (AUS)</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="CYM">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Kaimanisaared (GBR)</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="KHM">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Kambodža</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="CMR">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Kamerun</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="CAN">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Kanada</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="KAZ">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Kasahstan</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="QAT">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Katar</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="KEN">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Kenya</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="CAF">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Kesk-Aafrika Vabariik</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="KIR">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Kiribati</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="COM">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Komoorid</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="COD">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Kongo DV</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="COG">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Kongo Vabariik</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="CCK">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Kookossaared (Keelingi saared) (AUS)</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="PRK">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Korea RDV</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="KOR">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Korea Vabariik</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="XXK">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Kosovo</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="GRC">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Kreeka</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="CUB">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Kuuba</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="KWT">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Kuveit</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="KGZ">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Kõrgõzstan</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="CYP">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Küpros</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="LAO">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Laos</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="LTU">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Leedu</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="LSO">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Lesotho</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="LBR">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Libeeria</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="LIE">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Liechtenstein</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="LBN">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Liibanon</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="LBY">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Liibüa</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="LUX">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Luksemburg</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="LVA">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Läti</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="ESH">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Lääne-Sahara (MAR)</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="ZAF">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Lõuna-Aafrika Vabariik</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="SGS">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Lõuna-Georgia ja Lõuna-Sandwichi saared (GBR)</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="SSD">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Lõuna-Sudaan</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="MDG">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Madagaskar</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="MKD">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Makedoonia</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="MYS">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Malaisia</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="MWI">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Malawi</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="MDV">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Maldiivid</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="MLI">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Mali</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="MLT">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Malta</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="IMN">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Mani saar (GBR)</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="MAR">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Maroko</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="MHL">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Marshalli Saared</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="MTQ">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Martinique (FRA)</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="MRT">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Mauritaania</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="MUS">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Mauritius</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="MYT">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Mayotte (FRA)</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="MEX">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Mehhiko</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="FSM">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Mikroneesia</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="MDA">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Moldova</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="MCO">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Monaco</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="MNG">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Mongoolia</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="MNE">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Montenegro</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="MSR">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Montserrat (GBR)</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="MOZ">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Mosambiik</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="XYY">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Mujal nimetamata territooriumid</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="MMR">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Myanmar (Birma)</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="XXX">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Määramata</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="NAM">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Namiibia</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="NRU">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Nauru</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="NPL">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Nepal</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="NIC">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Nicaragua</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="NGA">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Nigeeria</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="NER">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Niger</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="NIU">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Niue (NZL)</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="NFK">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Norfolk (AUS)</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="NOR">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Norra</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="OMN">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Omaan</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="PNG">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Paapua Uus-Guinea</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="PAK">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Pakistan</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="PSE">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Palestiina okupeeritud alad</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="PAN">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Panama</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="PRY">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Paraguay</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="PER">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Peruu</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="PCN">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Pitcairn (GBR)</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="POL">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Poola</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="PRT">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Portugal</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="GUF">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Prantsuse Guajaana (FRA)</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="ATF">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Prantsuse Lõunaalad (FRA)</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="PYF">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Prantsuse Polüneesia (FRA)</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="FRA">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Prantsusmaa</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="PRI">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Puerto Rico</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="MNP">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Põhja-Mariaanid (USA)</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="VAT">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Püha Tool (Vatikan)</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="CPV">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Roheneemesaared</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="SWE">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Rootsi</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="ROU">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Rumeenia</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="RWA">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Rwanda</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="REU">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Réunion (FRA)</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="SLB">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Saalomoni Saared</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="SHN">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Saint Helena (GBR)</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="KNA">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Saint Kitts ja Nevis</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="LCA">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Saint Lucia</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="VCT">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Saint Vincent ja Grenadiinid</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="BLM">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Saint-Barthélemy (FRA)</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="MAF">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Saint-Martin (Prantsuse osa) (FRA)</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="SPM">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Saint-Pierre ja Miquelon (FRA)</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="DEU">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Saksamaa</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="ZMB">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Sambia</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="WSM">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Samoa</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="SMR">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>San Marino</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="SAU">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Saudi Araabia</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="SYC">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Seišellid</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="SEN">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Senegal</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="XXS">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Serbia</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="SLE">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Sierra Leone</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="SGP">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Singapur</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="SXM">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Sint Maarten (NLD)</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="SVK">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Slovakkia</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="SVN">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Sloveenia</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="SOM">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Somaalia</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="FIN">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Soome</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="LKA">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Sri Lanka</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="SDN">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Sudaan</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="SUR">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Suriname</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="GBR">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Suurbritannia</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="SWZ">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Svaasimaa</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="SJM">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Svalbard ja Jan Mayen (NOR)</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="STP">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>S?o Tomé ja Pr?ncipe</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="SYR">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Süüria</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="DNK">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Taani</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="TJK">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Tadžikistan</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="THA">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Tai</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="TWN">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Taiwan (CHN)</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="TZA">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Tansaania</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="TLS">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Timor-Leste (Ida-Timor)</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="TGO">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Togo</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="TKL">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Tokelau (NZL)</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="TON">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Tonga</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="TTO">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Trinidad ja Tobago</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="TUN">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Tuneesia</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="TCA">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Turks ja Caicos (GBR)</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="TUV">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Tuvalu</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="TUR">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Türgi</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="TKM">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Türkmenistan</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="TCD">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Tšaad</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="CZE">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Tšehhi</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="CHL">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Tšiili</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="VIR">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>USA Neitsisaared (USA)</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="UGA">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Uganda</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="UKR">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Ukraina</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="HUN">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Ungari</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="URY">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Uruguay</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="UZB">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Usbekistan</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="NCL">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Uus-Kaledoonia (FRA)</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="NZL">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Uus-Meremaa</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="BLR">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Valgevene</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="VUT">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Vanuatu</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="RUS">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Venemaa</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="VEN">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Venezuela</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="VNM">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Vietnam</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="WLF">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Wallis ja Futuna (FRA)</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="ZWE">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Zimbabwe</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="UMI">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Ühendriikide hajasaared (USA)</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="CHE">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Šveits</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+        </xs:restriction>
+      </xs:simpleType>
+
+      <!-- Isiku andmed -->
+      <xs:complexType name="Isik">
+        <xs:sequence>
+          <xs:element name="Eesnimi" type="xs:string" minOccurs="0">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Eesnimi</xrd:title>
+                <xrd:title xml:lang="en">Firstname</xrd:title>
+                <xrd:title xml:lang="ru">Имя</xrd:title>
+                <xforms:help xml:lang="et">Eesti abi</xforms:help>
+                <xforms:help xml:lang="en">In english...</xforms:help>
+                <xforms:help xml:lang="ru">По русски ...</xforms:help>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="Perenimi" type="xs:string" minOccurs="0">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Perekonnanimi</xrd:title>
+                <xrd:title xml:lang="en">Lastname</xrd:title>
+                <xrd:title xml:lang="ru">Фамилия</xrd:title>
+                <xforms:help xml:lang="et">Eesti abi</xforms:help>
+                <xforms:help xml:lang="en">In english...</xforms:help>
+                <xforms:help xml:lang="ru">По русски ...</xforms:help>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="Kood" type="xs:string" minOccurs="0">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Isikukood</xrd:title>
+                <xrd:title xml:lang="en">Personal registry code</xrd:title>
+                <xrd:title xml:lang="ru">Идентификационный код</xrd:title>
+                <xforms:help xml:lang="et">Eesti abi</xforms:help>
+                <xforms:help xml:lang="en">In english...</xforms:help>
+                <xforms:help xml:lang="ru">По русски ...</xforms:help>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="IsikRiikiga">
+        <xs:complexContent>
+          <xs:extension base="tns:Isik">
+            <xs:sequence>
+              <xs:element name="Riik" type="tns:Country" minOccurs="0">
+                <xs:annotation>
+                  <xs:appinfo>
+                    <xrd:title>Isikukoodi riik</xrd:title>
+                    <xrd:title xml:lang="en">Place of issue</xrd:title>
+                    <xrd:title xml:lang="ru">Страна выдавшая код</xrd:title>
+                    <xforms:help xml:lang="et">Eesti abi</xforms:help>
+                    <xforms:help xml:lang="en">In english...</xforms:help>
+                    <xforms:help xml:lang="ru">По русски ...</xforms:help>
+                  </xs:appinfo>
+                </xs:annotation>
+              </xs:element>
+              <xs:element name="SynniKp" type="xs:date" minOccurs="0">
+                <xs:annotation>
+                  <xs:appinfo>
+                    <xrd:title>Sünniaeg</xrd:title>
+                    <xrd:title xml:lang="en">Birthday</xrd:title>
+                    <xrd:title xml:lang="ru">Дата рождения</xrd:title>
+                    <xforms:help xml:lang="et">Eesti abi</xforms:help>
+                    <xforms:help xml:lang="en">In english...</xforms:help>
+                    <xforms:help xml:lang="ru">По русски ...</xforms:help>
+                  </xs:appinfo>
+                </xs:annotation>
+              </xs:element>
+              <xs:element name="Synnikoht" type="xs:string" minOccurs="0">
+                <xs:annotation>
+                  <xs:appinfo>
+                    <xrd:title>Sünnikoht</xrd:title>
+                    <xrd:title xml:lang="en">Place of birth</xrd:title>
+                    <xrd:title xml:lang="ru">Место рождения</xrd:title>
+                    <xforms:help xml:lang="et">Eesti abi</xforms:help>
+                    <xforms:help xml:lang="en">In english...</xforms:help>
+                    <xforms:help xml:lang="ru">По русски ...</xforms:help>
+                  </xs:appinfo>
+                </xs:annotation>
+              </xs:element>
+              <xs:element name="Elukoht" type="xs:string" minOccurs="0">
+                <xs:annotation>
+                  <xs:appinfo>
+                    <xrd:title>Elu- või asukoht</xrd:title>
+                    <xrd:title xml:lang="en">Place of living</xrd:title>
+                    <xrd:title xml:lang="ru">Место проживания</xrd:title>
+                    <xforms:help xml:lang="et">Eesti abi</xforms:help>
+                    <xforms:help xml:lang="en">In english...</xforms:help>
+                    <xforms:help xml:lang="ru">По русски ...</xforms:help>
+                  </xs:appinfo>
+                </xs:annotation>
+              </xs:element>
+            </xs:sequence>
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+      <xs:complexType name="IsikSurmaKuupaevaga">
+        <xs:complexContent>
+          <xs:extension base="tns:IsikRiikiga">
+            <xs:sequence>
+              <xs:element name="SurmaKp" type="xs:date" minOccurs="0">
+                <xs:annotation>
+                  <xs:appinfo>
+                    <xrd:title>Surma kuupäev</xrd:title>
+                    <xrd:title xml:lang="en">Death Date</xrd:title>
+                    <xrd:title xml:lang="ru">Дата cмерти</xrd:title>
+                  </xs:appinfo>
+                </xs:annotation>
+              </xs:element>
+              <xs:element name="MuudEesnimed" type="xs:string" minOccurs="0">
+                <xs:annotation>
+                  <xs:appinfo>
+                    <xrd:title>Muud eesnimed</xrd:title>
+                  </xs:appinfo>
+                </xs:annotation>
+              </xs:element>
+              <xs:element name="MuudPerenimed" type="xs:string" minOccurs="0">
+                <xs:annotation>
+                  <xs:appinfo>
+                    <xrd:title>Muud perenimed</xrd:title>
+                  </xs:appinfo>
+                </xs:annotation>
+              </xs:element>
+            </xs:sequence>
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+      <xs:complexType name="IsikTyypiga">
+        <xs:complexContent>
+          <xs:extension base="tns:IsikRiikiga">
+            <xs:sequence>
+              <xs:element name="Liik" type="tns:IsikuLiik" minOccurs="1"/>
+            </xs:sequence>
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+      <xs:complexType name="KanneSeotudIsik">
+        <xs:complexContent>
+          <xs:extension base="tns:IsikRiikiga">
+            <xs:sequence>
+              <xs:element name="Tyyp" type="xs:string" minOccurs="0"/>
+            </xs:sequence>
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+
+      <!-- Lisaandmed -->
+      <xs:complexType name="LisaAndmed">
+        <xs:sequence>
+          <xs:element name="Lisainfo" type="xs:string" minOccurs="0">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Lisainfo</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="Kinnitus" type="xs:boolean" minOccurs="1"/>
+        </xs:sequence>
+      </xs:complexType>
+
+      <!-- Kanned -->
+      <xs:complexType name="Kanne" abstract="true">
+        <xs:sequence>
+          <xs:element name="Seos" type="xs:string"/>
+          <xs:element name="KanneLiik" type="xs:int"/>
+          <xs:element name="KanneTyyp" type="xs:string"/>
+          <xs:element name="KanneNimetus" type="xs:string"/>
+          <xs:element name="DokumentKp" type="xs:date" minOccurs="0"/>
+          <xs:element name="DokumentNr" type="xs:string" minOccurs="0"/>
+          <xs:element name="Notarinimi" type="xs:string" minOccurs="0"/>
+          <xs:element name="EsitamiseKp" type="xs:date"/>
+          <xs:element name="KanneParandaja" type="tns:IsikRiikiga"/>
+        </xs:sequence>
+      </xs:complexType>
+
+      <!-- Pärandvara hoiumeede-->
+      <xs:complexType name="HoiumeetmeAndmed">
+        <xs:sequence>
+          <xs:element name="HoiumeetmeLiik" type="xs:string" minOccurs="0">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Hoiumeetme liik</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="TsiviilasjaNr" type="xs:string" minOccurs="0">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Tsiviilasja number</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="KohtumaaruseKuupaev" type="xs:date" minOccurs="0">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Kohtumääruse kuupäev</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="KohtuNimetus" type="xs:string" minOccurs="0">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Kohtu nimetus</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="ParandvaraHoldaja" type="tns:IsikRiikiga" minOccurs="0" maxOccurs="unbounded">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Pärandvara hooldaja</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="ELriik" type="xs:string" minOccurs="0">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Hoiumeetmete määraja välisriik, -asutus</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="ParandvaraHoiumeede">
+        <xs:complexContent>
+          <xs:extension base="tns:Kanne">
+            <xs:sequence>
+              <xs:element name="HoiumeetmeAndmed" type="tns:HoiumeetmeAndmed" minOccurs="0">
+                <xs:annotation>
+                  <xs:appinfo>
+                    <xrd:title>Hoiumeetme andmed</xrd:title>
+                    <xrd:title xml:lang="en">In english...</xrd:title>
+                    <xrd:title xml:lang="ru">По русски ...</xrd:title>
+                  </xs:appinfo>
+                </xs:annotation>
+              </xs:element>
+            </xs:sequence>
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+
+      <!-- Pärimisleping-->
+      <xs:complexType name="Parimisleping">
+        <xs:complexContent>
+          <xs:extension base="tns:Kanne">
+            <xs:sequence>
+            </xs:sequence>
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+
+      <!-- Pärimismenetluse algatamine-->
+      <xs:complexType name="ParimisMenetluseAlgatamine">
+        <xs:complexContent>
+          <xs:extension base="tns:Kanne">
+            <xs:sequence>
+              <xs:element name="UueNotariNimi" type="xs:string" minOccurs="0">
+                <xs:annotation>
+                  <xs:appinfo>
+                    <xrd:title>Uue notari nimi</xrd:title>
+                    <xrd:title xml:lang="en">In english...</xrd:title>
+                    <xrd:title xml:lang="ru">По русски ...</xrd:title>
+                  </xs:appinfo>
+                </xs:annotation>
+              </xs:element>
+              <xs:element name="YleandmiseKuupaev" type="xs:date" minOccurs="0">
+                <xs:annotation>
+                  <xs:appinfo>
+                    <xrd:title>Pärimismenetluse üleandmise kuupäev</xrd:title>
+                    <xrd:title xml:lang="en">In english...</xrd:title>
+                    <xrd:title xml:lang="ru">По русски ...</xrd:title>
+                  </xs:appinfo>
+                </xs:annotation>
+              </xs:element>
+              <xs:element name="ELriik" type="xs:string" minOccurs="0"/>
+            </xs:sequence>
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+
+      <!-- Pärimistunnistus-->
+      <xs:complexType name="ParijaAndmed">
+        <xs:sequence>
+          <xs:element name="Parija" type="tns:IsikRiikiga">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Pärija</xrd:title>
+                <xrd:title xml:lang="en">In english...</xrd:title>
+                <xrd:title xml:lang="ru">По русски ...</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="OsaSuurus" type="xs:string" minOccurs="0">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Pärandvara ühisusest omandatud osa suurus</xrd:title>
+                <xrd:title xml:lang="en">In english...</xrd:title>
+                <xrd:title xml:lang="ru">По русски ...</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="OsaVoorandaja" type="tns:Isik" minOccurs="0">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Osa võõrandaja</xrd:title>
+                <xrd:title xml:lang="en">In english...</xrd:title>
+                <xrd:title xml:lang="ru">По русски ...</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="Parimistunnistus">
+        <xs:complexContent>
+          <xs:extension base="tns:Kanne">
+            <xs:sequence>
+              <xs:element name="Parijad" type="tns:ParijaAndmed" minOccurs="0" maxOccurs="unbounded">
+                <xs:annotation>
+                  <xs:appinfo>
+                    <xrd:title>Pärijad</xrd:title>
+                    <xrd:title xml:lang="en">In english...</xrd:title>
+                    <xrd:title xml:lang="ru">По русски ...</xrd:title>
+                  </xs:appinfo>
+                </xs:annotation>
+              </xs:element>
+              <xs:element name="ELriik" type="xs:string" minOccurs="0"/>
+            </xs:sequence>
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+
+      <!-- Testament-->
+      <xs:complexType name="Dokument">
+        <xs:sequence>
+          <xs:element name="Suurus" type="xs:string" minOccurs="1"/>
+          <xs:element name="Path" type="xs:string" minOccurs="1"/>
+        </xs:sequence>
+      </xs:complexType>
+
+      <xs:complexType name="Testament">
+        <xs:complexContent>
+          <xs:extension base="tns:Kanne">
+            <xs:sequence>
+              <xs:element name="DokumentAsukoht" type="xs:string" minOccurs="0"/>
+              <xs:element name="Lisainfo" type="xs:string" minOccurs="0"/>
+              <xs:element name="KehtivuseLopp" type="xs:date" minOccurs="0"/>
+              <xs:element name="SeotudIsikud" type="tns:KanneSeotudIsik" minOccurs="0" maxOccurs="unbounded"/>
+              <xs:element name="Dokument" type="tns:Dokument" minOccurs="0" maxOccurs="unbounded"/>
+            </xs:sequence>
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+
+      <!-- PRXteeVastus-->
+      <xs:complexType name="IsikKannega">
+        <xs:sequence>
+          <xs:element name="Parandaja" type="tns:IsikSurmaKuupaevaga">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Pärandaja</xrd:title>
+                <xrd:title xml:lang="en">In english...</xrd:title>
+                <xrd:title xml:lang="ru">По русски ...</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="Kanded" type="tns:Kanne" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="PRXteeVastus">
+        <xs:sequence>
+          <xs:element name="Sonum" type="xs:string" minOccurs="0">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Vastus</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:complexType>
+
+      <!-- Pärimisregistri andmed -->
+      <xs:complexType name="PRAndmedVastus">
+        <xs:complexContent>
+          <xs:extension base="tns:PRXteeVastus">
+            <xs:sequence>
+              <xs:element name="Isikud" type="tns:IsikKannega" minOccurs="0" maxOccurs="unbounded"/>
+            </xs:sequence>
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+
+      <xs:complexType name="TestamendiYldAndmed">
+        <xs:sequence>
+          <xs:element name="DokumendiLiik" type="tns:ArvelevoetavaDokumendiLiik"/>
+          <xs:element name="TegemiseKp" type="xs:date">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Koduse testamendi tegemise kuupaev</xrd:title>
+                <xrd:title xml:lang="en">In english...</xrd:title>
+                <xrd:title xml:lang="ru">По русски ...</xrd:title>
+                <xforms:help xml:lang="et">Eesti abi</xforms:help>
+                <xforms:help xml:lang="en">In english...</xforms:help>
+                <xforms:help xml:lang="ru">По русски ...</xforms:help>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="Asukoht" type="xs:string">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title xml:lang="et">Testamendi asukoht</xrd:title>
+                <xrd:title xml:lang="en">In english...</xrd:title>
+                <xrd:title xml:lang="ru">По русски ...</xrd:title>
+                <xrd:fieldtype>textarea</xrd:fieldtype>
+                <xforms:help xml:lang="et">Eesti abi</xforms:help>
+                <xforms:help xml:lang="en">In english...</xforms:help>
+                <xforms:help xml:lang="ru">По русски ...</xforms:help>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:complexType>
+
+      <xs:complexType name="TeavitaParing" abstract="true">
+        <xs:sequence>
+          <xs:element name="Dokument" type="tns:TestamendiYldAndmed" minOccurs="1"/>
+          <xs:element name="Mail" type="tns:Email" minOccurs="0"/>
+          <xs:element name="LisaAndmed" type="tns:LisaAndmed" minOccurs="1"/>
+        </xs:sequence>
+      </xs:complexType>
+
+      <!-- Koduse testamendi tegemisest teavitamine isiku enda kohta -->
+      <xs:complexType name="TeavitaEndaKohta">
+        <xs:complexContent>
+          <xs:extension base="tns:TeavitaParing">
+            <xs:sequence>
+              <xs:element name="Hoidja" type="tns:IsikRiikiga" minOccurs="0"/>
+            </xs:sequence>
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+
+      <!-- Koduse testamendi tegemisest teavitamine hoidjana -->
+      <xs:complexType name="TeavitaHoidjanaParing">
+        <xs:complexContent>
+          <xs:extension base="tns:TeavitaParing">
+            <xs:sequence>
+              <xs:element name="Parandaja" type="tns:IsikRiikiga" minOccurs="1"/>
+            </xs:sequence>
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+
+      <!-- Koduse testamendi tegemisest teavitamine muu isikuna -->
+      <xs:complexType name="TeavitaMuuIsikunaParing">
+        <xs:complexContent>
+          <xs:extension base="tns:TeavitaHoidjanaParing">
+            <xs:sequence>
+              <xs:element name="Hoidja" type="tns:IsikRiikiga" minOccurs="0"/>
+            </xs:sequence>
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+
+      <xs:complexType name="AmetnikuKanne">
+        <xs:sequence>
+          <xs:element name="DokKp" type="xs:date" minOccurs="1">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Kohtumääruse kuupäev</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="DokNr" type="xs:string" minOccurs="1">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Tsivilasja number</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:complexType>
+
+      <xs:complexType name="KohtuKanne">
+        <xs:complexContent>
+          <xs:extension base="tns:AmetnikuKanne">
+            <xs:sequence>
+              <xs:element name="Kohus" type="tns:KohtuLiik" minOccurs="1">
+                <xs:annotation>
+                  <xs:appinfo>
+                    <xrd:title>Pärimistunnistuse väljaandja</xrd:title>
+                  </xs:appinfo>
+                </xs:annotation>
+              </xs:element>
+            </xs:sequence>
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+
+      <xs:complexType name="HoiumeetmeKanne">
+        <xs:complexContent>
+          <xs:extension base="tns:AmetnikuKanne">
+            <xs:sequence>
+              <xs:element name="Kohus" type="tns:KohtuLiik" minOccurs="0">
+                <xs:annotation>
+                  <xs:appinfo>
+                    <xrd:title>Pärimistunnistuse väljaandja</xrd:title>
+                  </xs:appinfo>
+                </xs:annotation>
+              </xs:element>
+              <xs:element name="Liik" type="tns:HoiumeetmeteKandeLiik" minOccurs="1"/>
+              <xs:element name="HoiumeetmeteLiik" type="tns:HoiumeetmeteLiik" minOccurs="1"/>
+              <xs:element name="MuuHoiumeetmeteLiik" type="xs:string" minOccurs="0">
+                <xs:annotation>
+                  <xs:appinfo>
+                    <xrd:title>Muu hoiumeetme liik</xrd:title>
+                  </xs:appinfo>
+                </xs:annotation>
+              </xs:element>
+              <xs:element name="ELriik" type="tns:Country" minOccurs="0">
+                <xs:annotation>
+                  <xs:appinfo>
+                    <xrd:title>Hoiumeetmete määraja välisriik</xrd:title>
+                  </xs:appinfo>
+                </xs:annotation>
+              </xs:element>
+              <xs:element name="Valisasutus" type="xs:string" minOccurs="0">
+                <xs:annotation>
+                  <xs:appinfo>
+                    <xrd:title>Hoiumeetmete määraja asutus</xrd:title>
+                  </xs:appinfo>
+                </xs:annotation>
+              </xs:element>
+            </xs:sequence>
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+
+      <xs:complexType name="AlgatamiseKanne">
+        <xs:complexContent>
+          <xs:extension base="tns:AmetnikuKanne">
+            <xs:sequence>
+              <xs:element name="DokToestaja" type="xs:string" minOccurs="0">
+                <xs:annotation>
+                  <xs:appinfo>
+                    <xrd:title>Dokumendi tõestaja</xrd:title>
+                  </xs:appinfo>
+                </xs:annotation>
+              </xs:element>
+            </xs:sequence>
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+
+      <xs:complexType name="ParimislepinguKanne">
+        <xs:complexContent>
+          <xs:extension base="tns:AmetnikuKanne">
+            <xs:sequence>
+              <xs:element name="Liik" type="tns:ParimislepingkandeLiik" minOccurs="1"/>
+              <xs:element name="Fail" tns:mimeAttachment="true" type="xs:base64Binary" minOccurs="1" xmime:expectedContentTypes="application/octet-stream"/>
+           </xs:sequence>
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+
+      <xs:complexType name="AmetnikuKanneParing" abstract="true">
+        <xs:sequence>
+          <xs:element name="Parandaja" type="tns:IsikSurmaKuupaevaga" minOccurs="1">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Andmed testaatori(pärandaja) kohta</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="LisaAndmed" type="tns:LisaAndmed" minOccurs="1">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Muud andmed</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:complexType>
+
+      <!-- Pärandvara hoiumeetmete kanne   -->
+      <xs:complexType name="ParandvaraHoiumeetmeteKanneParing">
+        <xs:complexContent>
+          <xs:extension base="tns:AmetnikuKanneParing">
+            <xs:sequence>
+              <xs:element name="Kanne" type="tns:HoiumeetmeKanne" minOccurs="1">
+                <xs:annotation>
+                  <xs:appinfo>
+                    <xrd:title>Andmed pärimistunnistuse kohta</xrd:title>
+                  </xs:appinfo>
+                </xs:annotation>
+              </xs:element>
+              <xs:element name="Hooldaja" type="tns:IsikTyypiga" minOccurs="0" maxOccurs="unbounded">
+                <xs:annotation>
+                  <xs:appinfo>
+                    <xrd:title>Pärandvara hooldajate amdmed</xrd:title>
+                  </xs:appinfo>
+                </xs:annotation>
+              </xs:element>
+            </xs:sequence>
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+
+      <!-- Pärimistunnistuse kanne   -->
+      <xs:complexType name="ParimistunnistuseKanneParing">
+        <xs:complexContent>
+          <xs:extension base="tns:AmetnikuKanneParing">
+            <xs:sequence>
+              <xs:element name="Kanne" type="tns:KohtuKanne" minOccurs="1">
+                <xs:annotation>
+                  <xs:appinfo>
+                    <xrd:title>Andmed pärimistunnistuse kohta</xrd:title>
+                  </xs:appinfo>
+                </xs:annotation>
+              </xs:element>
+              <xs:element name="Parijad" type="tns:IsikTyypiga" minOccurs="0" maxOccurs="unbounded">
+                <xs:annotation>
+                  <xs:appinfo>
+                    <xrd:title>Pärijate andmed</xrd:title>
+                  </xs:appinfo>
+                </xs:annotation>
+              </xs:element>
+            </xs:sequence>
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+
+      <!-- Pärimismenetluse algatamise kanne -->
+      <xs:complexType name="ParimismenetluseAlgatamiseKanneParing">
+        <xs:complexContent>
+          <xs:extension base="tns:AmetnikuKanneParing">
+            <xs:sequence>
+              <xs:element name="Kanne" type="tns:AlgatamiseKanne" minOccurs="1">
+                <xs:annotation>
+                  <xs:appinfo>
+                    <xrd:title>Andmed pärimismenetluse algatamise kohta</xrd:title>
+                  </xs:appinfo>
+                </xs:annotation>
+              </xs:element>
+            </xs:sequence>
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+
+      <!-- Testament/pärimisleping – tegemine, tühistamine jne -->
+      <xs:complexType name="TestamentParimislepingKanneParing">
+        <xs:complexContent>
+          <xs:extension base="tns:AmetnikuKanneParing">
+            <xs:sequence>
+              <xs:element name="Kanne" type="tns:ParimislepinguKanne" minOccurs="1">
+                <xs:annotation>
+                  <xs:appinfo>
+                    <xrd:title>Andmed testamendi/pärimisleping kohta</xrd:title>
+                  </xs:appinfo>
+                </xs:annotation>
+              </xs:element>
+            </xs:sequence>
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+
+      <!-- Registreerija andmed-->
+      <xs:complexType name="RegistreerijaAndmedVastus">
+        <xs:complexContent>
+          <xs:extension base="tns:Isik">
+            <xs:sequence>
+              <xs:element name="NimiIk" type="xs:string" minOccurs="1"/>
+              <xs:element name="Riik" type="xs:string" minOccurs="1"/>
+              <xs:element name="SynniKp" type="xs:date" minOccurs="0"/>
+              <xs:element name="TestamentKehtivuseLoppKp" type="xs:date" minOccurs="1"/>
+            </xs:sequence>
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+
+      <!-- DokumentSisu -->
+      <xs:complexType name="DokumentSisuParing">
+        <xs:sequence>
+          <xs:element name="FailiPath" type="xs:string" minOccurs="1"/>
+        </xs:sequence>
+      </xs:complexType>
+
+      <xs:complexType name="DokumentSisuVastus">
+        <xs:sequence>
+          <xs:element name="Sisu" type="xs:base64Binary" minOccurs="1"/>
+          <xs:element name="Filename" type="xs:string" minOccurs="1"/>
+        </xs:sequence>
+      </xs:complexType>
+
+      <!-- Seire -->
+      <xs:complexType name="SeireParing">
+        <xs:sequence>
+          <xs:element name="Paring" type="xs:string" minOccurs="1"/>
+        </xs:sequence>
+      </xs:complexType>
+
+      <xs:complexType name="SeireVastus">
+        <xs:sequence>
+          <xs:element name="Vastus" type="xs:string" minOccurs="1"/>
+        </xs:sequence>
+      </xs:complexType>
+
+
+      <!-- wrapper elements -->
+      <xs:element name="ParimisregistriAndmed">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="request" type="tns:IsikRiikiga"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="ParimisregistriAndmedResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="response" type="tns:PRAndmedVastus"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+
+      <xs:element name="MinuParimisregistriAndmed">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="request" type="xs:string"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="MinuParimisregistriAndmedResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="response" type="tns:PRAndmedVastus"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+
+      <!-- PR enda kohta -->
+      <xs:element name="TeavitaKodusestTestamendist">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="request" type="tns:TeavitaEndaKohta"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="TeavitaKodusestTestamendistResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="response" type="tns:PRXteeVastus"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+
+      <xs:element name="TeavitaKodusestTestamendistHoidjana">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="request" type="tns:TeavitaHoidjanaParing"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="TeavitaKodusestTestamendistHoidjanaResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="response" type="tns:PRXteeVastus"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+
+      <xs:element name="TeavitaKodusestTestamendistMuuIsikuna">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="request" type="tns:TeavitaMuuIsikunaParing"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="TeavitaKodusestTestamendistMuuIsikunaResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="response" type="tns:PRXteeVastus"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+
+      <xs:element name="ParandvaraHoiumeetmeteKanne">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="request" type="tns:ParandvaraHoiumeetmeteKanneParing"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="ParandvaraHoiumeetmeteKanneResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="response" type="tns:PRXteeVastus"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+
+      <xs:element name="ParimistunnistuseKanne">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="request" type="tns:ParimistunnistuseKanneParing"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="ParimistunnistuseKanneResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="response" type="tns:PRXteeVastus"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+
+      <xs:element name="ParimismenetluseAlgatamiseKanne">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="request" type="tns:ParimismenetluseAlgatamiseKanneParing"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="ParimismenetluseAlgatamiseKanneResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="response" type="tns:PRXteeVastus"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+
+      <xs:element name="TestamentParimislepingKanne">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="request" type="tns:TestamentParimislepingKanneParing"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="TestamentParimislepingKanneResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="response" type="tns:PRXteeVastus"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+
+      <xs:element name="RegistreerijaAndmed">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="request" type="xs:string"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="RegistreerijaAndmedResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="response" type="tns:RegistreerijaAndmedVastus"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+
+      <xs:element name="DokumentSisu">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="request" type="tns:DokumentSisuParing"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="DokumentSisuResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="response" type="tns:DokumentSisuVastus"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+
+      <xs:element name="Seire">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="request" type="tns:SeireParing"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="SeireResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="response" type="tns:SeireVastus"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+
+      <xs:element name="PrAvalikudAndmed">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="request" type="tns:IsikRiikiga"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="PrAvalikudAndmedResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="response" type="tns:PRAndmedVastus"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+
+      <xs:element name="orbeonv6" type="xs:string"/>
+       
+    </xs:schema>
+  </types>
+  <!-- PR andmed -->
+  <message name="ParimisregistriAndmedRequest">
+    <part name="keha" element="tns:ParimisregistriAndmed"/>
+  </message>
+  <message name="ParimisregistriAndmedResponse">
+    <part name="keha" element="tns:ParimisregistriAndmedResponse"/>
+  </message>
+  <!-- PR andmed enda kohta -->
+  <message name="MinuParimisregistriAndmedRequest">
+    <part name="keha" element="tns:MinuParimisregistriAndmed"/>
+  </message>
+  <message name="MinuParimisregistriAndmedResponse">
+    <part name="keha" element="tns:MinuParimisregistriAndmedResponse"/>
+  </message>
+
+  <!-- Koduse testamendi tegemisest teavitamine isiku enda kohta -->
+  <message name="TeavitaKodusestTestamendistRequest">
+    <part name="keha" element="tns:TeavitaKodusestTestamendist"/>
+  </message>
+  <message name="TeavitaKodusestTestamendistResponse">
+    <part name="keha" element="tns:TeavitaKodusestTestamendistResponse"/>
+  </message>
+
+  <!-- Koduse testamendi tegemisest teavitamine hoidjana -->
+  <message name="TeavitaKodusestTestamendistHoidjanaRequest">
+    <part name="keha" element="tns:TeavitaKodusestTestamendistHoidjana"/>
+  </message>
+  <message name="TeavitaKodusestTestamendistHoidjanaResponse">
+    <part name="keha" element="tns:TeavitaKodusestTestamendistHoidjanaResponse"/>
+  </message>
+
+  <!-- Koduse testamendi tegemisest teavitamine muu isikuna -->
+  <message name="TeavitaKodusestTestamendistMuuIsikunaRequest">
+    <part name="keha" element="tns:TeavitaKodusestTestamendistMuuIsikuna"/>
+  </message>
+  <message name="TeavitaKodusestTestamendistMuuIsikunaResponse">
+    <part name="keha" element="tns:TeavitaKodusestTestamendistMuuIsikunaResponse"/>
+  </message>
+
+  <!-- Pärandvara hoiumeetmete kanne   -->
+  <message name="ParandvaraHoiumeetmeteKanneRequest">
+    <part name="keha" element="tns:ParandvaraHoiumeetmeteKanne"/>
+  </message>
+  <message name="ParandvaraHoiumeetmeteKanneResponse">
+    <part name="keha" element="tns:ParandvaraHoiumeetmeteKanneResponse"/>
+  </message>
+
+  <!-- Pärimistunnistuse kanne   -->
+  <message name="ParimistunnistuseKanneRequest">
+    <part name="keha" element="tns:ParimistunnistuseKanne"/>
+  </message>
+  <message name="ParimistunnistuseKanneResponse">
+    <part name="keha" element="tns:ParimistunnistuseKanneResponse"/>
+  </message>
+
+  <!-- Pärimismenetluse algatamise kanne -->
+  <message name="ParimismenetluseAlgatamiseKanneRequest">
+    <part name="keha" element="tns:ParimismenetluseAlgatamiseKanne"/>
+  </message>
+  <message name="ParimismenetluseAlgatamiseKanneResponse">
+    <part name="keha" element="tns:ParimismenetluseAlgatamiseKanneResponse"/>
+  </message>
+
+  <!-- Testament/pärimisleping – tegemine, tühistamine jne -->
+  <message name="TestamentParimislepingKanneRequest">
+    <part name="keha" element="tns:TestamentParimislepingKanne"/>
+  </message>
+  <message name="TestamentParimislepingKanneResponse">
+    <part name="keha" element="tns:TestamentParimislepingKanneResponse"/>
+  </message>
+
+  <!-- Registreerija andmed-->
+  <message name="RegistreerijaAndmedRequest">
+    <part name="keha" element="tns:RegistreerijaAndmed"/>
+  </message>
+  <message name="RegistreerijaAndmedResponse">
+    <part name="keha" element="tns:RegistreerijaAndmedResponse"/>
+  </message>
+
+  <!-- Dokument Sisu-->
+  <message name="DokumentSisuRequest">
+    <part name="keha" element="tns:DokumentSisu"/>
+  </message>
+  <message name="DokumentSisuResponse">
+    <part name="keha" element="tns:DokumentSisuResponse"/>
+  </message>
+
+  <!-- Seire-->
+  <message name="SeireRequest">
+    <part name="keha" element="tns:Seire"/>
+  </message>
+  <message name="SeireResponse">
+    <part name="keha" element="tns:SeireResponse"/>
+  </message>
+
+  <!-- Surnud isiku andmed(Avalikud)-->
+  <message name="PrAvalikudAndmedRequest">
+    <part name="keha" element="tns:PrAvalikudAndmed"/>
+  </message>
+  <message name="PrAvalikudAndmedResponse">
+    <part name="keha" element="tns:PrAvalikudAndmedResponse"/>
+  </message>
+
+  <message name="requestHeader">
+    <part name="client" element="xrd:client"/>
+    <part name="service" element="xrd:service"/>
+    <part name="representedParty" element="repr:representedParty"/>
+    <part name="id" element="xrd:id"/>
+    <part name="userId" element="xrd:userId"/>
+    <part name="requestHash" element="xrd:requestHash"/>
+    <part name="issue" element="xrd:issue"/>
+    <part name="protocolVersion" element="xrd:protocolVersion"/>
+    <part name="orbeonv6" element="tns:orbeonv6"/>
+  </message>
+
+  <portType name="PRServicePort">
+    <operation name="ParimisregistriAndmed">
+      <documentation>
+        <xrd:title>Pärimisregistri andmed</xrd:title>
+      </documentation>
+      <input message="tns:ParimisregistriAndmedRequest"/>
+      <output message="tns:ParimisregistriAndmedResponse"/>
+    </operation>
+    <operation name="MinuParimisregistriAndmed">
+      <documentation>
+        <xrd:title>Minu pärimisregistri andmed</xrd:title>
+      </documentation>
+      <input message="tns:MinuParimisregistriAndmedRequest"/>
+      <output message="tns:MinuParimisregistriAndmedResponse"/>
+    </operation>
+    <operation name="TeavitaKodusestTestamendist">
+      <documentation>
+        <xrd:title>Koduse testamendi tegemisest teavitamine isiku enda kohta</xrd:title>
+      </documentation>
+      <input message="tns:TeavitaKodusestTestamendistRequest"/>
+      <output message="tns:TeavitaKodusestTestamendistResponse"/>
+    </operation>
+    <operation name="TeavitaKodusestTestamendistHoidjana">
+      <documentation>
+        <xrd:title>Koduse testamendi tegemisest teavitamine testamendi hoidjana</xrd:title>
+      </documentation>
+      <input message="tns:TeavitaKodusestTestamendistHoidjanaRequest"/>
+      <output message="tns:TeavitaKodusestTestamendistHoidjanaResponse"/>
+    </operation>
+    <operation name="TeavitaKodusestTestamendistMuuIsikuna">
+      <documentation>
+        <xrd:title>Koduse testamendi tegemisest teavitamine muu isikuna</xrd:title>
+      </documentation>
+      <input message="tns:TeavitaKodusestTestamendistMuuIsikunaRequest"/>
+      <output message="tns:TeavitaKodusestTestamendistMuuIsikunaResponse"/>
+    </operation>
+    <operation name="ParandvaraHoiumeetmeteKanne">
+      <documentation>
+        <xrd:title>Pärandvara hoiumeetmete kanne</xrd:title>
+      </documentation>
+      <input message="tns:ParandvaraHoiumeetmeteKanneRequest"/>
+      <output message="tns:ParandvaraHoiumeetmeteKanneResponse"/>
+    </operation>
+    <operation name="ParimistunnistuseKanne">
+      <documentation>
+        <xrd:title>Pärimistunnistuse kanne</xrd:title>
+      </documentation>
+      <input message="tns:ParimistunnistuseKanneRequest"/>
+      <output message="tns:ParimistunnistuseKanneResponse"/>
+    </operation>
+    <operation name="ParimismenetluseAlgatamiseKanne">
+      <documentation>
+        <xrd:title>Pärimismenetluse algatamise kanne</xrd:title>
+      </documentation>
+      <input message="tns:ParimismenetluseAlgatamiseKanneRequest"/>
+      <output message="tns:ParimismenetluseAlgatamiseKanneResponse"/>
+    </operation>
+    <operation name="TestamentParimislepingKanne">
+      <documentation>
+        <xrd:title>Testament/pärimisleping</xrd:title>
+      </documentation>
+      <input message="tns:TestamentParimislepingKanneRequest"/>
+      <output message="tns:TestamentParimislepingKanneResponse"/>
+    </operation>
+    <operation name="RegistreerijaAndmed">
+      <documentation>
+        <xrd:title>Registreerija andmed</xrd:title>
+      </documentation>
+      <input message="tns:RegistreerijaAndmedRequest"/>
+      <output message="tns:RegistreerijaAndmedResponse"/>
+    </operation>
+    <operation name="DokumentSisu">
+      <documentation>
+        <xrd:title>Dokumendi sisu</xrd:title>
+      </documentation>
+      <input message="tns:DokumentSisuRequest"/>
+      <output message="tns:DokumentSisuResponse"/>
+    </operation>
+    <operation name="Seire">
+      <documentation>
+        <xrd:title>Monitooring</xrd:title>
+      </documentation>
+      <input message="tns:SeireRequest"/>
+      <output message="tns:SeireResponse"/>
+    </operation>
+    <operation name="PrAvalikudAndmed">
+      <documentation>
+        <xrd:title>Pärimisregistri avalikud andmed</xrd:title>
+      </documentation>
+      <input message="tns:PrAvalikudAndmedRequest"/>
+      <output message="tns:PrAvalikudAndmedResponse"/>
+    </operation>
+  </portType>
+  <binding name="PRServicesBinding" type="tns:PRServicePort">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <operation name="ParimisregistriAndmed">
+      <xrd:version>v2</xrd:version>
+      <soap:operation style="document"/>
+      <input>
+        <soap:body use="literal"/>
+        <soap:header message="tns:requestHeader" part="client" use="literal"/>
+        <soap:header message="tns:requestHeader" part="service" use="literal"/>
+        <soap:header message="tns:requestHeader" part="representedParty" use="literal"/>
+        <soap:header message="tns:requestHeader" part="id" use="literal"/>
+        <soap:header message="tns:requestHeader" part="userId" use="literal"/>
+        <soap:header message="tns:requestHeader" part="issue" use="literal"/>
+        <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"/>
+        <soap:header message="tns:requestHeader" part="orbeonv6" use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+        <soap:header message="tns:requestHeader" part="client" use="literal"/>
+        <soap:header message="tns:requestHeader" part="service" use="literal"/>
+        <soap:header message="tns:requestHeader" part="representedParty" use="literal"/>
+        <soap:header message="tns:requestHeader" part="id" use="literal"/>
+        <soap:header message="tns:requestHeader" part="userId" use="literal"/>
+        <soap:header message="tns:requestHeader" part="requestHash" use="literal"/>
+        <soap:header message="tns:requestHeader" part="issue" use="literal"/>
+        <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"/>
+      </output>
+    </operation>
+    <operation name="MinuParimisregistriAndmed">
+      <xrd:version>v2</xrd:version>
+      <soap:operation style="document"/>
+      <input>
+        <soap:body use="literal"/>
+        <soap:header message="tns:requestHeader" part="client" use="literal"/>
+        <soap:header message="tns:requestHeader" part="service" use="literal"/>
+        <soap:header message="tns:requestHeader" part="representedParty" use="literal"/>
+        <soap:header message="tns:requestHeader" part="id" use="literal"/>
+        <soap:header message="tns:requestHeader" part="userId" use="literal"/>
+        <soap:header message="tns:requestHeader" part="issue" use="literal"/>
+        <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"/>
+        <soap:header message="tns:requestHeader" part="orbeonv6" use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+        <soap:header message="tns:requestHeader" part="client" use="literal"/>
+        <soap:header message="tns:requestHeader" part="service" use="literal"/>
+        <soap:header message="tns:requestHeader" part="representedParty" use="literal"/>
+        <soap:header message="tns:requestHeader" part="id" use="literal"/>
+        <soap:header message="tns:requestHeader" part="userId" use="literal"/>
+        <soap:header message="tns:requestHeader" part="requestHash" use="literal"/>
+        <soap:header message="tns:requestHeader" part="issue" use="literal"/>
+        <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"/>
+      </output>
+    </operation>
+    <operation name="TeavitaKodusestTestamendist">
+      <xrd:version>v2</xrd:version>
+      <soap:operation style="document"/>
+      <input>
+        <soap:body use="literal"/>
+        <soap:header message="tns:requestHeader" part="client" use="literal"/>
+        <soap:header message="tns:requestHeader" part="service" use="literal"/>
+        <soap:header message="tns:requestHeader" part="representedParty" use="literal"/>
+        <soap:header message="tns:requestHeader" part="id" use="literal"/>
+        <soap:header message="tns:requestHeader" part="userId" use="literal"/>
+        <soap:header message="tns:requestHeader" part="issue" use="literal"/>
+        <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"/>
+        <soap:header message="tns:requestHeader" part="orbeonv6" use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+        <soap:header message="tns:requestHeader" part="client" use="literal"/>
+        <soap:header message="tns:requestHeader" part="service" use="literal"/>
+        <soap:header message="tns:requestHeader" part="representedParty" use="literal"/>
+        <soap:header message="tns:requestHeader" part="id" use="literal"/>
+        <soap:header message="tns:requestHeader" part="userId" use="literal"/>
+        <soap:header message="tns:requestHeader" part="requestHash" use="literal"/>
+        <soap:header message="tns:requestHeader" part="issue" use="literal"/>
+        <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"/>
+      </output>
+    </operation>
+    <operation name="TeavitaKodusestTestamendistHoidjana">
+      <xrd:version>v2</xrd:version>      
+      <soap:operation style="document"/>
+      <input>
+        <soap:body use="literal"/>
+        <soap:header message="tns:requestHeader" part="client" use="literal"/>
+        <soap:header message="tns:requestHeader" part="service" use="literal"/>
+        <soap:header message="tns:requestHeader" part="representedParty" use="literal"/>
+        <soap:header message="tns:requestHeader" part="id" use="literal"/>
+        <soap:header message="tns:requestHeader" part="userId" use="literal"/>
+        <soap:header message="tns:requestHeader" part="issue" use="literal"/>
+        <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"/>
+        <soap:header message="tns:requestHeader" part="orbeonv6" use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+        <soap:header message="tns:requestHeader" part="client" use="literal"/>
+        <soap:header message="tns:requestHeader" part="service" use="literal"/>
+        <soap:header message="tns:requestHeader" part="representedParty" use="literal"/>
+        <soap:header message="tns:requestHeader" part="id" use="literal"/>
+        <soap:header message="tns:requestHeader" part="userId" use="literal"/>
+        <soap:header message="tns:requestHeader" part="requestHash" use="literal"/>
+        <soap:header message="tns:requestHeader" part="issue" use="literal"/>
+        <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"/>
+      </output>
+    </operation>
+    <operation name="TeavitaKodusestTestamendistMuuIsikuna">
+      <xrd:version>v2</xrd:version>
+      <soap:operation style="document"/>
+      <input>
+        <soap:body use="literal"/>
+        <soap:header message="tns:requestHeader" part="client" use="literal"/>
+        <soap:header message="tns:requestHeader" part="service" use="literal"/>
+        <soap:header message="tns:requestHeader" part="representedParty" use="literal"/>
+        <soap:header message="tns:requestHeader" part="id" use="literal"/>
+        <soap:header message="tns:requestHeader" part="userId" use="literal"/>
+        <soap:header message="tns:requestHeader" part="issue" use="literal"/>
+        <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"/>
+        <soap:header message="tns:requestHeader" part="orbeonv6" use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+        <soap:header message="tns:requestHeader" part="client" use="literal"/>
+        <soap:header message="tns:requestHeader" part="service" use="literal"/>
+        <soap:header message="tns:requestHeader" part="representedParty" use="literal"/>
+        <soap:header message="tns:requestHeader" part="id" use="literal"/>
+        <soap:header message="tns:requestHeader" part="userId" use="literal"/>
+        <soap:header message="tns:requestHeader" part="requestHash" use="literal"/>
+        <soap:header message="tns:requestHeader" part="issue" use="literal"/>
+        <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"/>
+      </output>
+    </operation>
+    <operation name="ParandvaraHoiumeetmeteKanne">
+      <xrd:version>v2</xrd:version>
+      <soap:operation style="document"/>
+      <input>
+        <soap:body use="literal"/>
+        <soap:header message="tns:requestHeader" part="client" use="literal"/>
+        <soap:header message="tns:requestHeader" part="service" use="literal"/>
+        <soap:header message="tns:requestHeader" part="representedParty" use="literal"/>
+        <soap:header message="tns:requestHeader" part="id" use="literal"/>
+        <soap:header message="tns:requestHeader" part="userId" use="literal"/>
+        <soap:header message="tns:requestHeader" part="issue" use="literal"/>
+        <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"/>
+        <soap:header message="tns:requestHeader" part="orbeonv6" use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+        <soap:header message="tns:requestHeader" part="client" use="literal"/>
+        <soap:header message="tns:requestHeader" part="service" use="literal"/>
+        <soap:header message="tns:requestHeader" part="representedParty" use="literal"/>
+        <soap:header message="tns:requestHeader" part="id" use="literal"/>
+        <soap:header message="tns:requestHeader" part="userId" use="literal"/>
+        <soap:header message="tns:requestHeader" part="requestHash" use="literal"/>
+        <soap:header message="tns:requestHeader" part="issue" use="literal"/>
+        <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"/>
+      </output>
+    </operation>
+    <operation name="ParimistunnistuseKanne">
+      <xrd:version>v2</xrd:version>
+      <soap:operation style="document"/>
+      <input>
+        <soap:body use="literal"/>
+        <soap:header message="tns:requestHeader" part="client" use="literal"/>
+        <soap:header message="tns:requestHeader" part="service" use="literal"/>
+        <soap:header message="tns:requestHeader" part="representedParty" use="literal"/>
+        <soap:header message="tns:requestHeader" part="id" use="literal"/>
+        <soap:header message="tns:requestHeader" part="userId" use="literal"/>
+        <soap:header message="tns:requestHeader" part="issue" use="literal"/>
+        <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"/>
+        <soap:header message="tns:requestHeader" part="orbeonv6" use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+        <soap:header message="tns:requestHeader" part="client" use="literal"/>
+        <soap:header message="tns:requestHeader" part="service" use="literal"/>
+        <soap:header message="tns:requestHeader" part="representedParty" use="literal"/>
+        <soap:header message="tns:requestHeader" part="id" use="literal"/>
+        <soap:header message="tns:requestHeader" part="userId" use="literal"/>
+        <soap:header message="tns:requestHeader" part="requestHash" use="literal"/>
+        <soap:header message="tns:requestHeader" part="issue" use="literal"/>
+        <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"/>
+      </output>
+    </operation>
+    <operation name="ParimismenetluseAlgatamiseKanne">
+      <xrd:version>v2</xrd:version>
+      <soap:operation style="document"/>
+      <input>
+        <soap:body use="literal"/>
+        <soap:header message="tns:requestHeader" part="client" use="literal"/>
+        <soap:header message="tns:requestHeader" part="service" use="literal"/>
+        <soap:header message="tns:requestHeader" part="representedParty" use="literal"/>
+        <soap:header message="tns:requestHeader" part="id" use="literal"/>
+        <soap:header message="tns:requestHeader" part="userId" use="literal"/>
+        <soap:header message="tns:requestHeader" part="issue" use="literal"/>
+        <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"/>
+        <soap:header message="tns:requestHeader" part="orbeonv6" use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+        <soap:header message="tns:requestHeader" part="client" use="literal"/>
+        <soap:header message="tns:requestHeader" part="service" use="literal"/>
+        <soap:header message="tns:requestHeader" part="representedParty" use="literal"/>
+        <soap:header message="tns:requestHeader" part="id" use="literal"/>
+        <soap:header message="tns:requestHeader" part="userId" use="literal"/>
+        <soap:header message="tns:requestHeader" part="requestHash" use="literal"/>
+        <soap:header message="tns:requestHeader" part="issue" use="literal"/>
+        <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"/>
+      </output>
+    </operation>
+    <operation name="TestamentParimislepingKanne">
+      <xrd:version>v2</xrd:version>
+      <soap:operation style="document"/>
+      <input>
+        <soap:body use="literal"/>
+        <soap:header message="tns:requestHeader" part="client" use="literal"/>
+        <soap:header message="tns:requestHeader" part="service" use="literal"/>
+        <soap:header message="tns:requestHeader" part="representedParty" use="literal"/>
+        <soap:header message="tns:requestHeader" part="id" use="literal"/>
+        <soap:header message="tns:requestHeader" part="userId" use="literal"/>
+        <soap:header message="tns:requestHeader" part="issue" use="literal"/>
+        <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"/>
+        <soap:header message="tns:requestHeader" part="orbeonv6" use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+        <soap:header message="tns:requestHeader" part="client" use="literal"/>
+        <soap:header message="tns:requestHeader" part="service" use="literal"/>
+        <soap:header message="tns:requestHeader" part="representedParty" use="literal"/>
+        <soap:header message="tns:requestHeader" part="id" use="literal"/>
+        <soap:header message="tns:requestHeader" part="userId" use="literal"/>
+        <soap:header message="tns:requestHeader" part="requestHash" use="literal"/>
+        <soap:header message="tns:requestHeader" part="issue" use="literal"/>
+        <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"/>
+      </output>
+    </operation>
+    <operation name="RegistreerijaAndmed">
+      <xrd:version>v2</xrd:version>
+      <soap:operation style="document"/>
+      <input>
+        <soap:body use="literal"/>
+        <soap:header message="tns:requestHeader" part="client" use="literal"/>
+        <soap:header message="tns:requestHeader" part="service" use="literal"/>
+        <soap:header message="tns:requestHeader" part="representedParty" use="literal"/>
+        <soap:header message="tns:requestHeader" part="id" use="literal"/>
+        <soap:header message="tns:requestHeader" part="userId" use="literal"/>
+        <soap:header message="tns:requestHeader" part="issue" use="literal"/>
+        <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"/>
+        <soap:header message="tns:requestHeader" part="orbeonv6" use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+        <soap:header message="tns:requestHeader" part="client" use="literal"/>
+        <soap:header message="tns:requestHeader" part="service" use="literal"/>
+        <soap:header message="tns:requestHeader" part="representedParty" use="literal"/>
+        <soap:header message="tns:requestHeader" part="id" use="literal"/>
+        <soap:header message="tns:requestHeader" part="userId" use="literal"/>
+        <soap:header message="tns:requestHeader" part="requestHash" use="literal"/>
+        <soap:header message="tns:requestHeader" part="issue" use="literal"/>
+        <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"/>
+      </output>
+    </operation>
+    <operation name="DokumentSisu">
+      <xrd:version>v2</xrd:version>
+      <soap:operation style="document"/>
+      <input>
+        <soap:body use="literal"/>
+        <soap:header message="tns:requestHeader" part="client" use="literal"/>
+        <soap:header message="tns:requestHeader" part="service" use="literal"/>
+        <soap:header message="tns:requestHeader" part="representedParty" use="literal"/>
+        <soap:header message="tns:requestHeader" part="id" use="literal"/>
+        <soap:header message="tns:requestHeader" part="userId" use="literal"/>
+        <soap:header message="tns:requestHeader" part="issue" use="literal"/>
+        <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"/>
+        <soap:header message="tns:requestHeader" part="orbeonv6" use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+        <soap:header message="tns:requestHeader" part="client" use="literal"/>
+        <soap:header message="tns:requestHeader" part="service" use="literal"/>
+        <soap:header message="tns:requestHeader" part="representedParty" use="literal"/>
+        <soap:header message="tns:requestHeader" part="id" use="literal"/>
+        <soap:header message="tns:requestHeader" part="userId" use="literal"/>
+        <soap:header message="tns:requestHeader" part="requestHash" use="literal"/>
+        <soap:header message="tns:requestHeader" part="issue" use="literal"/>
+        <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"/>
+      </output>
+    </operation>
+    <operation name="Seire">
+      <xrd:version>v2</xrd:version>
+      <soap:operation style="document"/>
+      <input>
+        <soap:body use="literal"/>
+        <soap:header message="tns:requestHeader" part="client" use="literal"/>
+        <soap:header message="tns:requestHeader" part="service" use="literal"/>
+        <soap:header message="tns:requestHeader" part="representedParty" use="literal"/>
+        <soap:header message="tns:requestHeader" part="id" use="literal"/>
+        <soap:header message="tns:requestHeader" part="userId" use="literal"/>
+        <soap:header message="tns:requestHeader" part="issue" use="literal"/>
+        <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+        <soap:header message="tns:requestHeader" part="client" use="literal"/>
+        <soap:header message="tns:requestHeader" part="service" use="literal"/>
+        <soap:header message="tns:requestHeader" part="representedParty" use="literal"/>
+        <soap:header message="tns:requestHeader" part="id" use="literal"/>
+        <soap:header message="tns:requestHeader" part="userId" use="literal"/>
+        <soap:header message="tns:requestHeader" part="requestHash" use="literal"/>
+        <soap:header message="tns:requestHeader" part="issue" use="literal"/>
+        <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"/>
+      </output>
+    </operation>
+    <operation name="PrAvalikudAndmed">
+      <xrd:version>v2</xrd:version>
+      <soap:operation style="document"/>
+      <input>
+        <soap:body use="literal"/>
+        <soap:header message="tns:requestHeader" part="client" use="literal"/>
+        <soap:header message="tns:requestHeader" part="service" use="literal"/>
+        <soap:header message="tns:requestHeader" part="representedParty" use="literal"/>
+        <soap:header message="tns:requestHeader" part="id" use="literal"/>
+        <soap:header message="tns:requestHeader" part="userId" use="literal"/>
+        <soap:header message="tns:requestHeader" part="issue" use="literal"/>
+        <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+        <soap:header message="tns:requestHeader" part="client" use="literal"/>
+        <soap:header message="tns:requestHeader" part="service" use="literal"/>
+        <soap:header message="tns:requestHeader" part="representedParty" use="literal"/>
+        <soap:header message="tns:requestHeader" part="id" use="literal"/>
+        <soap:header message="tns:requestHeader" part="userId" use="literal"/>
+        <soap:header message="tns:requestHeader" part="requestHash" use="literal"/>
+        <soap:header message="tns:requestHeader" part="issue" use="literal"/>
+        <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"/>
+      </output>
+    </operation>
+  </binding>
+  <service name="PrService">
+    <documentation/>
+    <port name="PRServicePort" binding="tns:PRServicesBinding">
+      <soap:address location="http://example.org/xroad-endpoint"/>
+      <xrd:title>Pärimisregister</xrd:title>
+    </port>
+  </service>
+</definitions>

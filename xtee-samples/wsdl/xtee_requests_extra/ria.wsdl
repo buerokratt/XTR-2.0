@@ -1,0 +1,833 @@
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xrd="http://x-road.eu/xsd/xroad.xsd" xmlns:tns="http://notifications.eesti.ee" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+                  targetNamespace="http://notifications.eesti.ee">
+    <wsdl:types>
+        <xs:schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                   xmlns:xrd="http://x-road.eu/xsd/xroad.xsd" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+                   xmlns:tns="http://notifications.eesti.ee" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+                   targetNamespace="http://notifications.eesti.ee">
+            <xs:import namespace="http://x-road.eu/xsd/xroad.xsd" schemaLocation="http://x-road.eu/xsd/xroad.xsd"/>
+            <xs:complexType name="status">
+                <xs:sequence>
+                    <xs:element name="statusCode" type="xs:string"/>
+                    <xs:element name="statusMessage" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:element name="forwardEmailAddress">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="code" type="xs:string"/>
+                        <xs:element minOccurs="0" name="stateEmailAddress" type="tns:stateEmailAddress"/>
+                        <xs:element default="false" minOccurs="0" name="replaceInsteadOfAdding" type="xs:boolean">
+                            <xs:annotation>
+                                <xs:documentation>
+                                    Kas suunatav aadress asendab olemasolevad või lisandub neile. Vaikimisi lisandub.
+                                </xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                        <xs:element name="forwardToAddresses" type="tns:emailAddresses"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="forwardEmailAddressResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="status" type="tns:status"/>
+                        <xs:element name="emailAddressInfo" type="tns:emailAddressInfo"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="removeEmailAddress">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="code" type="xs:string"/>
+                        <xs:element minOccurs="0" name="stateEmailAddress" type="tns:stateEmailAddress"/>
+                        <xs:element default="false" minOccurs="0" name="removeAllAddresses" type="xs:boolean"/>
+                        <xs:element minOccurs="0" name="removeForwardAddresses" type="tns:emailAddresses"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="removeEmailAddressResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="status" type="tns:status"/>
+                        <xs:element name="emailAddressInfo" type="tns:emailAddressInfo"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="getEmailAddresses">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element maxOccurs="unbounded" name="code" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="getEmailAddressesResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element maxOccurs="unbounded" name="emailAddressInfo" type="tns:emailAddressInfo"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="getMobileNumbers">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element maxOccurs="unbounded" name="code" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="getMobileNumbersResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element maxOccurs="unbounded" name="mobileNumbers" type="tns:smsRecipient"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="sendSms">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element maxOccurs="unbounded" name="sms" type="tns:sms"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="sendSmsResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element maxOccurs="unbounded" name="smsResponse" type="tns:smsResponse"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="getSmsStatus">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element maxOccurs="unbounded" name="smsId" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="getSmsStatusResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element maxOccurs="unbounded" name="smsStatus" type="tns:smsStatus"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="createOrUpdateEvent">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element maxOccurs="unbounded" name="event" type="tns:event"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="createOrUpdateEventResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="status" type="tns:status"/>
+                        <xs:element maxOccurs="1" minOccurs="0" name="eventResponses" type="tns:eventResponses"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="removeEvent">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element maxOccurs="unbounded" name="eventId" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="removeEventResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="status" type="tns:status"/>
+                        <xs:element maxOccurs="1" minOccurs="0" name="eventStatuses" type="tns:eventStatuses"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="addOrUpdateReminder">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="reminders" type="tns:reminders"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="addOrUpdateReminderResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="status" type="tns:status"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="removeReminder">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element maxOccurs="unbounded" minOccurs="0" name="reminderId" type="xs:string"/>
+                        <xs:element maxOccurs="unbounded" minOccurs="0" name="eventId" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="removeReminderResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="status" type="tns:status"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="getUserPreferences">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element maxOccurs="unbounded" name="code" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="getUserPreferencesResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element maxOccurs="unbounded" name="userPreferences" type="tns:userPreferences"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="getEvents">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element maxOccurs="1" minOccurs="0" name="eventsFrom" type="xs:dateTime"/>
+                        <xs:element maxOccurs="1" minOccurs="0" name="eventsTo" type="xs:dateTime"/>
+                        <xs:element maxOccurs="unbounded" name="codeEventInfo" type="tns:codeEventInfo"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="getEventsResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="status" type="tns:status"/>
+                        <xs:element maxOccurs="1" minOccurs="0" name="events" type="tns:events"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:complexType name="codeEventInfo">
+                <xs:sequence>
+                    <xs:element maxOccurs="1" minOccurs="0" name="code" type="xs:string">
+                        <xs:annotation>
+                            <xs:documentation>Kasutaja identifikaator (isikukood, registrikood)</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element maxOccurs="1" minOccurs="0" name="eventId" type="xs:string">
+                        <xs:annotation>
+                            <xs:documentation>Sündmuse ID</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="events">
+                <xs:sequence>
+                    <xs:element maxOccurs="unbounded" name="event" type="tns:event"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="event">
+                <xs:sequence>
+                    <xs:element name="subsciptionId" type="xs:string">
+                        <xs:annotation>
+                            <xs:documentation>Sündmuse liigi ID</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element minOccurs="0" name="eventId" type="xs:string">
+                        <xs:annotation>
+                            <xs:documentation>
+                                Sündmuse ID. Vaja kasutada sündmuse muutmisel. Uue sündmuse lisamisel puudub
+                            </xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element maxOccurs="unbounded" name="name" type="tns:textWithLang"/>
+                    <xs:element maxOccurs="unbounded" name="description" type="tns:textWithLang"/>
+                    <xs:element name="eventTime" type="xs:dateTime"/>
+                    <xs:element minOccurs="0" name="publishTime" type="xs:dateTime">
+                        <xs:annotation>
+                            <xs:documentation>Sündmuse avaldamise aeg. Vaikimisi kohe. </xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element minOccurs="0" name="reminders" type="tns:reminders"/>
+                    <xs:element default="false" minOccurs="0" name="sendToAllSubscribers" type="xs:boolean">
+                        <xs:annotation>
+                            <xs:documentation>
+                                Sündmus lisatakse kõigi vastava teavituse liigi tellijate kalendrisse. Vaikimisi 'false'. Kui see element on 'true', ignoreeritakse järgnevaid elemente
+                            </xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element minOccurs="0" name="eventRecipients" type="tns:eventRecipients">
+                        <xs:annotation>
+                            <xs:documentation>
+                                Sündmuse saajad. Kasutusel sündmuse info küsimisel (getEvents).
+                            </xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element minOccurs="0" name="addRecipients" type="tns:eventRecipients">
+                        <xs:annotation>
+                            <xs:documentation>
+                                Sündmuse saajad, sündmuse muutmisel täiendavad saajad
+                            </xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element minOccurs="0" name="removeRecipients" type="tns:eventRecipients">
+                        <xs:annotation>
+                            <xs:documentation>
+                                Kasutajad, kellelt sündmus eemaldada. Kasutatakse sündmuse muutmisel
+                            </xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="reminders">
+                <xs:sequence>
+                    <xs:element maxOccurs="unbounded" name="reminder" type="tns:reminder"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="reminder">
+                <xs:sequence>
+                    <xs:element name="reminderId" type="xs:string"/>
+                    <xs:element minOccurs="0" name="eventId" type="xs:string">
+                        <xs:annotation>
+                            <xs:documentation>
+                                Sündmuse ID, millega meeldetuletus seotud on. Kasutatakse otseselt meeldetuletustega seotud teenustes
+                            </xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="reminderTime" type="xs:dateTime"/>
+                    <xs:element maxOccurs="unbounded" name="reminderText" type="tns:textWithLang">
+                        <xs:annotation>
+                            <xs:documentation>Meeldetuletuse tekst riigiportaalis ja e-kirjas </xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element maxOccurs="unbounded" name="reminderTextShort" type="tns:textWithLang">
+                        <xs:annotation>
+                            <xs:documentation>Meeldetuletuse tekst SMS-s</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="eventResponses">
+                <xs:sequence>
+                    <xs:element maxOccurs="unbounded" name="eventResponse" type="tns:eventResponse"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="eventResponse">
+                <xs:sequence>
+                    <xs:element name="status" type="tns:status"/>
+                    <xs:element name="eventId" type="xs:string"/>
+                    <xs:element name="failedRecipients" type="tns:eventRecipients"/>
+                    <xs:element name="addedRecipients" type="tns:eventRecipients"/>
+                    <xs:element name="removedRecipients" type="tns:eventRecipients"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="eventStatuses">
+                <xs:sequence>
+                    <xs:element maxOccurs="unbounded" name="eventStatus" type="tns:eventStatus"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="eventStatus">
+                <xs:sequence>
+                    <xs:element name="status" type="tns:status"/>
+                    <xs:element name="eventId" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="eventRecipients">
+                <xs:sequence>
+                    <xs:element maxOccurs="unbounded" name="code" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="smsStatus">
+                <xs:sequence>
+                    <xs:element name="smsId" type="xs:string"/>
+                    <xs:element name="status" type="tns:status"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="sms">
+                <xs:sequence>
+                    <xs:element name="subscriptionId" type="xs:string"/>
+                    <xs:element maxOccurs="unbounded" name="smsRecipient" type="tns:smsRecipient"/>
+                    <xs:element name="smsFrom" type="xs:string"/>
+                    <xs:element minOccurs="0" name="timeToSend" type="xs:dateTime">
+                        <xs:annotation>
+                            <xs:documentation>
+                                Sõnumi saatmise aeg, kui sõnumit on vaja edastada viitega mitte kohe
+                            </xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element minOccurs="0" name="deliveryReportUrl" type="xs:string"/>
+                    <xs:element maxOccurs="unbounded" name="message" type="tns:textWithLang"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="smsResponse">
+                <xs:sequence>
+                    <xs:element name="smsRecipient" type="tns:smsRecipient"/>
+                    <xs:element name="smsStatus" type="tns:smsStatus"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="smsRecipient">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="code" type="xs:string"/>
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="phoneNumber" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="emailAddressInfo">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="code" type="xs:string"/>
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="stateEmailAddress" type="tns:stateEmailAddress"/>
+                    <xs:element minOccurs="0" name="forwardAddresses" type="tns:emailAddresses"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="userPreferences">
+                <xs:sequence>
+                    <xs:element name="code" type="xs:string"/>
+                    <xs:element maxOccurs="unbounded" name="stateEmailAddress" type="tns:stateEmailAddress"/>
+                    <xs:element maxOccurs="unbounded" name="phoneNumber" type="xs:string"/>
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="preferredChannel" type="xs:string">
+                        <xs:annotation>
+                            <xs:documentation>
+                                Kliendi eelistatud suhtluskanal (sms, email, mõlemad)
+                            </xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="preferredLanguage" type="xs:string">
+                        <xs:annotation>
+                            <xs:documentation> Kliendi eelistatud suhtluskeel </xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="stateEmailAddress">
+                <xs:simpleContent>
+                    <xs:extension base="xs:string">
+                        <xs:attribute name="type" type="tns:stateEmailAddressType"/>
+                    </xs:extension>
+                </xs:simpleContent>
+            </xs:complexType>
+            <xs:simpleType name="stateEmailAddressType">
+                <xs:restriction base="xs:string">
+                    <xs:enumeration value="private">
+                        <xs:annotation>
+                            <xs:documentation>
+                                Riigile kasutamiseks mõeldud aadress, kujul kood@eesti.ee
+                            </xs:documentation>
+                        </xs:annotation>
+                    </xs:enumeration>
+                    <xs:enumeration value="public">
+                        <xs:annotation>
+                            <xs:documentation> Avalik @eesti.ee aadress, kujul nimi@eesti.ee </xs:documentation>
+                        </xs:annotation>
+                    </xs:enumeration>
+                </xs:restriction>
+            </xs:simpleType>
+            <xs:complexType name="emailAddresses">
+                <xs:sequence>
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="emailAddress" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="textWithLang">
+                <xs:simpleContent>
+                    <xs:extension base="xs:string">
+                        <xs:attribute name="lang" type="xs:string"/>
+                    </xs:extension>
+                </xs:simpleContent>
+            </xs:complexType>
+        </xs:schema>
+    </wsdl:types>
+    <wsdl:message name="removeEventResponse">
+        <wsdl:part element="tns:removeEventResponse" name="parameters"> </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="removeEvent">
+        <wsdl:part element="tns:removeEvent" name="parameters"> </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="removeReminderResponse">
+        <wsdl:part element="tns:removeReminderResponse" name="parameters"> </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="sendSmsResponse">
+        <wsdl:part element="tns:sendSmsResponse" name="parameters"> </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="getUserPreferences">
+        <wsdl:part element="tns:getUserPreferences" name="parameters"> </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="addOrUpdateReminderResponse">
+        <wsdl:part element="tns:addOrUpdateReminderResponse" name="parameters"> </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="getEmailAddressesResponse">
+        <wsdl:part element="tns:getEmailAddressesResponse" name="parameters"> </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="sendSms">
+        <wsdl:part element="tns:sendSms" name="parameters"> </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="removeEmailAddressResponse">
+        <wsdl:part element="tns:removeEmailAddressResponse" name="parameters"> </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="forwardEmailAddress">
+        <wsdl:part element="tns:forwardEmailAddress" name="parameters"> </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="requestHeader">
+        <wsdl:part element="xrd:client" name="client"> </wsdl:part>
+        <wsdl:part element="xrd:service" name="service"> </wsdl:part>
+        <wsdl:part element="xrd:id" name="id"> </wsdl:part>
+        <wsdl:part element="xrd:userId" name="userId"> </wsdl:part>
+        <wsdl:part element="xrd:issue" name="issue"> </wsdl:part>
+        <wsdl:part element="xrd:protocolVersion" name="protocolVersion"> </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="createOrUpdateEventResponse">
+        <wsdl:part element="tns:createOrUpdateEventResponse" name="parameters"> </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="createOrUpdateEvent">
+        <wsdl:part element="tns:createOrUpdateEvent" name="parameters"> </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="addOrUpdateReminder">
+        <wsdl:part element="tns:addOrUpdateReminder" name="parameters"> </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="removeEmailAddress">
+        <wsdl:part element="tns:removeEmailAddress" name="parameters"> </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="getUserPreferencesResponse">
+        <wsdl:part element="tns:getUserPreferencesResponse" name="parameters"> </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="getMobileNumbersResponse">
+        <wsdl:part element="tns:getMobileNumbersResponse" name="parameters"> </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="forwardEmailAddressResponse">
+        <wsdl:part element="tns:forwardEmailAddressResponse" name="parameters"> </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="getEvents">
+        <wsdl:part element="tns:getEvents" name="parameters"> </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="getSmsStatusResponse">
+        <wsdl:part element="tns:getSmsStatusResponse" name="parameters"> </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="getEmailAddresses">
+        <wsdl:part element="tns:getEmailAddresses" name="parameters"> </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="getMobileNumbers">
+        <wsdl:part element="tns:getMobileNumbers" name="parameters"> </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="getEventsResponse">
+        <wsdl:part element="tns:getEventsResponse" name="parameters"> </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="getSmsStatus">
+        <wsdl:part element="tns:getSmsStatus" name="parameters"> </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="removeReminder">
+        <wsdl:part element="tns:removeReminder" name="parameters"> </wsdl:part>
+    </wsdl:message>
+    <wsdl:portType name="notificationsPort">
+        <wsdl:operation name="sendSms">
+            <wsdl:input message="tns:sendSms" name="sendSms"> </wsdl:input>
+            <wsdl:output message="tns:sendSmsResponse" name="sendSmsResponse"> </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="getSmsStatus">
+            <wsdl:input message="tns:getSmsStatus" name="getSmsStatus"> </wsdl:input>
+            <wsdl:output message="tns:getSmsStatusResponse" name="getSmsStatusResponse"> </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="getMobileNumbers">
+            <wsdl:input message="tns:getMobileNumbers" name="getMobileNumbers"> </wsdl:input>
+            <wsdl:output message="tns:getMobileNumbersResponse" name="getMobileNumbersResponse"> </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="getEmailAddresses">
+            <wsdl:input message="tns:getEmailAddresses" name="getEmailAddresses"> </wsdl:input>
+            <wsdl:output message="tns:getEmailAddressesResponse" name="getEmailAddressesResponse"> </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="forwardEmailAddress">
+            <wsdl:input message="tns:forwardEmailAddress" name="forwardEmailAddress"> </wsdl:input>
+            <wsdl:output message="tns:forwardEmailAddressResponse" name="forwardEmailAddressResponse"> </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="removeEmailAddress">
+            <wsdl:input message="tns:removeEmailAddress" name="removeEmailAddress"> </wsdl:input>
+            <wsdl:output message="tns:removeEmailAddressResponse" name="removeEmailAddressResponse"> </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="createOrUpdateEvent">
+            <wsdl:input message="tns:createOrUpdateEvent" name="createOrUpdateEvent"> </wsdl:input>
+            <wsdl:output message="tns:createOrUpdateEventResponse" name="createOrUpdateEventResponse"> </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="removeEvent">
+            <wsdl:input message="tns:removeEvent" name="removeEvent"> </wsdl:input>
+            <wsdl:output message="tns:removeEventResponse" name="removeEventResponse"> </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="addOrUpdateReminder">
+            <wsdl:input message="tns:addOrUpdateReminder" name="addOrUpdateReminder"> </wsdl:input>
+            <wsdl:output message="tns:addOrUpdateReminderResponse" name="addOrUpdateReminderResponse"> </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="removeReminder">
+            <wsdl:input message="tns:removeReminder" name="removeReminder"> </wsdl:input>
+            <wsdl:output message="tns:removeReminderResponse" name="removeReminderResponse"> </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="getUserPreferences">
+            <wsdl:input message="tns:getUserPreferences" name="getUserPreferences"> </wsdl:input>
+            <wsdl:output message="tns:getUserPreferencesResponse" name="getUserPreferencesResponse"> </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="getEvents">
+            <wsdl:input message="tns:getEvents" name="getEvents"> </wsdl:input>
+            <wsdl:output message="tns:getEventsResponse" name="getEventsResponse"> </wsdl:output>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="notificationsBinding" type="tns:notificationsPort">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="sendSms">
+            <soap:operation style="document"/>
+            <xrd:version>v1</xrd:version>
+            <wsdl:input name="sendSms">
+                <soap:header message="tns:requestHeader" part="client" use="literal"> </soap:header>
+                <soap:header message="tns:requestHeader" part="service" use="literal"> </soap:header>
+                <soap:header message="tns:requestHeader" part="id" use="literal"> </soap:header>
+                <soap:header message="tns:requestHeader" part="userId" use="literal"> </soap:header>
+                <soap:header message="tns:requestHeader" part="issue" use="literal"> </soap:header>
+                <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"> </soap:header>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="sendSmsResponse">
+                <soap:header message="tns:requestHeader" part="client" use="literal"> </soap:header>
+                <soap:header message="tns:requestHeader" part="service" use="literal"> </soap:header>
+                <soap:header message="tns:requestHeader" part="id" use="literal"> </soap:header>
+                <soap:header message="tns:requestHeader" part="userId" use="literal"> </soap:header>
+                <soap:header message="tns:requestHeader" part="issue" use="literal"> </soap:header>
+                <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"> </soap:header>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="getSmsStatus">
+            <soap:operation style="document"/>
+            <xrd:version>v1</xrd:version>
+            <wsdl:input name="getSmsStatus">
+                <soap:header message="tns:requestHeader" part="client" use="literal"> </soap:header>
+                <soap:header message="tns:requestHeader" part="service" use="literal"> </soap:header>
+                <soap:header message="tns:requestHeader" part="id" use="literal"> </soap:header>
+                <soap:header message="tns:requestHeader" part="userId" use="literal"> </soap:header>
+                <soap:header message="tns:requestHeader" part="issue" use="literal"> </soap:header>
+                <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"> </soap:header>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="getSmsStatusResponse">
+                <soap:header message="tns:requestHeader" part="client" use="literal"> </soap:header>
+                <soap:header message="tns:requestHeader" part="service" use="literal"> </soap:header>
+                <soap:header message="tns:requestHeader" part="id" use="literal"> </soap:header>
+                <soap:header message="tns:requestHeader" part="userId" use="literal"> </soap:header>
+                <soap:header message="tns:requestHeader" part="issue" use="literal"> </soap:header>
+                <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"> </soap:header>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="getMobileNumbers">
+            <soap:operation style="document"/>
+            <xrd:version>v1</xrd:version>
+            <wsdl:input name="getMobileNumbers">
+                <soap:header message="tns:requestHeader" part="client" use="literal"> </soap:header>
+                <soap:header message="tns:requestHeader" part="service" use="literal"> </soap:header>
+                <soap:header message="tns:requestHeader" part="id" use="literal"> </soap:header>
+                <soap:header message="tns:requestHeader" part="userId" use="literal"> </soap:header>
+                <soap:header message="tns:requestHeader" part="issue" use="literal"> </soap:header>
+                <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"> </soap:header>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="getMobileNumbersResponse">
+                <soap:header message="tns:requestHeader" part="client" use="literal"> </soap:header>
+                <soap:header message="tns:requestHeader" part="service" use="literal"> </soap:header>
+                <soap:header message="tns:requestHeader" part="id" use="literal"> </soap:header>
+                <soap:header message="tns:requestHeader" part="userId" use="literal"> </soap:header>
+                <soap:header message="tns:requestHeader" part="issue" use="literal"> </soap:header>
+                <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"> </soap:header>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="getEmailAddresses">
+            <soap:operation style="document"/>
+            <xrd:version>v1</xrd:version>
+            <wsdl:input name="getEmailAddresses">
+                <soap:header message="tns:requestHeader" part="client" use="literal"> </soap:header>
+                <soap:header message="tns:requestHeader" part="service" use="literal"> </soap:header>
+                <soap:header message="tns:requestHeader" part="id" use="literal"> </soap:header>
+                <soap:header message="tns:requestHeader" part="userId" use="literal"> </soap:header>
+                <soap:header message="tns:requestHeader" part="issue" use="literal"> </soap:header>
+                <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"> </soap:header>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="getEmailAddressesResponse">
+                <soap:header message="tns:requestHeader" part="client" use="literal"> </soap:header>
+                <soap:header message="tns:requestHeader" part="service" use="literal"> </soap:header>
+                <soap:header message="tns:requestHeader" part="id" use="literal"> </soap:header>
+                <soap:header message="tns:requestHeader" part="userId" use="literal"> </soap:header>
+                <soap:header message="tns:requestHeader" part="issue" use="literal"> </soap:header>
+                <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"> </soap:header>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="forwardEmailAddress">
+            <soap:operation style="document"/>
+            <xrd:version>v1</xrd:version>
+            <wsdl:input name="forwardEmailAddress">
+                <soap:header message="tns:requestHeader" part="client" use="literal"> </soap:header>
+                <soap:header message="tns:requestHeader" part="service" use="literal"> </soap:header>
+                <soap:header message="tns:requestHeader" part="id" use="literal"> </soap:header>
+                <soap:header message="tns:requestHeader" part="userId" use="literal"> </soap:header>
+                <soap:header message="tns:requestHeader" part="issue" use="literal"> </soap:header>
+                <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"> </soap:header>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="forwardEmailAddressResponse">
+                <soap:header message="tns:requestHeader" part="client" use="literal"> </soap:header>
+                <soap:header message="tns:requestHeader" part="service" use="literal"> </soap:header>
+                <soap:header message="tns:requestHeader" part="id" use="literal"> </soap:header>
+                <soap:header message="tns:requestHeader" part="userId" use="literal"> </soap:header>
+                <soap:header message="tns:requestHeader" part="issue" use="literal"> </soap:header>
+                <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"> </soap:header>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="removeEmailAddress">
+            <soap:operation style="document"/>
+            <xrd:version>v1</xrd:version>
+            <wsdl:input name="removeEmailAddress">
+                <soap:header message="tns:requestHeader" part="client" use="literal"> </soap:header>
+                <soap:header message="tns:requestHeader" part="service" use="literal"> </soap:header>
+                <soap:header message="tns:requestHeader" part="id" use="literal"> </soap:header>
+                <soap:header message="tns:requestHeader" part="userId" use="literal"> </soap:header>
+                <soap:header message="tns:requestHeader" part="issue" use="literal"> </soap:header>
+                <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"> </soap:header>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="removeEmailAddressResponse">
+                <soap:header message="tns:requestHeader" part="client" use="literal"> </soap:header>
+                <soap:header message="tns:requestHeader" part="service" use="literal"> </soap:header>
+                <soap:header message="tns:requestHeader" part="id" use="literal"> </soap:header>
+                <soap:header message="tns:requestHeader" part="userId" use="literal"> </soap:header>
+                <soap:header message="tns:requestHeader" part="issue" use="literal"> </soap:header>
+                <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"> </soap:header>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="createOrUpdateEvent">
+            <soap:operation style="document"/>
+            <xrd:version>v1</xrd:version>
+            <wsdl:input name="createOrUpdateEvent">
+                <soap:header message="tns:requestHeader" part="client" use="literal"> </soap:header>
+                <soap:header message="tns:requestHeader" part="service" use="literal"> </soap:header>
+                <soap:header message="tns:requestHeader" part="id" use="literal"> </soap:header>
+                <soap:header message="tns:requestHeader" part="userId" use="literal"> </soap:header>
+                <soap:header message="tns:requestHeader" part="issue" use="literal"> </soap:header>
+                <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"> </soap:header>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="createOrUpdateEventResponse">
+                <soap:header message="tns:requestHeader" part="client" use="literal"> </soap:header>
+                <soap:header message="tns:requestHeader" part="service" use="literal"> </soap:header>
+                <soap:header message="tns:requestHeader" part="id" use="literal"> </soap:header>
+                <soap:header message="tns:requestHeader" part="userId" use="literal"> </soap:header>
+                <soap:header message="tns:requestHeader" part="issue" use="literal"> </soap:header>
+                <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"> </soap:header>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="removeEvent">
+            <soap:operation style="document"/>
+            <xrd:version>v1</xrd:version>
+            <wsdl:input name="removeEvent">
+                <soap:header message="tns:requestHeader" part="client" use="literal"> </soap:header>
+                <soap:header message="tns:requestHeader" part="service" use="literal"> </soap:header>
+                <soap:header message="tns:requestHeader" part="id" use="literal"> </soap:header>
+                <soap:header message="tns:requestHeader" part="userId" use="literal"> </soap:header>
+                <soap:header message="tns:requestHeader" part="issue" use="literal"> </soap:header>
+                <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"> </soap:header>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="removeEventResponse">
+                <soap:header message="tns:requestHeader" part="client" use="literal"> </soap:header>
+                <soap:header message="tns:requestHeader" part="service" use="literal"> </soap:header>
+                <soap:header message="tns:requestHeader" part="id" use="literal"> </soap:header>
+                <soap:header message="tns:requestHeader" part="userId" use="literal"> </soap:header>
+                <soap:header message="tns:requestHeader" part="issue" use="literal"> </soap:header>
+                <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"> </soap:header>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="addOrUpdateReminder">
+            <soap:operation style="document"/>
+            <xrd:version>v1</xrd:version>
+            <wsdl:input name="addOrUpdateReminder">
+                <soap:header message="tns:requestHeader" part="client" use="literal"> </soap:header>
+                <soap:header message="tns:requestHeader" part="service" use="literal"> </soap:header>
+                <soap:header message="tns:requestHeader" part="id" use="literal"> </soap:header>
+                <soap:header message="tns:requestHeader" part="userId" use="literal"> </soap:header>
+                <soap:header message="tns:requestHeader" part="issue" use="literal"> </soap:header>
+                <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"> </soap:header>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="addOrUpdateReminderResponse">
+                <soap:header message="tns:requestHeader" part="client" use="literal"> </soap:header>
+                <soap:header message="tns:requestHeader" part="service" use="literal"> </soap:header>
+                <soap:header message="tns:requestHeader" part="id" use="literal"> </soap:header>
+                <soap:header message="tns:requestHeader" part="userId" use="literal"> </soap:header>
+                <soap:header message="tns:requestHeader" part="issue" use="literal"> </soap:header>
+                <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"> </soap:header>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="removeReminder">
+            <soap:operation style="document"/>
+            <xrd:version>v1</xrd:version>
+            <wsdl:input name="removeReminder">
+                <soap:header message="tns:requestHeader" part="client" use="literal"> </soap:header>
+                <soap:header message="tns:requestHeader" part="service" use="literal"> </soap:header>
+                <soap:header message="tns:requestHeader" part="id" use="literal"> </soap:header>
+                <soap:header message="tns:requestHeader" part="userId" use="literal"> </soap:header>
+                <soap:header message="tns:requestHeader" part="issue" use="literal"> </soap:header>
+                <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"> </soap:header>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="removeReminderResponse">
+                <soap:header message="tns:requestHeader" part="client" use="literal"> </soap:header>
+                <soap:header message="tns:requestHeader" part="service" use="literal"> </soap:header>
+                <soap:header message="tns:requestHeader" part="id" use="literal"> </soap:header>
+                <soap:header message="tns:requestHeader" part="userId" use="literal"> </soap:header>
+                <soap:header message="tns:requestHeader" part="issue" use="literal"> </soap:header>
+                <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"> </soap:header>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="getUserPreferences">
+            <soap:operation style="document"/>
+            <xrd:version>v1</xrd:version>
+            <wsdl:input name="getUserPreferences">
+                <soap:header message="tns:requestHeader" part="client" use="literal"> </soap:header>
+                <soap:header message="tns:requestHeader" part="service" use="literal"> </soap:header>
+                <soap:header message="tns:requestHeader" part="id" use="literal"> </soap:header>
+                <soap:header message="tns:requestHeader" part="userId" use="literal"> </soap:header>
+                <soap:header message="tns:requestHeader" part="issue" use="literal"> </soap:header>
+                <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"> </soap:header>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="getUserPreferencesResponse">
+                <soap:header message="tns:requestHeader" part="client" use="literal"> </soap:header>
+                <soap:header message="tns:requestHeader" part="service" use="literal"> </soap:header>
+                <soap:header message="tns:requestHeader" part="id" use="literal"> </soap:header>
+                <soap:header message="tns:requestHeader" part="userId" use="literal"> </soap:header>
+                <soap:header message="tns:requestHeader" part="issue" use="literal"> </soap:header>
+                <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"> </soap:header>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="getEvents">
+            <soap:operation style="document"/>
+            <xrd:version>v1</xrd:version>
+            <wsdl:input name="getEvents">
+                <soap:header message="tns:requestHeader" part="client" use="literal"> </soap:header>
+                <soap:header message="tns:requestHeader" part="service" use="literal"> </soap:header>
+                <soap:header message="tns:requestHeader" part="id" use="literal"> </soap:header>
+                <soap:header message="tns:requestHeader" part="userId" use="literal"> </soap:header>
+                <soap:header message="tns:requestHeader" part="issue" use="literal"> </soap:header>
+                <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"> </soap:header>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="getEventsResponse">
+                <soap:header message="tns:requestHeader" part="client" use="literal"> </soap:header>
+                <soap:header message="tns:requestHeader" part="service" use="literal"> </soap:header>
+                <soap:header message="tns:requestHeader" part="id" use="literal"> </soap:header>
+                <soap:header message="tns:requestHeader" part="userId" use="literal"> </soap:header>
+                <soap:header message="tns:requestHeader" part="issue" use="literal"> </soap:header>
+                <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"> </soap:header>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="notificationsService">
+        <wsdl:port binding="tns:notificationsBinding" name="notificationsSoap11">
+            <xrd:title>Riigiportaali teavitused</xrd:title>
+            <soap:address location="http://example.org/xroad-endpoint"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>

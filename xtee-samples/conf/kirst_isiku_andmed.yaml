@@ -1,0 +1,6 @@
+method: isikuAndmedV1
+namespaceUri: http://kirst.x-road.eu
+registryCode: kirst
+responseRootNode: null
+serviceCode: isiku_andmed
+serviceName: kirstXRoadDatabase

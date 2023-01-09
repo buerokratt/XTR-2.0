@@ -1,0 +1,3128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/"
+             targetNamespace="http://producers.aar.xtee.riik.ee/producer/aar"
+             xmlns:xrd="http://x-road.eu/xsd/xroad.xsd"
+             xmlns:xs="http://www.w3.org/2001/XMLSchema"
+             xmlns:tns="http://producers.aar.xtee.riik.ee/producer/aar"
+             xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/"
+             xmlns:ref="http://ws-i.org/profiles/basic/1.1/xsd"
+             xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+
+<!-- Antud WSDL kirjeldab AAR andmekogu teenused vastavald X-tee sõnumi
+     protokolli 4.0 versioonile.
+     Parema ühilduvuse tagamiseks on säilitatud <paring> ja <keha> elemendid,
+     kuid päringus olevate manuste hashid ei ole enam tagastatud <paring>
+     elemendi sees.
+     Manuste kirjeldused on nüüd tehtud SwaRef abil, kuid manuste käsitlemine
+     ei ole võrreldes varasema AAR'i versiooniga muutunud. 
+      -->
+
+  <types>
+    <xs:schema targetNamespace="http://producers.aar.xtee.riik.ee/producer/aar">
+      <xs:import namespace="http://x-road.eu/xsd/xroad.xsd" schemaLocation="http://x-road.eu/xsd/xroad.xsd"/>
+      <xs:import namespace="http://ws-i.org/profiles/basic/1.1/xsd" schemaLocation="http://ws-i.org/profiles/basic/1.1/swaref.xsd"/>
+
+      <xs:complexType name="oigusedParing">
+        <xs:all>
+          <xs:element name="registrikood" type="xs:string" minOccurs="0">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Asutuse registrikood (Õigus)</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="ametikohtId" type="xs:integer" minOccurs="0">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Ametikoha ID</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="gruppId" type="xs:integer" minOccurs="0">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Grupi ID</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="isikukood" type="xs:string" minOccurs="0">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Isikukood</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+        </xs:all>
+      </xs:complexType>
+
+      <!-- Grupi õiguste funktsionaalsus ei ole hetkel realiseeritud.
+           Õiguse sügavusega ei ole hetkel arvestatud.
+           Sisendi ning väljundi registrikood kuulub õigusega seotud asutusele. Ametikohaga seotus registrikood võib olla arvutatud ametikoha id väärtusest.
+           Juhul, kui isikukood ei ole tühi, siis on väljastatud isikuga seotud õigused, kasutades filtritena "ametikoht_id" ning "registrikood".
+           Juhul, kui isikukood ei ole tühi, ning teised väljad on tühjad, siis lisaks isiku õigustele tagastakse ka isiku ametikohad.
+           Juhul, kui isikukood on tühi, ning ametikoht_id või registrikood ei ole tühjad, siis on on väljastatud kõik õigused, kasutades filtritena "ametikoht_id" ning "registrikood".
+           Juhul, kui isikukood on tühi, ning oigusega on seotud õiguse piirang, siis vastavate isikukoodide komaga eraldatud nimekiri on väljastatud isikukood väljas. -->
+      <xs:complexType name="oigusedVastus">
+        <xs:all>
+          <xs:element name="oigused" minOccurs="0">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Õiguste jada</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="oigus" minOccurs="1" maxOccurs="unbounded">
+                  <xs:complexType>
+                    <xs:all>
+                      <xs:element name="oigusNimi" type="xs:string" minOccurs="0" maxOccurs="1" nillable="true">
+                        <xs:annotation>
+                          <xs:appinfo>
+                            <xrd:title>Õiguse nimetus</xrd:title>
+                          </xs:appinfo>
+                        </xs:annotation>
+                      </xs:element>
+                      <xs:element name="oigusAlates" type="xs:date" minOccurs="0" maxOccurs="1" nillable="true">
+                        <xs:annotation>
+                          <xs:appinfo>
+                            <xrd:title>Õigus kehtib alates</xrd:title>
+                          </xs:appinfo>
+                        </xs:annotation>
+                      </xs:element>
+                      <xs:element name="oigusKuni" type="xs:date" minOccurs="0" maxOccurs="1" nillable="true">
+                        <xs:annotation>
+                          <xs:appinfo>
+                            <xrd:title>Õigus kehtib kuni</xrd:title>
+                          </xs:appinfo>
+                        </xs:annotation>
+                      </xs:element>
+                      <xs:element name="grupp" type="xs:string" minOccurs="0" maxOccurs="1" nillable="true">
+                        <xs:annotation>
+                          <xs:appinfo>
+                            <xrd:title>Grupp</xrd:title>
+                          </xs:appinfo>
+                        </xs:annotation>
+                      </xs:element>
+                      <xs:element name="registrikood" type="xs:string" minOccurs="1" maxOccurs="1">
+                        <xs:annotation>
+                          <xs:appinfo>
+                            <xrd:title>Asutuse registrikood (Õigus)</xrd:title>
+                          </xs:appinfo>
+                        </xs:annotation>
+                      </xs:element>
+                      <xs:element name="ametikohtId" type="xs:integer" minOccurs="1" maxOccurs="1">
+                        <xs:annotation>
+                          <xs:appinfo>
+                            <xrd:title>Ametikoha ID</xrd:title>
+                          </xs:appinfo>
+                        </xs:annotation>
+                      </xs:element>
+                      <xs:element name="isikukood" type="xs:string" minOccurs="0" maxOccurs="1" nillable="true">
+                        <xs:annotation>
+                          <xs:appinfo>
+                            <xrd:title>Isikukood</xrd:title>
+                          </xs:appinfo>
+                        </xs:annotation>
+                      </xs:element>
+                      <xs:element name="ksAmetikohtId" type="xs:integer" minOccurs="0" maxOccurs="1" nillable="true">
+                        <xs:annotation>
+                          <xs:appinfo>
+                            <xrd:title>Kõrgemalseisva ametikoha ID</xrd:title>
+                          </xs:appinfo>
+                        </xs:annotation>
+                      </xs:element>
+                      <xs:element name="ametikohtNimetus" type="xs:string" minOccurs="0" maxOccurs="1" nillable="true">
+                        <xs:annotation>
+                          <xs:appinfo>
+                            <xrd:title>Ametikoha nimetus</xrd:title>
+                          </xs:appinfo>
+                        </xs:annotation>
+                      </xs:element>
+                      <xs:element name="ametikohtAlates" type="xs:date" minOccurs="0" maxOccurs="1" nillable="true">
+                        <xs:annotation>
+                          <xs:appinfo>
+                            <xrd:title>Ametikoht kehtib alates</xrd:title>
+                          </xs:appinfo>
+                        </xs:annotation>
+                      </xs:element>
+                      <xs:element name="ametikohtKuni" type="xs:date" minOccurs="0" maxOccurs="1" nillable="true">
+                        <xs:annotation>
+                          <xs:appinfo>
+                            <xrd:title>Ametikoht kehtib kuni</xrd:title>
+                          </xs:appinfo>
+                        </xs:annotation>
+                      </xs:element>
+                      <xs:element name="allyksusId" type="xs:integer" minOccurs="0" maxOccurs="1" nillable="true">
+                        <xs:annotation>
+                          <xs:appinfo>
+                            <xrd:title>Allüksuse ID</xrd:title>
+                          </xs:appinfo>
+                        </xs:annotation>
+                      </xs:element>
+                    </xs:all>
+                  </xs:complexType>
+                </xs:element>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:all>
+      </xs:complexType>
+
+      <xs:complexType name="oigused2Paring">
+        <xs:all>
+          <xs:element name="oigusId" type="xs:integer" minOccurs="0">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Õiguse ID</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="isikukood" type="xs:string" minOccurs="0">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Isikukood</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="oigRegistrikood" type="xs:string" minOccurs="0">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Asutuse registrikood (õigus)</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="oigAsutusId" type="xs:integer" minOccurs="0">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Asutuse ID (õigus)</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="ametikohtId" type="xs:integer" minOccurs="0">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Ametikoha ID</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="akRegistrikood" type="xs:string" minOccurs="0">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Asutuse registrikood (ametikoht)</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="akAsutusId" type="xs:integer" minOccurs="0">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Asutuse ID (ametikoht)</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="limit" type="xs:integer" minOccurs="0">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Vastuse limit</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="offset" type="xs:integer" minOccurs="0">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Vastuse offset</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+        </xs:all>
+      </xs:complexType>
+
+      <!-- Õiguse sügavusega ei ole hetkel arvestatud
+           Päringu vastuses on toodud kõik õigused mis vastavad sisendis toodud kriteerimitele (oiguse id, isikukood, ametikoha id,
+           õigusega seotud asutuse id, ametikohaga seotud astuse id). Kui mõni õtsingu kriteerium on tühi, siis sellega ei arvestata.
+           Asutuse id asemel saab anda asutuse registrikoodi. Mahiliste päringute puhul võib kasutada limit ja offset. Kui vastuses on
+           vastuseOsa=true, siis vastus oli tagastatud osaliselt, ning ülejäänute andmete saamiseks tuleb päringu korrata määrates offset. -->
+      <xs:complexType name="oigused2Vastus">
+        <xs:all>
+          <xs:element name="oigused" minOccurs="0">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Õiguste jada</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="oigus" minOccurs="1" maxOccurs="unbounded">
+                  <xs:complexType>
+                    <xs:all>
+                      <xs:element name="oigusId" type="xs:integer" minOccurs="1">
+                        <xs:annotation>
+                          <xs:appinfo>
+                            <xrd:title>Õiguse ID</xrd:title>
+                          </xs:appinfo>
+                        </xs:annotation>
+                      </xs:element>
+                      <xs:element name="oigusNimi" type="xs:string" minOccurs="1">
+                        <xs:annotation>
+                          <xs:appinfo>
+                            <xrd:title>Õiguse nimetus</xrd:title>
+                          </xs:appinfo>
+                        </xs:annotation>
+                      </xs:element>
+                      <xs:element name="oigusAlates" type="xs:dateTime" minOccurs="0">
+                        <xs:annotation>
+                          <xs:appinfo>
+                            <xrd:title>Õigus kehtib alates</xrd:title>
+                          </xs:appinfo>
+                        </xs:annotation>
+                      </xs:element>
+                      <xs:element name="oigusKuni" type="xs:dateTime" minOccurs="0">
+                        <xs:annotation>
+                          <xs:appinfo>
+                            <xrd:title>Õigus kehtib kuni</xrd:title>
+                          </xs:appinfo>
+                        </xs:annotation>
+                      </xs:element>
+                      <xs:element name="oigusPeatatud" type="xs:boolean" minOccurs="1">
+                        <xs:annotation>
+                          <xs:appinfo>
+                            <xrd:title>Õigus on peatatud</xrd:title>
+                          </xs:appinfo>
+                        </xs:annotation>
+                      </xs:element>
+                      <xs:element name="oigusIkPiirang" type="xs:string" minOccurs="0">
+                        <xs:annotation>
+                          <xs:appinfo>
+                            <xrd:title>Isikukoodi piirang</xrd:title>
+                          </xs:appinfo>
+                        </xs:annotation>
+                      </xs:element>
+                      <xs:element name="oigRegistrikood" type="xs:string" minOccurs="1">
+                        <xs:annotation>
+                          <xs:appinfo>
+                            <xrd:title>Asutuse registrikood (õigus)</xrd:title>
+                          </xs:appinfo>
+                        </xs:annotation>
+                      </xs:element>
+                      <xs:element name="oigAsutusId" type="xs:integer" minOccurs="1">
+                        <xs:annotation>
+                          <xs:appinfo>
+                            <xrd:title>Asutuse ID (õigus)</xrd:title>
+                          </xs:appinfo>
+                        </xs:annotation>
+                      </xs:element>
+                      <xs:element name="ametikohtId" type="xs:integer" minOccurs="1">
+                        <xs:annotation>
+                          <xs:appinfo>
+                            <xrd:title>Ametikoha ID</xrd:title>
+                          </xs:appinfo>
+                        </xs:annotation>
+                      </xs:element>
+                      <xs:element name="akRegistrikood" type="xs:string" minOccurs="1">
+                        <xs:annotation>
+                          <xs:appinfo>
+                            <xrd:title>Asutuse registrikood (ametikoht)</xrd:title>
+                          </xs:appinfo>
+                        </xs:annotation>
+                      </xs:element>
+                      <xs:element name="akAsutusId" type="xs:integer" minOccurs="1">
+                        <xs:annotation>
+                          <xs:appinfo>
+                            <xrd:title>Asutuse ID (ametikoht)</xrd:title>
+                          </xs:appinfo>
+                        </xs:annotation>
+                      </xs:element>
+                    </xs:all>
+                  </xs:complexType>
+                </xs:element>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="vastuseOsa" type="xs:boolean" minOccurs="1">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Vastus on tagastatud osaliselt</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+        </xs:all>
+      </xs:complexType>
+
+      <xs:complexType name="oigused3Paring">
+        <xs:all>
+          <xs:element name="oigused" minOccurs="1">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Asutuste nimekiri xml faili kujul</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+            <xs:complexType>
+              <xs:attribute type="ref:swaRef" name="href"/>
+            </xs:complexType>
+          </xs:element>
+        </xs:all>
+      </xs:complexType>
+
+      <xs:complexType name="oigused3Vastus">
+        <xs:all>
+          <xs:element name="oigused" minOccurs="1">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Õiguste nimekiri xml faili kujul</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+            <xs:complexType>
+              <xs:attribute type="ref:swaRef" name="href"/>
+            </xs:complexType>
+          </xs:element>
+        </xs:all>
+      </xs:complexType>
+
+      <!-- Paringu manuse struktuur -->
+      <xs:complexType name="oigused3ParingManus">
+        <xs:all>
+          <xs:element name="oigused" minOccurs="1" maxOccurs="1">
+            <xs:complexType>
+              <xs:all>
+                <xs:element name="oigused" minOccurs="0" maxOccurs="1">
+                  <xs:complexType>
+                    <xs:sequence>
+                      <xs:element name="oigus_nimi" type="xs:string" minOccurs="1" maxOccurs="unbounded"/>
+                    </xs:sequence>
+                  </xs:complexType>
+                </xs:element>
+                <xs:element name="asutused" minOccurs="0" maxOccurs="1">
+                  <xs:complexType>
+                    <xs:sequence>
+                      <xs:element name="asutus_id" type="xs:integer" minOccurs="1" maxOccurs="unbounded"/>
+                    </xs:sequence>
+                  </xs:complexType>
+                </xs:element>
+                <xs:element name="ametikohad" minOccurs="0" maxOccurs="1">
+                  <xs:complexType>
+                    <xs:sequence>
+                      <xs:element name="ametikoht_id" type="xs:integer" minOccurs="1" maxOccurs="unbounded"/>
+                    </xs:sequence>
+                  </xs:complexType>
+                </xs:element>
+                <xs:element name="OR" type="xs:boolean" default="false" minOccurs="0" maxOccurs="1"/>
+              </xs:all>
+            </xs:complexType>
+          </xs:element>
+        </xs:all>
+      </xs:complexType>
+
+      <!-- Vastuse manuse struktuur -->
+      <!-- Vastuses on tagastud ainult kehtivad õigused, ametikohad ning asutused.
+           Vähemalt üks päringute massiividest peab olma mitte tühi.
+           Juhul, kui päringus "OR" = true, siis vastused on tagastatud õigused mis vastavad reeglile:
+           oigus = ANY (oigused) OR asutus = ANY (asutused) OR ametikoht = ANY (ametikohad)
+           Juhul, kui päringus "OR" = false, siis vastused on tagastatud õigused mis vastavad reeglile:
+           (oigused IS NULL OR oigus = ANY (oigused)) AND (asutused IS NULL OR asutus = ANY (asutused))
+           AND (ametikohad IS NULL OR ametikoht IN (ametikohad)) -->
+      <xs:complexType name="oigused3VastusManus">
+        <xs:all>
+          <xs:element name="oigused" minOccurs="1" maxOccurs="1">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="oigus" minOccurs="0" maxOccurs="unbounded">
+                  <xs:complexType>
+                    <xs:all>
+                      <xs:element name="oigus_id" type="xs:integer" minOccurs="1" maxOccurs="1"/>
+                      <xs:element name="oigus_nimi" type="xs:string" minOccurs="1" maxOccurs="1"/>
+                      <xs:element name="oigus_alates" type="xs:dateTime" minOccurs="0" maxOccurs="1"/>
+                      <xs:element name="oigus_kuni" type="xs:dateTime" minOccurs="0" maxOccurs="1"/>
+                      <xs:element name="oigus_ik_piirang" type="xs:string" minOccurs="0" maxOccurs="1"/>
+                      <xs:element name="asutus_id" type="xs:integer" minOccurs="1" maxOccurs="1"/>
+                      <xs:element name="asutus_nimetus" type="xs:string" minOccurs="1" maxOccurs="1"/>
+                      <xs:element name="asutus_nimetus_en" type="xs:string" minOccurs="0" maxOccurs="1"/>
+                      <xs:element name="asutus_nimetus_ru" type="xs:string" minOccurs="0" maxOccurs="1"/>
+                      <xs:element name="ametikoht_id" type="xs:integer" minOccurs="1" maxOccurs="1"/>
+                      <xs:element name="ametikoht_nimetus" type="xs:string" minOccurs="1" maxOccurs="1"/>
+                      <xs:element name="ametikoht_nimetus_en" type="xs:string" minOccurs="0" maxOccurs="1"/>
+                      <xs:element name="ametikoht_nimetus_ru" type="xs:string" minOccurs="0" maxOccurs="1"/>
+                      <xs:element name="taitja" minOccurs="0" maxOccurs="1">
+                        <xs:complexType>
+                          <xs:all>
+                            <xs:element name="roll" type="xs:string" minOccurs="1" maxOccurs="1"/>
+                            <xs:element name="isikukood" type="xs:string" minOccurs="1" maxOccurs="1"/>
+                            <xs:element name="eesnimi" type="xs:string" minOccurs="1" maxOccurs="1"/>
+                            <xs:element name="perenimi" type="xs:string" minOccurs="1" maxOccurs="1"/>
+                            <xs:element name="telefon" type="xs:string" minOccurs="0" maxOccurs="1"/>
+                            <xs:element name="e_post" type="xs:string" minOccurs="0" maxOccurs="1"/>
+                          </xs:all>
+                        </xs:complexType>
+                      </xs:element>
+                    </xs:all>
+                  </xs:complexType>
+                </xs:element>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:all>
+      </xs:complexType>
+
+      <xs:complexType name="asutusedParing">
+        <xs:all>
+          <xs:element name="asutused" minOccurs="1">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Asutuste nimekiri xml faili kujul</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+            <xs:complexType>
+              <xs:attribute type="ref:swaRef" name="href"/>
+            </xs:complexType>
+          </xs:element>
+        </xs:all>
+      </xs:complexType>
+
+      <xs:complexType name="asutusedVastus">
+        <xs:all>
+          <xs:element name="struktuur" minOccurs="1">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Asutuste struktuur xml faili kujul</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+            <xs:complexType>
+              <xs:attribute type="ref:swaRef" name="href"/>
+            </xs:complexType>
+          </xs:element>
+        </xs:all>
+      </xs:complexType>
+
+      <!-- Paringu manuse struktuur -->
+      <xs:complexType name="asutusedParingManus">
+        <xs:all>
+          <xs:element name="asutused" minOccurs="1" maxOccurs="1">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="kood" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+                <xs:element name="id" type="xs:integer" minOccurs="0" maxOccurs="unbounded"/>
+                <xs:element name="nimetus" type="xs:string" minOccurs="0" maxOccurs="1"/>
+                <xs:element name="alamobjektideta" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
+                <xs:element name="re_kood" type="xs:string" minOccurs="0" maxOccurs="1"/>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:all>
+      </xs:complexType>
+
+      <!-- Vastuse manuse struktuur -->
+      <!-- Vastuses on toodud kõik asutused/ametikohad/täitmised: kehtivad, lõpetatud ning need mis kehtivad tulevikus.
+           Kui vastuses on toodud asutuse asutamise_kp, siis asutus kehtib ainult sellest kuupäevast alates.
+           Kui vastuses on toodud asutuse lopet_kp, siis asutus kehtib ainult enne seda kuupäeva.
+           Kui vastuses on toodud ametikoha alates, siis ametikoht kehtib ainult sellest kuupäevast alates.
+           Kui vastuses on toodud ametikoha kuni, siis ametikoht kehtib selle kuupäevani (kaasaarvatud).
+           Kui vastuses on toodud täitmise alates, siis täitmine kehtib ainult sellest kuupäevast alates.
+           Kui vastuses on toodud täitmise kuni, siis täitmine kehtib selle kuupäevani (kaasaarvatud).
+           Kui vastuses on toodud täitmise peatatud=true, siis täitmine ei kehti. -->
+      <xs:complexType name="asutusedVastusManus">
+        <xs:all>
+          <xs:element name="asutused" minOccurs="1" maxOccurs="1">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="asutus" minOccurs="0" maxOccurs="unbounded">
+                  <xs:complexType>
+                    <xs:all>
+                      <xs:element name="asutus_id" type="xs:integer" minOccurs="1" maxOccurs="1"/>
+                      <xs:element name="registrikood" type="xs:string" minOccurs="1" maxOccurs="1"/>
+                      <xs:element name="ks_asutus_id" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+                      <xs:element name="ks_asutus_kood" type="xs:string" minOccurs="0" maxOccurs="1"/>
+                      <xs:element name="nimetus" type="xs:string" minOccurs="1" maxOccurs="1"/>
+                      <xs:element name="nimetus_en" type="xs:string" minOccurs="0" maxOccurs="1"/>
+                      <xs:element name="nimetus_ru" type="xs:string" minOccurs="0" maxOccurs="1"/>
+                      <xs:element name="liik1" type="xs:string" minOccurs="0" maxOccurs="1"/>
+                      <xs:element name="liik2" type="xs:string" minOccurs="0" maxOccurs="1"/>
+                      <xs:element name="maakond" type="xs:string" minOccurs="0" maxOccurs="1"/>
+                      <xs:element name="asukoht" type="xs:string" minOccurs="0" maxOccurs="1"/>
+                      <xs:element name="aadress" type="xs:string" minOccurs="0" maxOccurs="1"/>
+                      <xs:element name="postikood" type="xs:string" minOccurs="0" maxOccurs="1"/>
+                      <xs:element name="telefon" type="xs:string" minOccurs="0" maxOccurs="1"/>
+                      <xs:element name="e_post" type="xs:string" minOccurs="0" maxOccurs="1"/>
+                      <xs:element name="www" type="xs:string" minOccurs="0" maxOccurs="1"/>
+                      <xs:element name="asutamise_kp" type="xs:date" minOccurs="0" maxOccurs="1"/>
+                      <xs:element name="lopet_kp" type="xs:date" minOccurs="0" maxOccurs="1"/>
+                      <xs:element name="ametikohad" minOccurs="1" maxOccurs="1">
+                        <xs:complexType>
+                          <xs:sequence>
+                            <xs:element name="ametikoht" minOccurs="0" maxOccurs="unbounded">
+                              <xs:complexType>
+                                <xs:all>
+                                  <xs:element name="ametikoht_id" type="xs:integer" minOccurs="1" maxOccurs="1"/>
+                                  <xs:element name="nimetus" type="xs:string" minOccurs="1" maxOccurs="1"/>
+                                  <xs:element name="nimetus_en" type="xs:string" minOccurs="0" maxOccurs="1"/>
+                                  <xs:element name="nimetus_ru" type="xs:string" minOccurs="0" maxOccurs="1"/>
+                                  <xs:element name="alates" type="xs:date" minOccurs="0" maxOccurs="1"/>
+                                  <xs:element name="kuni" type="xs:date" minOccurs="0" maxOccurs="1"/>
+                                  <xs:element name="allyksus_id" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+                                  <xs:element name="allyksus_nimetus" type="xs:string" minOccurs="0" maxOccurs="1"/>
+                                  <xs:element name="taitmised" minOccurs="1" maxOccurs="1">
+                                    <xs:complexType>
+                                      <xs:sequence>
+                                        <xs:element name="taitmine" minOccurs="0" maxOccurs="unbounded">
+                                          <xs:complexType>
+                                            <xs:all>
+                                              <xs:element name="taitmine_id" type="xs:integer" minOccurs="1" maxOccurs="1"/>
+                                              <xs:element name="alates" type="xs:date" minOccurs="0" maxOccurs="1"/>
+                                              <xs:element name="kuni" type="xs:date" minOccurs="0" maxOccurs="1"/>
+                                              <xs:element name="peatatud" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
+                                              <xs:element name="roll" type="xs:string" minOccurs="0" maxOccurs="1"/>
+                                              <xs:element name="isik" minOccurs="1" maxOccurs="1">
+                                                <xs:complexType>
+                                                  <xs:all>
+                                                    <xs:element name="isikukood" type="xs:string" minOccurs="1" maxOccurs="1"/>
+                                                    <xs:element name="eesnimi" type="xs:string" minOccurs="1" maxOccurs="1"/>
+                                                    <xs:element name="perenimi" type="xs:string" minOccurs="1" maxOccurs="1"/>
+                                                    <xs:element name="telefon" type="xs:string" minOccurs="0" maxOccurs="1"/>
+                                                    <xs:element name="e_post" type="xs:string" minOccurs="0" maxOccurs="1"/>
+                                                  </xs:all>
+                                                </xs:complexType>
+                                              </xs:element>
+                                            </xs:all>
+                                          </xs:complexType>
+                                        </xs:element>
+                                      </xs:sequence>
+                                    </xs:complexType>
+                                  </xs:element>
+                                </xs:all>
+                              </xs:complexType>
+                            </xs:element>
+                          </xs:sequence>
+                        </xs:complexType>
+                      </xs:element>
+                    </xs:all>
+                  </xs:complexType>
+                </xs:element>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:all>
+      </xs:complexType>
+
+      <xs:complexType name="ametikohadParing">
+        <xs:all>
+          <xs:element name="ametikohad" minOccurs="1">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Ametikohtade primaarvõtmete nimekiri xml faili kujul</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+            <xs:complexType>
+              <xs:attribute type="ref:swaRef" name="href"/>
+            </xs:complexType>
+          </xs:element>
+        </xs:all>
+      </xs:complexType>
+
+      <xs:complexType name="ametikohadVastus">
+        <xs:all>
+          <xs:element name="ametikohad" minOccurs="1">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Ametikohtade nimekiri xml faili kujul</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+            <xs:complexType>
+              <xs:attribute type="ref:swaRef" name="href"/>
+            </xs:complexType>
+          </xs:element>
+        </xs:all>
+      </xs:complexType>
+
+      <!-- Paringu manuse struktuur -->
+      <xs:complexType name="ametikohadParingManus">
+        <xs:all>
+          <xs:element name="ametikohad" minOccurs="1" maxOccurs="1">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="id" type="xs:integer" minOccurs="0" maxOccurs="unbounded"/>
+                <xs:element name="asutus_id" type="xs:integer" minOccurs="0" maxOccurs="unbounded"/>
+                <xs:element name="oigus" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+                <xs:element name="oigus_asutus_id" type="xs:integer" minOccurs="0" maxOccurs="unbounded"/>
+                <xs:element name="vastus_oigused" type="xs:boolean" default="false" minOccurs="0" maxOccurs="1"/>
+                <xs:element name="vastus_peatatud_oigused" type="xs:boolean" default="false" minOccurs="0" maxOccurs="1"/>
+                <xs:element name="vastus_tulevikus_kehtivad_oigused" type="xs:boolean" default="false" minOccurs="0" maxOccurs="1"/>
+                <xs:element name="re_ak_nimetus" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+                <xs:element name="re_taitja" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+                <xs:element name="vastus_kehtetud_ametikohad" type="xs:boolean" default="false" minOccurs="0" maxOccurs="1"/>
+                <xs:element name="vastus_taitmiseta_ametikohad" type="xs:boolean" default="false" minOccurs="0" maxOccurs="1"/>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:all>
+      </xs:complexType>
+
+      <!-- Vastuse manuse struktuur -->
+      <!-- Vastuses ei ole toodud ametikohad mis kuuluvad mittekehtivatele asutustele.
+           re_ak_nimetus on ametikoha nimetuse regulaaravaldis.
+           re_taitja on täitja ees või perenime regulaaravaldis.
+           Kui vastuses on toodud ametikoha alates, siis ametikoht kehtib ainult sellest kuupäevast alates.
+           Kui vastuses on toodud ametikoha kuni, siis ametikoht kehtib selle kuupäevani (kaasaarvatud).
+           Kui vastuses on toodud täitmise alates, siis täitmine kehtib ainult sellest kuupäevast alates.
+           Kui vastuses on toodud täitmise kuni, siis täitmine kehtib selle kuupäevani (kaasaarvatud).
+           Kui vastuses on toodud täitmise peatatud=true, siis täitmine ei kehti.
+           Kui päringus vastus_oigused=true, siis tagastatakse ka ametikohaga seotud kehtivad õigused.
+           Kui päringus vastus_oigused=true ning vastus_peatatud_oigused=true, siis tagastatakse ka peatatud staatusega õigused.
+           Kui päringus vastus_oigused=true ning vastus_tulevikus_kehtivad_oigused=true, siis tagastatakse ka õigused tingimusega: alates>current_timestamp.
+           Kui õigus on nii peatatud kui ka tulevikus kehtiv, siis selle tagastamiseks tuleb päringus määrata mõlemad: vastus_peatatud_oigused=true ning vastus_tulevikus_kehtivad_oigused=true.
+           Kui päringus vastus_kehtetud_ametikohad=false, siis ei tagastata ametikohad, mille asutus on kehtetu.
+           Kui päringus vastus_kehtetud_ametikohad=true, siis tagastatakse ka kehtetud ametikohad (kaasaarvatud kui kehtetu on asutus).
+           Kui asutus on kehtetu, siis tagastatakse asutus_peatatud=true.
+           Kui vastus_taitmiseta_ametikohad=false, siis ei tagastatata ametikohad, millel puuduvad kehtivat täitmised
+           Kui vastus_taitmiseta_ametikohad=true, siis tagastatakse ka need ametikohad, millel puuduvad kehtivat täitmised -->
+      <xs:complexType name="ametikohadVastusManus">
+        <xs:all>
+          <xs:element name="ametikohad" minOccurs="1" maxOccurs="1">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="ametikoht" minOccurs="0" maxOccurs="unbounded">
+                  <xs:complexType>
+                    <xs:all>
+                      <xs:element name="asutus_id" type="xs:integer" minOccurs="1" maxOccurs="1"/>
+                      <xs:element name="asutus_registrikood" type="xs:string" minOccurs="1" maxOccurs="1"/>
+                      <xs:element name="asutus_nimetus" type="xs:string" minOccurs="1" maxOccurs="1"/>
+                      <xs:element name="asutus_nimetus_en" type="xs:string" minOccurs="0" maxOccurs="1"/>
+                      <xs:element name="asutus_nimetus_ru" type="xs:string" minOccurs="0" maxOccurs="1"/>
+                      <xs:element name="ametikoht_id" type="xs:integer" minOccurs="1" maxOccurs="1"/>
+                      <xs:element name="nimetus" type="xs:string" minOccurs="1" maxOccurs="1"/>
+                      <xs:element name="nimetus_en" type="xs:string" minOccurs="0" maxOccurs="1"/>
+                      <xs:element name="nimetus_ru" type="xs:string" minOccurs="0" maxOccurs="1"/>
+                      <xs:element name="alates" type="xs:date" minOccurs="0" maxOccurs="1"/>
+                      <xs:element name="kuni" type="xs:date" minOccurs="0" maxOccurs="1"/>
+                      <xs:element name="allyksus_id" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+                      <xs:element name="allyksus_nimetus" type="xs:string" minOccurs="0" maxOccurs="1"/>
+                      <xs:element name="asutus_peatatud" type="xs:string" minOccurs="0" maxOccurs="1"/>
+                      <xs:element name="taitmised" minOccurs="1" maxOccurs="1">
+                        <xs:complexType>
+                          <xs:sequence>
+                            <xs:element name="taitmine" minOccurs="0" maxOccurs="unbounded">
+                              <xs:complexType>
+                                <xs:all>
+                                  <xs:element name="taitmine_id" type="xs:integer" minOccurs="1" maxOccurs="1"/>
+                                  <xs:element name="alates" type="xs:date" minOccurs="0" maxOccurs="1"/>
+                                  <xs:element name="kuni" type="xs:date" minOccurs="0" maxOccurs="1"/>
+                                  <xs:element name="peatatud" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
+                                  <xs:element name="roll" type="xs:string" minOccurs="0" maxOccurs="1"/>
+                                  <xs:element name="isik" minOccurs="1" maxOccurs="1">
+                                    <xs:complexType>
+                                      <xs:all>
+                                        <xs:element name="isikukood" type="xs:string" minOccurs="1" maxOccurs="1"/>
+                                        <xs:element name="eesnimi" type="xs:string" minOccurs="1" maxOccurs="1"/>
+                                        <xs:element name="perenimi" type="xs:string" minOccurs="1" maxOccurs="1"/>
+                                        <xs:element name="telefon" type="xs:string" minOccurs="0" maxOccurs="1"/>
+                                        <xs:element name="e_post" type="xs:string" minOccurs="0" maxOccurs="1"/>
+                                      </xs:all>
+                                    </xs:complexType>
+                                  </xs:element>
+                                </xs:all>
+                              </xs:complexType>
+                            </xs:element>
+                          </xs:sequence>
+                        </xs:complexType>
+                      </xs:element>
+                      <xs:element name="oigused" minOccurs="0" maxOccurs="1">
+                        <xs:complexType>
+                          <xs:sequence>                          
+                            <xs:element name="oigus" minOccurs="0" maxOccurs="unbounded">
+                              <xs:complexType>
+                                <xs:all>
+                                  <xs:element name="oigus_antud_id" type="xs:integer" minOccurs="1" maxOccurs="1"/>
+                                  <xs:element name="oigus_asutus_id" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+                                  <xs:element name="roll" type="xs:string" minOccurs="1" maxOccurs="1"/>
+                                  <xs:element name="alates" type="xs:date" minOccurs="0" maxOccurs="1"/>
+                                  <xs:element name="kuni" type="xs:date" minOccurs="0" maxOccurs="1"/>
+                                  <xs:element name="peatatud" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
+                                  <xs:element name="oiguse_piirang_ik" type="xs:string" minOccurs="0" maxOccurs="1"/>
+                                </xs:all>
+                              </xs:complexType>
+                            </xs:element>  
+                          </xs:sequence>
+                        </xs:complexType>
+                      </xs:element>
+                    </xs:all>
+                  </xs:complexType>
+                </xs:element>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:all>
+      </xs:complexType>
+
+      <xs:complexType name="taitmisedParing">
+        <xs:all>
+          <xs:element name="taitmised" minOccurs="1">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Taitmiste primaarvõtmete nimekiri või täitja kirjeldav info xml faili kujul</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+            <xs:complexType>
+              <xs:attribute type="ref:swaRef" name="href"/>
+            </xs:complexType>
+          </xs:element>
+        </xs:all>
+      </xs:complexType>
+
+      <xs:complexType name="taitmisedVastus">
+        <xs:all>
+          <xs:element name="taitmised" minOccurs="1">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Taitmiste nimekiri xml faili kujul</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+            <xs:complexType>
+              <xs:attribute type="ref:swaRef" name="href"/>
+            </xs:complexType>
+          </xs:element>
+        </xs:all>
+      </xs:complexType>
+
+      <!-- Paringu manuse struktuur -->
+      <xs:complexType name="taitmisedParingManus">
+        <xs:all>
+          <xs:element name="taitmised" minOccurs="1" maxOccurs="1">
+            <xs:complexType>
+              <xs:all>
+                <xs:element name="taitmised" minOccurs="0" maxOccurs="1">
+                  <xs:complexType>
+                    <xs:sequence>
+                      <xs:element name="id" type="xs:string" minOccurs="1" maxOccurs="unbounded"/>
+                    </xs:sequence>
+                  </xs:complexType>
+                </xs:element>
+                <xs:element name="asutused" minOccurs="0" maxOccurs="1">
+                  <xs:complexType>
+                    <xs:sequence>
+                      <xs:element name="id" type="xs:string" minOccurs="1" maxOccurs="unbounded"/>
+                    </xs:sequence>
+                  </xs:complexType>
+                </xs:element>
+                <xs:element name="ametikohad" minOccurs="0" maxOccurs="1">
+                  <xs:complexType>
+                    <xs:sequence>
+                      <xs:element name="id" type="xs:string" minOccurs="1" maxOccurs="unbounded"/>
+                    </xs:sequence>
+                  </xs:complexType>
+                </xs:element>
+                <xs:element name="nimi" type="xs:string" minOccurs="0" maxOccurs="1"/>
+                <xs:element name="isikukood" type="xs:string" minOccurs="0" maxOccurs="1"/>
+                <xs:element name="oigused" minOccurs="0" maxOccurs="1">
+                  <xs:complexType>
+                    <xs:sequence>
+                      <xs:element name="oigus" type="xs:string" minOccurs="1" maxOccurs="1"/>
+                    </xs:sequence>
+                  </xs:complexType>
+                </xs:element>
+                <xs:element name="vastus_oigused" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
+                <xs:element name="mitte_kehtivad" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
+              </xs:all>
+            </xs:complexType>
+          </xs:element>
+        </xs:all>
+      </xs:complexType>
+
+      <!-- Vastuse manuse struktuur -->
+      <!-- Vastuses on toodud ainult kehtivad täitmised.
+           Tulemuste saamiseks peab olema määratud vähemalt üks järgmistest parameetritest: taitmised->id, nimi või isikukood. Juhul kui on vajadus saada täis nimekiri, siis tuleb määrata taitmised->id='ALL'. Ülejäänud sisend parameetrid on tulemuste filtrid.
+           Kui ametikoht või asutus ei kehti, siis täitmine ei ole tagastatud. 
+           Kui päringuga on esitatud õiguste nimekiri, siis on tagastatud ainult kehtivad täitmised mis on seotud toodud õigustega.
+           Kui vastuses on toodud alates ja kuni, siis tingimus "alates <= current_date <= kuni" on alati tõene.
+           Kui päringus on vastus_oigused=true, siis vastuses on tagastatud ka õigused, mis on seotud täitmise kaudu ametikohaga ning kehtivad antud isiku kohta.
+           Kui päringus on mitte_kehtivad=true, siis vastuses on tagastatud ka mitte kehtivad täitmised. -->
+      <xs:complexType name="taitmisedVastusManus">
+        <xs:all>
+          <xs:element name="taitmised" minOccurs="1" maxOccurs="1">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="taitmine" minOccurs="0" maxOccurs="unbounded">
+                  <xs:complexType>
+                    <xs:all>
+                      <xs:element name="asutus_id" type="xs:integer" minOccurs="1" maxOccurs="1"/>
+                      <xs:element name="asutus_registrikood" type="xs:string" minOccurs="1" maxOccurs="1"/>
+                      <xs:element name="asutus_nimetus" type="xs:string" minOccurs="1" maxOccurs="1"/>
+                      <xs:element name="asutus_nimetus_en" type="xs:string" minOccurs="0" maxOccurs="1"/>
+                      <xs:element name="asutus_nimetus_ru" type="xs:string" minOccurs="0" maxOccurs="1"/>
+                      <xs:element name="ametikoht_id" type="xs:integer" minOccurs="1" maxOccurs="1"/>
+                      <xs:element name="ametikoht_nimetus" type="xs:string" minOccurs="1" maxOccurs="1"/>
+                      <xs:element name="ametikoht_nimetus_en" type="xs:string" minOccurs="0" maxOccurs="1"/>
+                      <xs:element name="ametikoht_nimetus_ru" type="xs:string" minOccurs="0" maxOccurs="1"/>
+                      <xs:element name="taitmine_id" type="xs:integer" minOccurs="1" maxOccurs="1"/>
+                      <xs:element name="alates" type="xs:date" minOccurs="0" maxOccurs="1"/>
+                      <xs:element name="kuni" type="xs:date" minOccurs="0" maxOccurs="1"/>
+                      <xs:element name="roll" type="xs:string" minOccurs="0" maxOccurs="1"/>
+                      <xs:element name="isik" minOccurs="1" maxOccurs="1">
+                        <xs:complexType>
+                          <xs:all>
+                            <xs:element name="isikukood" type="xs:string" minOccurs="1" maxOccurs="1"/>
+                            <xs:element name="eesnimi" type="xs:string" minOccurs="1" maxOccurs="1"/>
+                            <xs:element name="perenimi" type="xs:string" minOccurs="1" maxOccurs="1"/>
+                            <xs:element name="telefon" type="xs:string" minOccurs="0" maxOccurs="1"/>
+                            <xs:element name="e_post" type="xs:string" minOccurs="0" maxOccurs="1"/>
+                          </xs:all>
+                        </xs:complexType>
+                      </xs:element>
+                      <xs:element name="pk_taitmine_id" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+                      <xs:element name="pk_roll" type="xs:date" minOccurs="0" maxOccurs="1"/>
+                      <xs:element name="pk_alates" type="xs:date" minOccurs="0" maxOccurs="1"/>
+                      <xs:element name="pk_kuni" type="xs:date" minOccurs="0" maxOccurs="1"/>
+                      <xs:element name="pk_isik" minOccurs="0" maxOccurs="1">
+                        <xs:complexType>
+                          <xs:all>
+                            <xs:element name="isikukood" type="xs:string" minOccurs="1" maxOccurs="1"/>
+                            <xs:element name="eesnimi" type="xs:string" minOccurs="1" maxOccurs="1"/>
+                            <xs:element name="perenimi" type="xs:string" minOccurs="1" maxOccurs="1"/>
+                            <xs:element name="telefon" type="xs:string" minOccurs="0" maxOccurs="1"/>
+                            <xs:element name="e_post" type="xs:string" minOccurs="0" maxOccurs="1"/>
+                          </xs:all>
+                        </xs:complexType>
+                      </xs:element>
+                      <xs:element name="oigused" minOccurs="0" maxOccurs="1">
+                        <xs:complexType>
+                          <xs:all>
+                            <xs:element name="nimetus" type="xs:string" minOccurs="1" maxOccurs="1"/>
+                            <xs:element name="alates" type="xs:date" minOccurs="0" maxOccurs="1"/>
+                            <xs:element name="kuni" type="xs:date" minOccurs="0" maxOccurs="1"/>
+                          </xs:all>
+                        </xs:complexType>
+                      </xs:element>
+                      <!-- Järgmised väljad on tagastatud ainult kui päringus oli mitte_kehtivad=true -->
+                      <xs:element name="peatatud" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
+                      <xs:element name="pk_peatatud" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
+                      <xs:element name="asutus_asutamise_kp" type="xs:date" minOccurs="0" maxOccurs="1"/>
+                      <xs:element name="asutus_lopet_kp" type="xs:date" minOccurs="0" maxOccurs="1"/>
+                      <xs:element name="ametikoht_alates" type="xs:date" minOccurs="0" maxOccurs="1"/>
+                      <xs:element name="ametikoht_kuni" type="xs:date" minOccurs="0" maxOccurs="1"/>
+                    </xs:all>
+                  </xs:complexType>
+                </xs:element>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:all>
+      </xs:complexType>
+
+      <xs:complexType name="isikudParing">
+        <xs:all>
+          <xs:element name="isikud" minOccurs="1">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Isikute isikukoodide nimekiri xml faili kujul</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+            <xs:complexType>
+              <xs:attribute type="ref:swaRef" name="href"/>
+            </xs:complexType>
+          </xs:element>
+        </xs:all>
+      </xs:complexType>
+
+      <xs:complexType name="isikudVastus">
+        <xs:all>
+          <xs:element name="isikud" minOccurs="1">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Isikute andmed xml faili kujul</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+            <xs:complexType>
+              <xs:attribute type="ref:swaRef" name="href"/>
+            </xs:complexType>
+          </xs:element>
+        </xs:all>
+      </xs:complexType>
+
+      <!-- Paringu manuse struktuur -->
+      <xs:complexType name="isikudParingManus">
+        <xs:all>
+          <xs:element name="xml" minOccurs="1" maxOccurs="1">
+            <xs:complexType>
+              <xs:all>
+                <xs:element name="isikud" minOccurs="0" maxOccurs="1">
+                  <xs:complexType>
+                    <xs:sequence>
+                      <xs:element name="isikukood" type="xs:string" minOccurs="1" maxOccurs="unbounded"/>
+                    </xs:sequence>
+                  </xs:complexType>
+                </xs:element>
+                <xs:element name="oigused" minOccurs="0" maxOccurs="1">
+                  <xs:complexType>
+                    <xs:sequence>
+                      <xs:element name="oigus" minOccurs="1" maxOccurs="unbounded">
+                        <xs:complexType>
+                          <xs:all>
+                            <xs:element name="nimetus" type="xs:string" minOccurs="1" maxOccurs="1"/>
+                            <xs:element name="asutused" minOccurs="0" maxOccurs="1">
+                              <xs:complexType>
+                                <xs:sequence>
+                                  <xs:element name="asutus_id" type="xs:integer" minOccurs="1" maxOccurs="unbounded"/>
+                                </xs:sequence>
+                              </xs:complexType>
+                            </xs:element>
+                          </xs:all>
+                        </xs:complexType>
+                      </xs:element>
+                    </xs:sequence>
+                  </xs:complexType>
+                </xs:element>
+              </xs:all>
+            </xs:complexType>
+          </xs:element>
+        </xs:all>
+      </xs:complexType>
+
+      <!-- Vastuse manuse struktuur -->
+      <!-- Kui päringu sisendiks on antud ainult isikukoodide massiiv, siis on tagastatud toodud isikukoodidega isikute andmed.
+           Kui päringu sisendiks on antud ainult õiguste massiiv, siis on tagastatud õigusi omavate isikute andmed.
+           Kui päringu sisendiks on nii isikukoodid kui ka õigused, siis vastuseks on tagastatud ainult need isikud,
+           kellega on seotud toodud õigused, ning kelle isikukood on isikukoodide massiivis.
+           Iga õigus võib olla piiratud asutuste massiiviga. -->
+      <xs:complexType name="isikudVastusManus">
+        <xs:all>
+          <xs:element name="isikud" minOccurs="1" maxOccurs="1">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="isik" minOccurs="0" maxOccurs="unbounded">
+                  <xs:complexType>
+                    <xs:all>
+                      <xs:element name="isiku_id" type="xs:string" minOccurs="1" maxOccurs="1"/>
+                      <xs:element name="isikukood" type="xs:string" minOccurs="1" maxOccurs="1"/>
+                      <xs:element name="eesnimi" type="xs:string" minOccurs="1" maxOccurs="1"/>
+                      <xs:element name="perenimi" type="xs:string" minOccurs="1" maxOccurs="1"/>
+                      <xs:element name="telefon" type="xs:string" minOccurs="0" maxOccurs="1"/>
+                      <xs:element name="e_post" type="xs:string" minOccurs="0" maxOccurs="1"/>
+                    </xs:all>
+                  </xs:complexType>
+                </xs:element>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:all>
+      </xs:complexType>
+
+      <xs:complexType name="valdkonnadParing">
+        <xs:all>
+          <xs:element name="valdkonnad" minOccurs="1">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Valdkondade otsing xml faili kujul</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+            <xs:complexType>
+              <xs:attribute type="ref:swaRef" name="href"/>
+            </xs:complexType>
+          </xs:element>
+        </xs:all>
+      </xs:complexType>
+
+      <xs:complexType name="valdkonnadVastus">
+        <xs:all>
+          <xs:element name="valdkonnad" minOccurs="1">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Valdkondade jada xml faili kujul</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+            <xs:complexType>
+              <xs:attribute type="ref:swaRef" name="href"/>
+            </xs:complexType>
+          </xs:element>
+        </xs:all>
+      </xs:complexType>
+
+      <!-- Paringu manuse struktuur -->
+      <xs:complexType name="valdkonnadParingManus">
+        <xs:all>
+          <xs:element name="valdkonnad" minOccurs="0" maxOccurs="1">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="id" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+                <xs:element name="nimi" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+                <xs:element name="sql" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+                <xs:element name="alamvaldkonnad" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:all>
+      </xs:complexType>
+
+      <!-- Vastuse manuse struktuur -->
+      <!-- Vastuses on toodud kõik valdkonnad, mis rahuldavad vähemalt ühte sisendi kriteeriumitest, ning nende alamvaldkonnad.
+           Sisendi kriteeriumiks võivad olla valdkonna id väärtused, valdkondade täpsed nimetused (case-insensitive),
+           ning valdkondade nimetuste SQL patternid. Juhul kui on vajadus saada täis nimekiri, siis tuleb määrata valdkonnad->id='ALL'. -->
+      <xs:complexType name="valdkonnadVastusManus">
+        <xs:all>
+          <xs:element name="valdkonnad" minOccurs="0" maxOccurs="1">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="valdkond" minOccurs="0" maxOccurs="unbounded">
+                  <xs:complexType>
+                    <xs:all>
+                      <xs:element name="id" type="xs:string" minOccurs="1" maxOccurs="1"/>
+                      <xs:element name="nimi" type="xs:string" minOccurs="1" maxOccurs="1"/>
+                      <xs:element name="nimi_en" type="xs:string" minOccurs="0" maxOccurs="1"/>
+                      <xs:element name="nimi_ru" type="xs:string" minOccurs="0" maxOccurs="1"/>
+                      <xs:element name="vanem_id" type="xs:string" minOccurs="0" maxOccurs="1"/>
+                      <xs:element name="vanem_nimi" type="xs:string" minOccurs="0" maxOccurs="1"/>
+                      <xs:element name="vanem_nimi_en" type="xs:string" minOccurs="0" maxOccurs="1"/>
+                      <xs:element name="vanem_nimi_ru" type="xs:string" minOccurs="0" maxOccurs="1"/>
+                      <xs:element name="kirjeldus" type="xs:string" minOccurs="0" maxOccurs="1"/>
+                      <xs:element name="kirjeldus_en" type="xs:string" minOccurs="0" maxOccurs="1"/>
+                      <xs:element name="kirjeldus_ru" type="xs:string" minOccurs="0" maxOccurs="1"/>
+                    </xs:all>
+                  </xs:complexType>
+                </xs:element>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:all>
+      </xs:complexType>
+
+      <xs:complexType name="grupidParing">
+        <xs:all>
+          <xs:element name="kriteeriumid" minOccurs="0">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Grupide otsing</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="kriteerium" minOccurs="1" maxOccurs="unbounded">
+                  <xs:complexType>
+                    <xs:all>
+                      <xs:element name="kriteerium" type="xs:string" minOccurs="1">
+                        <xs:annotation>
+                          <xs:appinfo>
+                            <xrd:title>Otsingu kriteerium</xrd:title>
+                          </xs:appinfo>
+                        </xs:annotation>
+                      </xs:element>
+                      <xs:element name="tyyp" minOccurs="1">
+                        <xs:annotation>
+                          <xs:appinfo>
+                            <xrd:title>Otsingu tyyp</xrd:title>
+                          </xs:appinfo>
+                        </xs:annotation>
+                        <xs:simpleType>
+                          <xs:restriction base="xs:string">
+                            <xs:enumeration value="id">
+                              <xs:annotation>
+                                <xs:appinfo>
+                                  <xrd:title>Grupi ID</xrd:title>
+                                </xs:appinfo>
+                              </xs:annotation>
+                            </xs:enumeration>
+                            <xs:enumeration value="nimetus">
+                              <xs:annotation>
+                                <xs:appinfo>
+                                  <xrd:title>Grupi täpne nimetus</xrd:title>
+                                </xs:appinfo>
+                              </xs:annotation>
+                            </xs:enumeration>
+                            <xs:enumeration value="sql">
+                              <xs:annotation>
+                                <xs:appinfo>
+                                  <xrd:title>Grupi nimetuse osa</xrd:title>
+                                  <xrd:notes>Võib kasutada SQL pattern süntaksi: "%" - nime osa, "_" - üks täht.</xrd:notes>
+                                </xs:appinfo>
+                              </xs:annotation>
+                            </xs:enumeration>
+                          </xs:restriction>
+                        </xs:simpleType>
+                      </xs:element>
+                    </xs:all>
+                  </xs:complexType>
+                </xs:element>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:all>
+      </xs:complexType>
+
+      <!-- Vastuses on toodud kõik grupid, mis rahuldavad vähemalt ühte sisendi kriteeriumitest.
+           Sisendi kriteeriumiks võivad olla grupi id väärtused, grupide täpsed nimetused(case-insensitive) ning grupide nimetuste SQL patternid. -->
+      <xs:complexType name="grupidVastus">
+        <xs:all>
+          <xs:element name="grupid" minOccurs="0">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Grupide jada</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element maxOccurs="unbounded" minOccurs="1" name="grupp">
+                  <xs:complexType>
+                    <xs:all>
+                      <xs:element name="grupp_id" type="xs:integer" minOccurs="1">
+                        <xs:annotation>
+                          <xs:appinfo>
+                            <xrd:title>Grupi ID</xrd:title>
+                          </xs:appinfo>
+                        </xs:annotation>
+                      </xs:element>
+                      <xs:element name="asutus_id" type="xs:integer" minOccurs="0" nillable="true">
+                        <xs:annotation>
+                          <xs:appinfo>
+                            <xrd:title>Grupi moodustanud asutus</xrd:title>
+                          </xs:appinfo>
+                        </xs:annotation>
+                      </xs:element>
+                      <xs:element name="asutus_nimetus" type="xs:string" minOccurs="0" nillable="true">
+                        <xs:annotation>
+                          <xs:appinfo>
+                            <xrd:title>Grupi moodustanud asutuse nimetus</xrd:title>
+                          </xs:appinfo>
+                        </xs:annotation>
+                      </xs:element>
+                      <xs:element name="nimetus" type="xs:string" minOccurs="1">
+                        <xs:annotation>
+                          <xs:appinfo>
+                            <xrd:title>Grupi nimetus</xrd:title>
+                          </xs:appinfo>
+                        </xs:annotation>
+                      </xs:element>
+                      <xs:element name="kirjeldus" type="xs:string" minOccurs="0" nillable="true">
+                        <xs:annotation>
+                          <xs:appinfo>
+                            <xrd:title>Grupi otstarbe vabatekstiline kirjeldus</xrd:title>
+                          </xs:appinfo>
+                        </xs:annotation>
+                      </xs:element>
+                    </xs:all>
+                  </xs:complexType>
+                </xs:element>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:all>
+      </xs:complexType>
+
+      <xs:complexType name="uusTaitmineParing">
+        <xs:all>
+          <xs:element name="asutusId" type="xs:integer" minOccurs="1" maxOccurs="1">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Asutuse ID</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="isikukood" type="xs:string" minOccurs="1" maxOccurs="1">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Täitja isikukood</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <!-- Kui ametikoht_id ei ole tühi, siis täitmine on lisatud olemasolevale ametikohale -->
+          <xs:element name="ametikohtId" type="xs:string" minOccurs="0" maxOccurs="1">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Ametikoha ID</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <!-- Kui ametikoht_id on tühi, siis ametikoht_nimetus on kasutatud uue ametikoha lisamiseks -->
+          <xs:element name="ametikohtNimetus" type="xs:string" minOccurs="0" maxOccurs="1">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Ametikoha nimetus</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="roll" default="PK" minOccurs="1" maxOccurs="1">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Täitmise roll</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+            <xs:simpleType>
+              <xs:restriction base="xs:string">
+                <xs:enumeration value="AS">
+                  <xs:annotation>
+                    <xs:appinfo>
+                      <xrd:title>Asendaja</xrd:title>
+                    </xs:appinfo>
+                  </xs:annotation>
+                </xs:enumeration>
+                <xs:enumeration value="KT">
+                  <xs:annotation>
+                    <xs:appinfo>
+                      <xrd:title>Kohusetäitja</xrd:title>
+                    </xs:appinfo>
+                  </xs:annotation>
+                </xs:enumeration>
+                <xs:enumeration value="LP">
+                  <xs:annotation>
+                    <xs:appinfo>
+                      <xrd:title>Lepinguline</xrd:title>
+                    </xs:appinfo>
+                  </xs:annotation>
+                </xs:enumeration>
+                <xs:enumeration value="PK">
+                  <xs:annotation>
+                    <xs:appinfo>
+                      <xrd:title>Põhikohaga</xrd:title>
+                    </xs:appinfo>
+                  </xs:annotation>
+                </xs:enumeration>
+              </xs:restriction>
+            </xs:simpleType>
+          </xs:element>
+          <xs:element name="taitmineAlates" type="xs:date" minOccurs="0" maxOccurs="1">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Täitmine kehtib alates</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="taitmineKuni" type="xs:date" minOccurs="0" maxOccurs="1">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Täitmine kehtib kuni</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="telefon" type="xs:string" minOccurs="1" maxOccurs="1">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Täitja telefon</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="ePost" type="xs:string" minOccurs="1" maxOccurs="1">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Täitja e-post</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+        </xs:all>
+      </xs:complexType>
+
+      <!-- Kui isikukood on juba andmebaasis olemas, siis isiku kontaktandmed ON uuendatud, vastasel juhul isiku andmed on lisatud (nimi on võietud rahvastikuregistrist).
+           Kui päringuga on kaasa antud ametikoht_id, siis ametikoht_nimetus on ignoreritud, vastasel juhul lisatakse uus ametikoht nimetusega ametikoht_nimetus.
+           Juhul, kui isik juba täidab antud ametikohta, siis täitmise andmed on uuendatud(alates, kuni, roll) ning peatatud täitmisi aktiveeritakse. Vastasel juhul lisatakse uus täitmine. -->
+      <xs:complexType name="uusTaitmineVastus">
+        <xs:all>
+          <xs:element name="ametikohtId" type="xs:string" minOccurs="1" maxOccurs="1">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Ametikoha ID</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="taitmineId" type="xs:string" minOccurs="1" maxOccurs="1">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Täitmise ID</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+        </xs:all>
+      </xs:complexType>
+
+      <xs:complexType name="uusOigusParing">
+        <xs:all>
+          <xs:element name="oigRegistrikood" type="xs:string" minOccurs="0">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Asutuse registrikood (õigus)</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="oigAsutusId" type="xs:integer" minOccurs="0">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Asutuse ID (õigus)</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="ametikohtId" type="xs:integer" minOccurs="0">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Ametikoha ID</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="oigusId" type="xs:integer" minOccurs="0">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Õiguse ID</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="oigusNimi" type="xs:string" minOccurs="0">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Õiguse nimetus</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="oigusAlates" type="xs:dateTime" minOccurs="0">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Õigus kehtib alates</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="oigusKuni" type="xs:dateTime" minOccurs="0">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Õigus kehtib kuni</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="oigusPeatatud" type="xs:boolean" minOccurs="0">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Õigus on peatatud</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="oigusIkPiirang" type="xs:string" minOccurs="0">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Isikukoodi piirang</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+        </xs:all>
+      </xs:complexType>
+
+      <!-- Õiguse lisamisel "ametikohtId" ning "oigusNimetus" on kohustuslikud väljad. Lisamisel saab määrata ka asutust, mille suhtes
+           kehtib see õigus (oigAsutusId või oigRegistrikood). Kui asutus ei ole määratud, siis vaikimisi on kasutatud asutus millele
+           kuulub ametikoht. Õiguse muutmisel kohustuslikuks väljaks on oigusId. Õiguse muutmisel ei saa muuta ametikoha id, asutuse id
+           ning õiguse nimetust.  -->
+      <xs:complexType name="uusOigusVastus">
+        <xs:all>
+          <xs:element name="oigusId" type="xs:string" minOccurs="1" maxOccurs="1">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Õiguse ID</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+        </xs:all>
+      </xs:complexType>
+
+      <xs:complexType name="uuedOigusedParing">
+        <xs:all>
+          <xs:element name="oigused" minOccurs="1">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Õiguste jada xml faili kujul</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+            <xs:complexType>
+              <xs:attribute type="ref:swaRef" name="href"/>
+            </xs:complexType>
+          </xs:element>
+        </xs:all>
+      </xs:complexType>
+
+      <xs:complexType name="uuedOigusedVastus">
+        <xs:all>
+          <xs:element name="oigused" minOccurs="1">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Õiguste jada xml faili kujul</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+            <xs:complexType>
+              <xs:attribute type="ref:swaRef" name="href"/>
+            </xs:complexType>
+          </xs:element>
+        </xs:all>
+      </xs:complexType>
+
+      <!-- Paringu manuse struktuur -->
+      <xs:complexType name="uuedOigusedParingManus">
+        <xs:all>
+          <xs:element name="oigused" minOccurs="0" maxOccurs="1">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="oigus" minOccurs="0" maxOccurs="unbounded">
+                  <xs:complexType>
+                    <xs:all>
+                      <xs:element name="oig_registrikood" type="xs:string" minOccurs="0" maxOccurs="1"/>
+                      <xs:element name="oig_asutus_id" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+                      <xs:element name="ametikoht_id" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+                      <xs:element name="oigus_id" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+                      <xs:element name="oigus_nimi" type="xs:string" minOccurs="0" maxOccurs="1"/>
+                      <xs:element name="oigus_alates" type="xs:dateTime" minOccurs="0" maxOccurs="1"/>
+                      <xs:element name="oigus_kuni" type="xs:dateTime" minOccurs="0" maxOccurs="1"/>
+                      <xs:element name="oigus_peatatud" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
+                      <xs:element name="oigus_ik_piirang" type="xs:string" minOccurs="0" maxOccurs="1"/>
+                    </xs:all>
+                  </xs:complexType>
+                </xs:element>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:all>
+      </xs:complexType>
+
+      <!-- Vastuse manuse struktuur -->
+      <!-- Vastuses on toodud lisatud õiguse id (oigus_id) või õiguse lisamisel tekkinud viga (errmsg).
+           Lisatud õiguste andmed (või vead) on tagastatud samas järjekorras nagu need olid päringus. -->
+      <xs:complexType name="uuedOigusedVastusManus">
+        <xs:all>
+          <xs:element name="oigused" minOccurs="0" maxOccurs="1">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="oigus" minOccurs="0" maxOccurs="unbounded">
+                  <xs:complexType>
+                    <xs:all>
+                      <xs:element name="oigus_id" type="xs:string" minOccurs="0" maxOccurs="1"/>
+                      <xs:element name="errmsg" type="xs:string" minOccurs="0" maxOccurs="1"/>
+                    </xs:all>
+                  </xs:complexType>
+                </xs:element>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:all>
+      </xs:complexType>
+
+      <xs:complexType name="grupid2Paring">
+        <xs:all>
+          <xs:element name="asutused" minOccurs="1">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Asutuste nimekiri xml faili kujul</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+            <xs:complexType>
+              <xs:attribute type="ref:swaRef" name="href"/>
+            </xs:complexType>
+          </xs:element>
+        </xs:all>
+      </xs:complexType>
+
+      <xs:complexType name="grupid2Vastus">
+        <xs:all>
+          <xs:element name="grupid" minOccurs="1">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Gruppide struktuur xml faili kujul</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+            <xs:complexType>
+              <xs:attribute type="ref:swaRef" name="href"/>
+            </xs:complexType>
+          </xs:element>
+        </xs:all>
+      </xs:complexType>
+
+      <!-- Paringu manuse struktuur -->
+      <xs:complexType name="grupid2ParingManus">
+        <xs:all>
+          <xs:element name="asutused" minOccurs="1" maxOccurs="1">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="kood" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+                <xs:element name="id" type="xs:integer" minOccurs="0" maxOccurs="unbounded"/>
+                <xs:element name="nimetus" type="xs:string" minOccurs="0" maxOccurs="1"/>
+                <xs:element name="alamobjektideta" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
+                <xs:element name="re_kood" type="xs:string" minOccurs="0" maxOccurs="1"/>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:all>
+      </xs:complexType>
+
+      <!-- Vastuse manuse struktuur -->
+      <!-- Vastuses on toodud kõik grupid/grupi liikmed/isikud. -->
+      <xs:complexType name="grupid2VastusManus">
+        <xs:all>
+          <xs:element name="grupid" minOccurs="1" maxOccurs="1">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="grupp" minOccurs="0" maxOccurs="unbounded">
+                  <xs:complexType>
+                    <xs:all>
+                      <xs:element name="grupp_id" type="xs:integer" minOccurs="1" maxOccurs="1"/>
+                      <xs:element name="nimetus" type="xs:string" minOccurs="1" maxOccurs="1"/>
+                      <xs:element name="liik" type="xs:string" minOccurs="1" maxOccurs="1"/>
+                      <xs:element name="asutus_id" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+                      <xs:element name="kirjeldus" type="xs:string" minOccurs="0" maxOccurs="1"/>
+                      <xs:element name="grupi_liikmed" minOccurs="1" maxOccurs="1">
+                        <xs:complexType>
+                          <xs:sequence>
+                            <xs:element name="grupi_liige" minOccurs="0" maxOccurs="unbounded">
+                              <xs:complexType>
+                                <xs:all>
+                                  <xs:element name="grupi_liige_id" type="xs:integer" minOccurs="1" maxOccurs="1"/>
+                                  <xs:element name="liige_grupp_id" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+                                  <xs:element name="liige_ametikoht_id" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+                                  <xs:element name="alates" type="xs:date" minOccurs="0" maxOccurs="1"/>
+                                  <xs:element name="kuni" type="xs:date" minOccurs="0" maxOccurs="1"/>
+                                  <xs:element name="peatatud" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
+                                  <xs:element name="roll_kood" type="xs:string" minOccurs="0" maxOccurs="1"/>
+                                  <xs:element name="roll_nimetus" type="xs:string" minOccurs="0" maxOccurs="1"/>
+                                  <xs:element name="markused" type="xs:string" minOccurs="0" maxOccurs="1"/>
+                                   <xs:element name="isik" minOccurs="0" maxOccurs="1">
+                                      <xs:complexType>
+                                         <xs:all>
+                                            <xs:element name="isikukood" type="xs:string" minOccurs="1" maxOccurs="1"/>
+                                            <xs:element name="eesnimi" type="xs:string" minOccurs="1" maxOccurs="1"/>
+                                            <xs:element name="perenimi" type="xs:string" minOccurs="1" maxOccurs="1"/>
+                                            <xs:element name="telefon" type="xs:string" minOccurs="0" maxOccurs="1"/>
+                                            <xs:element name="e_post" type="xs:string" minOccurs="0" maxOccurs="1"/>
+                                         </xs:all>
+                                      </xs:complexType>
+                                   </xs:element>
+                                </xs:all>
+                              </xs:complexType>
+                            </xs:element>
+                          </xs:sequence>
+                        </xs:complexType>
+                      </xs:element>
+                    </xs:all>
+                  </xs:complexType>
+                </xs:element>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:all>
+      </xs:complexType>
+
+      <xs:complexType name="klassifikaatoridParing">
+        <xs:all>
+          <xs:element name="klassifikaatorid" minOccurs="1">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Klassifikaatorite nimede loetelu xml faili kujul</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+            <xs:complexType>
+              <xs:attribute type="ref:swaRef" name="href"/>
+            </xs:complexType>
+          </xs:element>
+        </xs:all>
+      </xs:complexType>
+
+      <xs:complexType name="klassifikaatoridVastus">
+        <xs:all>
+          <xs:element name="lovs" minOccurs="1">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Klassifikaatorite väärtuste loend xml faili kujul</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+            <xs:complexType>
+              <xs:attribute type="ref:swaRef" name="href"/>
+            </xs:complexType>
+          </xs:element>
+        </xs:all>
+      </xs:complexType>
+
+      <!-- Paringu manuse struktuur -->
+      <xs:complexType name="klassifikaatoridParingManus">
+        <xs:all>
+          <xs:element name="klassifikaatorid" minOccurs="1" maxOccurs="1">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="lovname" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:all>
+      </xs:complexType>
+
+      <!-- Vastuse manuse struktuur -->
+      <!-- Vastuses on toodud kõik klassifikaatorite väärtused -->
+      <xs:complexType name="klassifikaatoridVastusManus">
+        <xs:all>
+          <xs:element name="klassifikaatorid" minOccurs="1" maxOccurs="1">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="lov" minOccurs="0" maxOccurs="unbounded">
+                  <xs:complexType>
+                    <xs:all>
+                      <xs:element name="lov_id" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+                      <xs:element name="parent_id" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+                      <xs:element name="lov_name" type="xs:string" minOccurs="0" maxOccurs="1"/>
+                      <xs:element name="lov_code" type="xs:string" minOccurs="0" maxOccurs="1"/>
+                      <xs:element name="lov_value" type="xs:string" minOccurs="0" maxOccurs="1"/>
+                      <xs:element name="lov_value_en" type="xs:string" minOccurs="0" maxOccurs="1"/>
+                      <xs:element name="lov_value_ru" type="xs:string" minOccurs="0" maxOccurs="1"/>
+                      <xs:element name="valid_from" type="xs:date" minOccurs="0" maxOccurs="1"/>
+                      <xs:element name="valid_to" type="xs:date" minOccurs="0" maxOccurs="1"/>
+                      <xs:element name="ordering" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+                      <xs:element name="shownull" type="xs:string" minOccurs="0" maxOccurs="1"/>
+                      <xs:element name="description" type="xs:string" minOccurs="0" maxOccurs="1"/>
+                    </xs:all>
+                  </xs:complexType>
+                </xs:element>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:all>
+      </xs:complexType>
+
+      <!-- Päringuga tuleks edastada viimase uuendusega saadud aeg, et vältida serverite aja mittesünkroniseeritust.
+           Lisaks andmekogu arvutab muutused lähtudes veidi varasemast ajast, et tagada, et kõik andmed saavad sünkroniseeritud.
+           Näiteks: Kui kaks transaktsiooni samal ajahetkel lisavad andmed, ning sünkroniseerimine võtab ainult esimese transaktsiooni andmed,
+           siis teise transaktsiooni andmete saamiseks. Järgmise sünkroniseerimise käigus master
+           automaatselt vähendab päringuga saabunud last_modified, et vastusesse jääks ka ajahetk X. -->
+      <xs:complexType name="muutusedParing">
+        <xs:all>
+          <xs:element name="last_modified" type="xs:dateTime" minOccurs="1" maxOccurs="1">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Viimase muudatuse aeg</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+        </xs:all>
+      </xs:complexType>
+
+      <!-- Vastusega võivad kaasa tulla ka kirjed, mis olid loodud varem kui "last_modified" väljaga määratud aeg.
+           Vastuses toodud tabelite arv võib ajaga kasvada, ning iga süsteem võib sünkroniseerida vaid need tabelid mida on vajalikud selle tööks.
+           Vastuse väli "last_maintainance" näitab millal tabelitest olid füüsiliselt kustutatud andmed (näiteks arhiveerimisel).
+           Taolised muudatused ei ole edastatud muudatuste päringu tulemustes, ning eeldavad tabeli täielikku uuendust.
+           
+           Vastuse manuse näidis:
+
+           <?xml version="1.0" encoding="utf-8"?>
+           <muutused>
+             <last_modified>2010-10-22 12:35:45</last_modified>
+             <last_maintainance>2010-01-01</last_maintainance>
+             <tabel1>
+               <item>
+                 <veerg1>Test!!!</veerg1>
+                 <veerg2>123456</veerg1>
+                 <veerg3></veerg1>
+                 <veerg4 />
+               </item>
+               <item>
+                 ...
+               </item>
+             </tabel1>
+             <tabel2>
+               ...
+             </tabel1>
+             ...
+          </muutused>
+
+          "tabel1" jne on kokkulepitud tabeli nimetus. Üldjuhul tegemist on tabeli nimega ilma skeemita. Näiteks asutused.asutus on esitatud xml'is nagu "<asutus>"
+          "<veerg3></veerg1>" näitab, et välja sisu on tühi.
+          "<veerg4 />" näitab, et välja sisu on NULL. -->
+      <xs:complexType name="muutusedVastus">
+        <xs:all>
+          <xs:element name="muutused" minOccurs="1" maxOccurs="1">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>AAR'i tabelite muudatused xml faili kujul</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+            <xs:complexType>
+              <xs:attribute type="ref:swaRef" name="href"/>
+            </xs:complexType>
+          </xs:element>
+        </xs:all>
+      </xs:complexType>
+
+      <!-- Päringuga sisendiks on viimane log_id, mis oli tagastatud eelmiste päringute vastuseks -->
+      <xs:complexType name="muudatusteLogiParing">
+        <xs:all>
+          <xs:element name="last_log_id" type="xs:integer" minOccurs="1" maxOccurs="1">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Viimase muudatuse ID</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+        </xs:all>
+      </xs:complexType>
+
+      <!-- TODO.
+           
+           Vastuse manuse näidis:
+
+           <?xml version="1.0" encoding="utf-8"?>
+           <aar_log xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+             <last_log_id>122</last_log_id>
+             <logi>
+               <item>
+                 <log_id>123</log_id>
+                 <table>isik</table>
+                 <table_pk_id>23456</table_pk_id>
+                 <operation>INSERT</operation>
+                 <data>
+                   <i_id>23456</i_id>
+                   <kood>38012146567</kood>
+                   <eesnimi>Eesnimi</eesnimi>
+                   <perenimi>Perenimi</perenimi>
+                   <telefon />
+                   <epost xsi:nil="true" />
+                 </data>
+               </item>
+               <item>
+                 <log_id>124</log_id>
+                 <table>isik</table>
+                 <table_pk_id>23457</table_pk_id>
+                 <operation>DELETE</operation>
+                 <data />
+               </item>
+             </logi>
+           </aar_log>
+
+          "tabel1" jne on kokkulepitud tabeli nimetus. Üldjuhul tegemist on tabeli nimega ilma skeemita. Näiteks asutused.asutus on esitatud xml'is nagu "<asutus>"
+          "<veerg1 />" näitab, et välja sisu on tühi.
+          "<veerg2 xsi:nil="true" />" näitab, et välja sisu on NULL. -->
+      <xs:complexType name="muudatusteLogiVastus">
+        <xs:all>
+          <xs:element name="muudatusteLogi" minOccurs="1" maxOccurs="1">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>AAR'i muudatuste logi xml faili kujul</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+            <xs:complexType>
+              <xs:attribute type="ref:swaRef" name="href"/>
+            </xs:complexType>
+          </xs:element>
+        </xs:all>
+      </xs:complexType>
+
+      <!-- TODO -->
+      <xs:complexType name="muudaAndmedParing">
+        <xs:all>
+          <xs:element name="paring" minOccurs="1" maxOccurs="1">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Päring xml faili kujul</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+            <xs:complexType>
+              <xs:attribute type="ref:swaRef" name="href"/>
+            </xs:complexType>
+          </xs:element>
+        </xs:all>
+      </xs:complexType>
+
+      <!-- TODO.
+           
+           Vastuse manuse näidis:
+
+           <?xml version="1.0" encoding="utf-8"?>
+           <aar_log xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+             <last_log_id>122</last_log_id>
+             <logi>
+               <item>
+                 <log_id>123</log_id>
+                 <table>isik</table>
+                 <table_pk_id>23456</table_pk_id>
+                 <operation>INSERT</operation>
+                 <data>
+                   <i_id>23456</i_id>
+                   <kood>38012146567</kood>
+                   <eesnimi>Eesnimi</eesnimi>
+                   <perenimi>Perenimi</perenimi>
+                   <telefon />
+                   <epost xsi:nil="true" />
+                 </data>
+               </item>
+               <item>
+                 <log_id>124</log_id>
+                 <table>isik</table>
+                 <table_pk_id>23457</table_pk_id>
+                 <operation>DELETE</operation>
+                 <data />
+               </item>
+             </logi>
+           </aar_log>
+
+          "tabel1" jne on kokkulepitud tabeli nimetus. Üldjuhul tegemist on tabeli nimega ilma skeemita. Näiteks asutused.asutus on esitatud xml'is nagu "<asutus>"
+          "<veerg1 />" näitab, et välja sisu on tühi.
+          "<veerg2 xsi:nil="true" />" näitab, et välja sisu on NULL. -->
+      <xs:complexType name="muudaAndmedVastus">
+        <xs:all>
+          <xs:element name="vastus" minOccurs="1" maxOccurs="1">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Vastus xml faili kujul</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+            <xs:complexType>
+              <xs:attribute type="ref:swaRef" name="href"/>
+            </xs:complexType>
+          </xs:element>
+        </xs:all>
+      </xs:complexType>
+
+      <!-- Päring tagastab mis grupidesse kuulub kasutaja. Kasutajat tuvastatakse ametikoha või isikukoodi alusel.
+           Sisendis tohib olla täidetud vaid üks väli - kas "ametikohtId" või "isikukood".
+           Kui sisendiks on "ametikohtId", siis tagastatakse gruppid millega on seotud antud ametikoht
+           Kui sisendiks on "isikukood", siis tagastatakse gruppid millega on seotud kõik antud kasutajaga täidetavad ametikohad
+           Vastuse tüübiks on "grupidVastus". -->
+      <xs:complexType name="kasutajaGrupidParing">
+        <xs:all>
+          <xs:element name="ametikohtId" type="xs:integer" minOccurs="0">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Ametikoha ID</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="isikukood" type="xs:string" minOccurs="0">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Isikukood</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+        </xs:all>
+      </xs:complexType>
+
+      <!-- Päring tagastab grupile antud õigused  -->
+      <xs:complexType name="grupiOigusedParing">
+        <xs:all>
+          <xs:element name="gruppId" type="xs:integer" minOccurs="0">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Grupi ID</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+        </xs:all>
+      </xs:complexType>
+
+      <!-- Tagastatakse vaid päringu tegemise hetkel kehtivad õigused  -->
+      <xs:complexType name="grupiOigusedVastus">
+        <xs:all>
+          <xs:element name="oigused" minOccurs="1" maxOccurs="1" nillable="true">
+            <xs:annotation>
+              <xs:appinfo>
+                <xrd:title>Õiguste jada</xrd:title>
+              </xs:appinfo>
+            </xs:annotation>
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="oigus" minOccurs="1" maxOccurs="unbounded">
+                  <xs:complexType>
+                    <xs:all>
+                      <xs:element name="oigusNimi" type="xs:string" minOccurs="1" maxOccurs="1">
+                        <xs:annotation>
+                          <xs:appinfo>
+                            <xrd:title>Õiguse nimetus</xrd:title>
+                          </xs:appinfo>
+                        </xs:annotation>
+                      </xs:element>
+                      <xs:element name="oigusAlates" type="xs:dateTime" minOccurs="1" maxOccurs="1" nillable="true">
+                        <xs:annotation>
+                          <xs:appinfo>
+                            <xrd:title>Õigus kehtib alates</xrd:title>
+                          </xs:appinfo>
+                        </xs:annotation>
+                      </xs:element>
+                      <xs:element name="oigusKuni" type="xs:dateTime" minOccurs="1" maxOccurs="1" nillable="true">
+                        <xs:annotation>
+                          <xs:appinfo>
+                            <xrd:title>Õigus kehtib kuni</xrd:title>
+                          </xs:appinfo>
+                        </xs:annotation>
+                      </xs:element>
+                      <xs:element name="oigusAsutusId" type="xs:integer" minOccurs="1" maxOccurs="1">
+                        <xs:annotation>
+                          <xs:appinfo>
+                            <xrd:title>Õigus kehtib asutusele</xrd:title>
+                          </xs:appinfo>
+                        </xs:annotation>
+                      </xs:element>
+                    </xs:all>
+                  </xs:complexType>
+                </xs:element>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:all>
+      </xs:complexType>
+
+
+
+      <xs:element name="oigused">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="keha" type="tns:oigusedParing"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+
+      <xs:element name="oigusedResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="paring" type="tns:oigusedParing"/>
+            <xs:element name="keha" type="tns:oigusedVastus"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+
+      <xs:element name="oigused2">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="keha" type="tns:oigused2Paring"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+
+      <xs:element name="oigused2Response">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="paring" type="tns:oigused2Paring"/>
+            <xs:element name="keha" type="tns:oigused2Vastus"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+
+      <xs:element name="oigused3">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="keha" type="tns:oigused3Paring"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+
+      <xs:element name="oigused3Response">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="paring" type="tns:oigused3Paring"/>
+            <xs:element name="keha" type="tns:oigused3Vastus"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+
+      <xs:element name="asutused">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="keha" type="tns:asutusedParing"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+
+      <xs:element name="asutusedResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <!--<xs:element name="paring" type="tns:asutusedParing"/>-->
+            <xs:element name="keha" type="tns:asutusedVastus"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+
+      <xs:element name="ametikohad">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="keha" type="tns:ametikohadParing"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+
+      <xs:element name="ametikohadResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="paring" type="tns:ametikohadParing"/>
+            <xs:element name="keha" type="tns:ametikohadVastus"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+
+      <xs:element name="taitmised">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="keha" type="tns:taitmisedParing"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+
+      <xs:element name="taitmisedResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <!--<xs:element name="paring" type="tns:taitmisedParing"/>-->
+            <xs:element name="keha" type="tns:taitmisedVastus"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+
+      <xs:element name="isikud">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="keha" type="tns:isikudParing"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+
+      <xs:element name="isikudResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="paring" type="tns:isikudParing"/>
+            <xs:element name="keha" type="tns:isikudVastus"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+
+      <xs:element name="valdkonnad">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="keha" type="tns:valdkonnadParing"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+
+      <xs:element name="valdkonnadResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="paring" type="tns:valdkonnadParing"/>
+            <xs:element name="keha" type="tns:valdkonnadVastus"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+
+      <xs:element name="grupid">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="keha" type="tns:grupidParing"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+
+      <xs:element name="grupidResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="paring" type="tns:grupidParing"/>
+            <xs:element name="keha" type="tns:grupidVastus"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+
+      <xs:element name="uusTaitmine">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="keha" type="tns:uusTaitmineParing"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+
+      <xs:element name="uusTaitmineResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="paring" type="tns:uusTaitmineParing"/>
+            <xs:element name="keha" type="tns:uusTaitmineVastus"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+
+      <xs:element name="uusOigus">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="keha" type="tns:uusOigusParing"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+
+      <xs:element name="uusOigusResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="paring" type="tns:uusOigusParing"/>
+            <xs:element name="keha" type="tns:uusOigusVastus"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+
+      <xs:element name="uuedOigused">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="keha" type="tns:uuedOigusedParing"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+
+      <xs:element name="uuedOigusedResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="paring" type="tns:uuedOigusedParing"/>
+            <xs:element name="keha" type="tns:uuedOigusedVastus"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+
+      <xs:element name="grupid2">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="keha" type="tns:grupid2Paring"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+
+      <xs:element name="grupid2Response">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="paring" type="tns:grupid2Paring"/>
+            <xs:element name="keha" type="tns:grupid2Vastus"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+
+      <xs:element name="klassifikaatorid">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="keha" type="tns:klassifikaatoridParing"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+
+      <xs:element name="klassifikaatoridResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="paring" type="tns:klassifikaatoridParing"/>
+            <xs:element name="keha" type="tns:klassifikaatoridVastus"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+
+      <xs:element name="muutused">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="keha" type="tns:muutusedParing"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+
+      <xs:element name="muutusedResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="paring" type="tns:muutusedParing"/>
+            <xs:element name="keha" type="tns:muutusedVastus"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+
+      <xs:element name="muudatusteLogi">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="keha" type="tns:muudatusteLogiParing"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+
+      <xs:element name="muudatusteLogiResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="paring" type="tns:muudatusteLogiParing"/>
+            <xs:element name="keha" type="tns:muudatusteLogiVastus"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+
+      <xs:element name="muudaAndmed">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="keha" type="tns:muudaAndmedParing"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+
+      <xs:element name="muudaAndmedResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="paring" type="tns:muudaAndmedParing"/>
+            <xs:element name="keha" type="tns:muudaAndmedVastus"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+
+      <xs:element name="kasutajaGrupid">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="keha" type="tns:kasutajaGrupidParing"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+
+      <xs:element name="kasutajaGrupidResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="paring" type="tns:kasutajaGrupidParing"/>
+            <xs:element name="keha" type="tns:grupidVastus"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+
+      <xs:element name="grupiOigused">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="keha" type="tns:grupiOigusedParing"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+
+      <xs:element name="grupiOigusedResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="paring" type="tns:grupiOigusedParing"/>
+            <xs:element name="keha" type="tns:grupiOigusedVastus"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+
+    </xs:schema>
+  </types>
+
+  <message name="requestHeader">
+    <part name="client" element="xrd:client"/>
+    <part name="service" element="xrd:service"/>
+    <part name="id" element="xrd:id"/>
+    <part name="userId" element="xrd:userId"/>
+    <part name="issue" element="xrd:issue"/>
+    <part name="protocolVersion" element="xrd:protocolVersion"/>
+  </message>
+
+  <message name="oigused">
+    <part name="body" element="tns:oigused"/>
+  </message>
+
+  <message name="oigusedResponse">
+    <part name="body" element="tns:oigusedResponse"/>
+  </message>
+
+  <message name="oigused2">
+    <part name="body" element="tns:oigused2"/>
+  </message>
+
+  <message name="oigused2Response">
+    <part name="body" element="tns:oigused2Response"/>
+  </message>
+
+  <message name="oigused3">
+    <part name="body" element="tns:oigused3"/>
+  </message>
+
+  <message name="oigused3Response">
+    <part name="body" element="tns:oigused3Response"/>
+  </message>
+
+  <message name="asutused">
+    <part name="body" element="tns:asutused"/>
+  </message>
+
+  <message name="asutusedResponse">
+    <part name="body" element="tns:asutusedResponse"/>
+  </message>
+
+  <message name="ametikohad">
+    <part name="body" element="tns:ametikohad"/>
+  </message>
+
+  <message name="ametikohadResponse">
+    <part name="body" element="tns:ametikohadResponse"/>
+  </message>
+
+  <message name="taitmised">
+    <part name="body" element="tns:taitmised"/>
+  </message>
+
+  <message name="taitmisedResponse">
+    <part name="body" element="tns:taitmisedResponse"/>
+  </message>
+
+  <message name="isikud">
+    <part name="body" element="tns:isikud"/>
+  </message>
+
+  <message name="isikudResponse">
+    <part name="body" element="tns:isikudResponse"/>
+  </message>
+
+  <message name="valdkonnad">
+    <part name="body" element="tns:valdkonnad"/>
+  </message>
+
+  <message name="valdkonnadResponse">
+    <part name="body" element="tns:valdkonnadResponse"/>
+  </message>
+
+  <message name="grupid">
+    <part name="body" element="tns:grupid"/>
+  </message>
+
+  <message name="grupidResponse">
+    <part name="body" element="tns:grupidResponse"/>
+  </message>
+
+  <message name="uusTaitmine">
+    <part name="body" element="tns:uusTaitmine"/>
+  </message>
+
+  <message name="uusTaitmineResponse">
+    <part name="body" element="tns:uusTaitmineResponse"/>
+  </message>
+
+  <message name="uusOigus">
+    <part name="body" element="tns:uusOigus"/>
+  </message>
+
+  <message name="uusOigusResponse">
+    <part name="body" element="tns:uusOigusResponse"/>
+  </message>
+
+  <message name="uuedOigused">
+    <part name="body" element="tns:uuedOigused"/>
+  </message>
+
+  <message name="uuedOigusedResponse">
+    <part name="body" element="tns:uuedOigusedResponse"/>
+  </message>
+
+  <message name="grupid2">
+    <part name="body" element="tns:grupid2"/>
+  </message>
+
+  <message name="grupid2Response">
+    <part name="body" element="tns:grupid2Response"/>
+  </message>
+
+  <message name="klassifikaatorid">
+    <part name="body" element="tns:klassifikaatorid"/>
+  </message>
+
+  <message name="klassifikaatoridResponse">
+    <part name="body" element="tns:klassifikaatoridResponse"/>
+  </message>
+
+  <message name="muutused">
+    <part name="body" element="tns:muutused"/>
+  </message>
+
+  <message name="muutusedResponse">
+    <part name="body" element="tns:muutusedResponse"/>
+  </message>
+
+  <message name="muudatusteLogi">
+    <part name="body" element="tns:muudatusteLogi"/>
+  </message>
+
+  <message name="muudatusteLogiResponse">
+    <part name="body" element="tns:muudatusteLogiResponse"/>
+  </message>
+
+  <message name="muudaAndmed">
+    <part name="body" element="tns:muudaAndmed"/>
+  </message>
+
+  <message name="muudaAndmedResponse">
+    <part name="body" element="tns:muudaAndmedResponse"/>
+  </message>
+
+  <message name="kasutajaGrupid">
+    <part name="body" element="tns:kasutajaGrupid"/>
+  </message>
+
+  <message name="kasutajaGrupidResponse">
+    <part name="body" element="tns:kasutajaGrupidResponse"/>
+  </message>
+
+  <message name="grupiOigused">
+    <part name="body" element="tns:grupiOigused"/>
+  </message>
+
+  <message name="grupiOigusedResponse">
+    <part name="body" element="tns:grupiOigusedResponse"/>
+  </message>
+
+  <portType name="aar">
+
+    <operation name="oigused">
+      <documentation>
+        <xrd:title>Õigused</xrd:title>
+      </documentation>
+      <input message="tns:oigused"/>
+      <output message="tns:oigusedResponse"/>
+    </operation>
+
+    <operation name="oigused2">
+      <documentation>
+        <xrd:title>Õigused 2</xrd:title>
+      </documentation>
+      <input message="tns:oigused2"/>
+      <output message="tns:oigused2Response"/>
+    </operation>
+
+    <operation name="oigused3">
+      <documentation>
+        <xrd:title>Õigused 3</xrd:title>
+      </documentation>
+      <input message="tns:oigused3"/>
+      <output message="tns:oigused3Response"/>
+    </operation>
+
+    <operation name="asutused">
+      <documentation>
+        <xrd:title>Asutused</xrd:title>
+      </documentation>
+      <input message="tns:asutused"/>
+      <output message="tns:asutusedResponse"/>
+    </operation>
+
+    <operation name="ametikohad">
+      <documentation>
+        <xrd:title>Ametikohad</xrd:title>
+      </documentation>
+      <input message="tns:ametikohad"/>
+      <output message="tns:ametikohadResponse"/>
+    </operation>
+
+    <operation name="taitmised">
+      <documentation>
+        <xrd:title>Taitmised</xrd:title>
+      </documentation>
+      <input message="tns:taitmised"/>
+      <output message="tns:taitmisedResponse"/>
+    </operation>
+
+    <operation name="isikud">
+      <documentation>
+        <xrd:title>Isikud</xrd:title>
+      </documentation>
+      <input message="tns:isikud"/>
+      <output message="tns:isikudResponse"/>
+    </operation>
+
+    <operation name="valdkonnad">
+      <documentation>
+        <xrd:title>Valdkonnad</xrd:title>
+      </documentation>
+      <input message="tns:valdkonnad"/>
+      <output message="tns:valdkonnadResponse"/>
+    </operation>
+
+    <operation name="grupid">
+      <documentation>
+        <xrd:title>Grupid</xrd:title>
+      </documentation>
+      <input message="tns:grupid"/>
+      <output message="tns:grupidResponse"/>
+    </operation>
+
+    <operation name="uusTaitmine">
+      <documentation>
+        <xrd:title>Uue ametikoha täitmise lisamine/muutmine</xrd:title>
+      </documentation>
+      <input message="tns:uusTaitmine"/>
+      <output message="tns:uusTaitmineResponse"/>
+    </operation>
+
+    <operation name="uusOigus">
+      <documentation>
+        <xrd:title>Uue õiguse lisamine/muutmine</xrd:title>
+      </documentation>
+      <input message="tns:uusOigus"/>
+      <output message="tns:uusOigusResponse"/>
+    </operation>
+
+    <operation name="uuedOigused">
+      <documentation>
+        <xrd:title>Mitme õiguse lisamine/muutmine</xrd:title>
+      </documentation>
+      <input message="tns:uuedOigused"/>
+      <output message="tns:uuedOigusedResponse"/>
+    </operation>
+
+    <operation name="grupid2">
+      <documentation>
+        <xrd:title>Grupid2</xrd:title>
+      </documentation>
+      <input message="tns:grupid2"/>
+      <output message="tns:grupid2Response"/>
+    </operation>
+
+    <operation name="klassifikaatorid">
+      <documentation>
+        <xrd:title>Klassifikaatorid</xrd:title>
+      </documentation>
+      <input message="tns:klassifikaatorid"/>
+      <output message="tns:klassifikaatoridResponse"/>
+    </operation>
+
+    <operation name="muutused">
+      <documentation>
+        <xrd:title>AAR'i tabelite muutused</xrd:title>
+      </documentation>
+      <input message="tns:muutused"/>
+      <output message="tns:muutusedResponse"/>
+    </operation>
+
+    <operation name="muudatusteLogi">
+      <documentation>
+        <xrd:title>AAR'i muudatuste logi</xrd:title>
+      </documentation>
+      <input message="tns:muudatusteLogi"/>
+      <output message="tns:muudatusteLogiResponse"/>
+    </operation>
+
+    <operation name="muudaAndmed">
+      <documentation>
+        <xrd:title>AAR'i andmete muutmine</xrd:title>
+      </documentation>
+      <input message="tns:muudaAndmed"/>
+      <output message="tns:muudaAndmedResponse"/>
+    </operation>
+
+    <operation name="kasutajaGrupid">
+      <documentation>
+        <xrd:title>Kasutaja grupid</xrd:title>
+      </documentation>
+      <input message="tns:kasutajaGrupid"/>
+      <output message="tns:kasutajaGrupidResponse"/>
+    </operation>
+
+    <operation name="grupiOigused">
+      <documentation>
+        <xrd:title>Grupi õigused</xrd:title>
+      </documentation>
+      <input message="tns:grupiOigused"/>
+      <output message="tns:grupiOigusedResponse"/>
+    </operation>
+
+  </portType>
+
+  <binding name="aar_soapbinding" type="tns:aar">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+
+    <operation name="oigused">
+      <xrd:version>v1</xrd:version>
+      <soap:operation/>
+      <input>
+        <soap:body parts="body" use="literal"/>
+        <soap:header message="tns:requestHeader" part="client" use="literal"/>
+        <soap:header message="tns:requestHeader" part="service" use="literal"/>
+        <soap:header message="tns:requestHeader" part="id" use="literal"/>
+        <soap:header message="tns:requestHeader" part="userId" use="literal"/>
+        <soap:header message="tns:requestHeader" part="issue" use="literal"/>
+        <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"/>
+      </input>
+      <output>
+        <soap:body parts="body" use="literal"/>
+        <soap:header message="tns:requestHeader" part="client" use="literal"/>
+        <soap:header message="tns:requestHeader" part="service" use="literal"/>
+        <soap:header message="tns:requestHeader" part="id" use="literal"/>
+        <soap:header message="tns:requestHeader" part="userId" use="literal"/>
+        <soap:header message="tns:requestHeader" part="issue" use="literal"/>
+        <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"/>
+      </output>
+    </operation>
+
+    <operation name="oigused2">
+      <xrd:version>v1</xrd:version>
+      <soap:operation/>
+      <input>
+        <soap:body parts="body" use="literal"/>
+        <soap:header message="tns:requestHeader" part="client" use="literal"/>
+        <soap:header message="tns:requestHeader" part="service" use="literal"/>
+        <soap:header message="tns:requestHeader" part="id" use="literal"/>
+        <soap:header message="tns:requestHeader" part="userId" use="literal"/>
+        <soap:header message="tns:requestHeader" part="issue" use="literal"/>
+        <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"/>
+      </input>
+      <output>
+        <soap:body parts="body" use="literal"/>
+        <soap:header message="tns:requestHeader" part="client" use="literal"/>
+        <soap:header message="tns:requestHeader" part="service" use="literal"/>
+        <soap:header message="tns:requestHeader" part="id" use="literal"/>
+        <soap:header message="tns:requestHeader" part="userId" use="literal"/>
+        <soap:header message="tns:requestHeader" part="issue" use="literal"/>
+        <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"/>
+      </output>
+    </operation>
+
+    <operation name="oigused3">
+      <xrd:version>v1</xrd:version>
+      <soap:operation/>
+      <input>
+        <mime:multipartRelated>
+          <mime:part>
+            <soap:body parts="body" use="literal"/>
+            <soap:header message="tns:requestHeader" part="client" use="literal"/>
+            <soap:header message="tns:requestHeader" part="service" use="literal"/>
+            <soap:header message="tns:requestHeader" part="id" use="literal"/>
+            <soap:header message="tns:requestHeader" part="userId" use="literal"/>
+            <soap:header message="tns:requestHeader" part="issue" use="literal"/>
+            <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"/>
+          </mime:part>
+        </mime:multipartRelated>
+      </input>
+      <output>
+        <mime:multipartRelated>
+          <mime:part>
+            <soap:body parts="body" use="literal"/>
+            <soap:header message="tns:requestHeader" part="client" use="literal"/>
+            <soap:header message="tns:requestHeader" part="service" use="literal"/>
+            <soap:header message="tns:requestHeader" part="id" use="literal"/>
+            <soap:header message="tns:requestHeader" part="userId" use="literal"/>
+            <soap:header message="tns:requestHeader" part="issue" use="literal"/>
+            <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"/>
+          </mime:part>
+        </mime:multipartRelated>
+      </output>
+    </operation>
+
+    <operation name="asutused">
+      <xrd:version>v1</xrd:version>
+      <soap:operation/>
+      <input>
+        <mime:multipartRelated>
+          <mime:part>
+            <soap:body parts="body" use="literal"/>
+            <soap:header message="tns:requestHeader" part="client" use="literal"/>
+            <soap:header message="tns:requestHeader" part="service" use="literal"/>
+            <soap:header message="tns:requestHeader" part="id" use="literal"/>
+            <soap:header message="tns:requestHeader" part="userId" use="literal"/>
+            <soap:header message="tns:requestHeader" part="issue" use="literal"/>
+            <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"/>
+          </mime:part>
+        </mime:multipartRelated>
+      </input>
+      <output>
+        <mime:multipartRelated>
+          <mime:part>
+            <soap:body parts="body" use="literal"/>
+            <soap:header message="tns:requestHeader" part="client" use="literal"/>
+            <soap:header message="tns:requestHeader" part="service" use="literal"/>
+            <soap:header message="tns:requestHeader" part="id" use="literal"/>
+            <soap:header message="tns:requestHeader" part="userId" use="literal"/>
+            <soap:header message="tns:requestHeader" part="issue" use="literal"/>
+            <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"/>
+          </mime:part>
+        </mime:multipartRelated>
+      </output>
+    </operation>
+
+    <operation name="ametikohad">
+      <xrd:version>v1</xrd:version>
+      <soap:operation/>
+      <input>
+        <mime:multipartRelated>
+          <mime:part>
+            <soap:body parts="body" use="literal"/>
+            <soap:header message="tns:requestHeader" part="client" use="literal"/>
+            <soap:header message="tns:requestHeader" part="service" use="literal"/>
+            <soap:header message="tns:requestHeader" part="id" use="literal"/>
+            <soap:header message="tns:requestHeader" part="userId" use="literal"/>
+            <soap:header message="tns:requestHeader" part="issue" use="literal"/>
+            <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"/>
+          </mime:part>
+        </mime:multipartRelated>
+      </input>
+      <output>
+        <mime:multipartRelated>
+          <mime:part>
+            <soap:body parts="body" use="literal"/>
+            <soap:header message="tns:requestHeader" part="client" use="literal"/>
+            <soap:header message="tns:requestHeader" part="service" use="literal"/>
+            <soap:header message="tns:requestHeader" part="id" use="literal"/>
+            <soap:header message="tns:requestHeader" part="userId" use="literal"/>
+            <soap:header message="tns:requestHeader" part="issue" use="literal"/>
+            <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"/>
+          </mime:part>
+        </mime:multipartRelated>
+      </output>
+    </operation>
+
+    <operation name="taitmised">
+      <xrd:version>v1</xrd:version>
+      <soap:operation/>
+      <input>
+        <mime:multipartRelated>
+          <mime:part>
+            <soap:body parts="body" use="literal"/>
+            <soap:header message="tns:requestHeader" part="client" use="literal"/>
+            <soap:header message="tns:requestHeader" part="service" use="literal"/>
+            <soap:header message="tns:requestHeader" part="id" use="literal"/>
+            <soap:header message="tns:requestHeader" part="userId" use="literal"/>
+            <soap:header message="tns:requestHeader" part="issue" use="literal"/>
+            <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"/>
+          </mime:part>
+        </mime:multipartRelated>
+      </input>
+      <output>
+        <mime:multipartRelated>
+          <mime:part>
+            <soap:body parts="body" use="literal"/>
+            <soap:header message="tns:requestHeader" part="client" use="literal"/>
+            <soap:header message="tns:requestHeader" part="service" use="literal"/>
+            <soap:header message="tns:requestHeader" part="id" use="literal"/>
+            <soap:header message="tns:requestHeader" part="userId" use="literal"/>
+            <soap:header message="tns:requestHeader" part="issue" use="literal"/>
+            <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"/>
+          </mime:part>
+        </mime:multipartRelated>
+      </output>
+    </operation>
+
+    <operation name="isikud">
+      <xrd:version>v1</xrd:version>
+      <soap:operation/>
+      <input>
+        <mime:multipartRelated>
+          <mime:part>
+            <soap:body parts="body" use="literal"/>
+            <soap:header message="tns:requestHeader" part="client" use="literal"/>
+            <soap:header message="tns:requestHeader" part="service" use="literal"/>
+            <soap:header message="tns:requestHeader" part="id" use="literal"/>
+            <soap:header message="tns:requestHeader" part="userId" use="literal"/>
+            <soap:header message="tns:requestHeader" part="issue" use="literal"/>
+            <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"/>
+          </mime:part>
+        </mime:multipartRelated>
+      </input>
+      <output>
+        <mime:multipartRelated>
+          <mime:part>
+            <soap:body parts="body" use="literal"/>
+            <soap:header message="tns:requestHeader" part="client" use="literal"/>
+            <soap:header message="tns:requestHeader" part="service" use="literal"/>
+            <soap:header message="tns:requestHeader" part="id" use="literal"/>
+            <soap:header message="tns:requestHeader" part="userId" use="literal"/>
+            <soap:header message="tns:requestHeader" part="issue" use="literal"/>
+            <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"/>
+          </mime:part>
+        </mime:multipartRelated>
+      </output>
+    </operation>
+
+    <operation name="valdkonnad">
+      <xrd:version>v2</xrd:version>
+      <soap:operation/>
+      <input>
+        <mime:multipartRelated>
+          <mime:part>
+            <soap:body parts="body" use="literal"/>
+            <soap:header message="tns:requestHeader" part="client" use="literal"/>
+            <soap:header message="tns:requestHeader" part="service" use="literal"/>
+            <soap:header message="tns:requestHeader" part="id" use="literal"/>
+            <soap:header message="tns:requestHeader" part="userId" use="literal"/>
+            <soap:header message="tns:requestHeader" part="issue" use="literal"/>
+            <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"/>
+          </mime:part>
+        </mime:multipartRelated>
+      </input>
+      <output>
+        <mime:multipartRelated>
+          <mime:part>
+            <soap:body parts="body" use="literal"/>
+            <soap:header message="tns:requestHeader" part="client" use="literal"/>
+            <soap:header message="tns:requestHeader" part="service" use="literal"/>
+            <soap:header message="tns:requestHeader" part="id" use="literal"/>
+            <soap:header message="tns:requestHeader" part="userId" use="literal"/>
+            <soap:header message="tns:requestHeader" part="issue" use="literal"/>
+            <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"/>
+          </mime:part>
+        </mime:multipartRelated>
+      </output>
+    </operation>
+
+    <operation name="grupid">
+      <xrd:version>v1</xrd:version>
+      <soap:operation/>
+      <input>
+        <soap:body parts="body" use="literal"/>
+        <soap:header message="tns:requestHeader" part="client" use="literal"/>
+        <soap:header message="tns:requestHeader" part="service" use="literal"/>
+        <soap:header message="tns:requestHeader" part="id" use="literal"/>
+        <soap:header message="tns:requestHeader" part="userId" use="literal"/>
+        <soap:header message="tns:requestHeader" part="issue" use="literal"/>
+        <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"/>
+      </input>
+      <output>
+        <soap:body parts="body" use="literal"/>
+        <soap:header message="tns:requestHeader" part="client" use="literal"/>
+        <soap:header message="tns:requestHeader" part="service" use="literal"/>
+        <soap:header message="tns:requestHeader" part="id" use="literal"/>
+        <soap:header message="tns:requestHeader" part="userId" use="literal"/>
+        <soap:header message="tns:requestHeader" part="issue" use="literal"/>
+        <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"/>
+      </output>
+    </operation>
+
+    <operation name="uusTaitmine">
+      <xrd:version>v1</xrd:version>
+      <soap:operation/>
+      <input>
+        <soap:body parts="body" use="literal"/>
+        <soap:header message="tns:requestHeader" part="client" use="literal"/>
+        <soap:header message="tns:requestHeader" part="service" use="literal"/>
+        <soap:header message="tns:requestHeader" part="id" use="literal"/>
+        <soap:header message="tns:requestHeader" part="userId" use="literal"/>
+        <soap:header message="tns:requestHeader" part="issue" use="literal"/>
+        <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"/>
+      </input>
+      <output>
+        <soap:body parts="body" use="literal"/>
+        <soap:header message="tns:requestHeader" part="client" use="literal"/>
+        <soap:header message="tns:requestHeader" part="service" use="literal"/>
+        <soap:header message="tns:requestHeader" part="id" use="literal"/>
+        <soap:header message="tns:requestHeader" part="userId" use="literal"/>
+        <soap:header message="tns:requestHeader" part="issue" use="literal"/>
+        <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"/>
+      </output>
+    </operation>
+
+    <operation name="uusOigus">
+      <xrd:version>v1</xrd:version>
+      <soap:operation/>
+      <input>
+        <soap:body parts="body" use="literal"/>
+        <soap:header message="tns:requestHeader" part="client" use="literal"/>
+        <soap:header message="tns:requestHeader" part="service" use="literal"/>
+        <soap:header message="tns:requestHeader" part="id" use="literal"/>
+        <soap:header message="tns:requestHeader" part="userId" use="literal"/>
+        <soap:header message="tns:requestHeader" part="issue" use="literal"/>
+        <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"/>
+      </input>
+      <output>
+        <soap:body parts="body" use="literal"/>
+        <soap:header message="tns:requestHeader" part="client" use="literal"/>
+        <soap:header message="tns:requestHeader" part="service" use="literal"/>
+        <soap:header message="tns:requestHeader" part="id" use="literal"/>
+        <soap:header message="tns:requestHeader" part="userId" use="literal"/>
+        <soap:header message="tns:requestHeader" part="issue" use="literal"/>
+        <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"/>
+      </output>
+    </operation>
+
+    <operation name="uuedOigused">
+      <xrd:version>v1</xrd:version>
+      <soap:operation/>
+      <input>
+        <mime:multipartRelated>
+          <mime:part>
+            <soap:body parts="body" use="literal"/>
+            <soap:header message="tns:requestHeader" part="client" use="literal"/>
+            <soap:header message="tns:requestHeader" part="service" use="literal"/>
+            <soap:header message="tns:requestHeader" part="id" use="literal"/>
+            <soap:header message="tns:requestHeader" part="userId" use="literal"/>
+            <soap:header message="tns:requestHeader" part="issue" use="literal"/>
+            <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"/>
+          </mime:part>
+        </mime:multipartRelated>
+      </input>
+      <output>
+        <mime:multipartRelated>
+          <mime:part>
+            <soap:body parts="body" use="literal"/>
+            <soap:header message="tns:requestHeader" part="client" use="literal"/>
+            <soap:header message="tns:requestHeader" part="service" use="literal"/>
+            <soap:header message="tns:requestHeader" part="id" use="literal"/>
+            <soap:header message="tns:requestHeader" part="userId" use="literal"/>
+            <soap:header message="tns:requestHeader" part="issue" use="literal"/>
+            <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"/>
+          </mime:part>
+        </mime:multipartRelated>
+      </output>
+    </operation>
+
+    <operation name="grupid2">
+      <xrd:version>v1</xrd:version>
+      <soap:operation/>
+      <input>
+        <mime:multipartRelated>
+          <mime:part>
+            <soap:body parts="body" use="literal"/>
+            <soap:header message="tns:requestHeader" part="client" use="literal"/>
+            <soap:header message="tns:requestHeader" part="service" use="literal"/>
+            <soap:header message="tns:requestHeader" part="id" use="literal"/>
+            <soap:header message="tns:requestHeader" part="userId" use="literal"/>
+            <soap:header message="tns:requestHeader" part="issue" use="literal"/>
+            <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"/>
+          </mime:part>
+        </mime:multipartRelated>
+      </input>
+      <output>
+        <mime:multipartRelated>
+          <mime:part>
+            <soap:body parts="body" use="literal"/>
+            <soap:header message="tns:requestHeader" part="client" use="literal"/>
+            <soap:header message="tns:requestHeader" part="service" use="literal"/>
+            <soap:header message="tns:requestHeader" part="id" use="literal"/>
+            <soap:header message="tns:requestHeader" part="userId" use="literal"/>
+            <soap:header message="tns:requestHeader" part="issue" use="literal"/>
+            <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"/>
+          </mime:part>
+        </mime:multipartRelated>
+      </output>
+    </operation>
+
+    <operation name="klassifikaatorid">
+      <xrd:version>v1</xrd:version>
+      <soap:operation/>
+      <input>
+        <mime:multipartRelated>
+          <mime:part>
+            <soap:body parts="body" use="literal"/>
+            <soap:header message="tns:requestHeader" part="client" use="literal"/>
+            <soap:header message="tns:requestHeader" part="service" use="literal"/>
+            <soap:header message="tns:requestHeader" part="id" use="literal"/>
+            <soap:header message="tns:requestHeader" part="userId" use="literal"/>
+            <soap:header message="tns:requestHeader" part="issue" use="literal"/>
+            <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"/>
+          </mime:part>
+        </mime:multipartRelated>
+      </input>
+      <output>
+        <mime:multipartRelated>
+          <mime:part>
+            <soap:body parts="body" use="literal"/>
+            <soap:header message="tns:requestHeader" part="client" use="literal"/>
+            <soap:header message="tns:requestHeader" part="service" use="literal"/>
+            <soap:header message="tns:requestHeader" part="id" use="literal"/>
+            <soap:header message="tns:requestHeader" part="userId" use="literal"/>
+            <soap:header message="tns:requestHeader" part="issue" use="literal"/>
+            <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"/>
+          </mime:part>
+        </mime:multipartRelated>
+      </output>
+    </operation>
+
+    <operation name="muutused">
+      <xrd:version>v1</xrd:version>
+      <soap:operation/>
+      <input>
+        <soap:body parts="body" use="literal"/>
+        <soap:header message="tns:requestHeader" part="client" use="literal"/>
+        <soap:header message="tns:requestHeader" part="service" use="literal"/>
+        <soap:header message="tns:requestHeader" part="id" use="literal"/>
+        <soap:header message="tns:requestHeader" part="userId" use="literal"/>
+        <soap:header message="tns:requestHeader" part="issue" use="literal"/>
+        <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"/>
+      </input>
+      <output>
+        <mime:multipartRelated>
+          <mime:part>
+            <soap:body parts="body" use="literal"/>
+            <soap:header message="tns:requestHeader" part="client" use="literal"/>
+            <soap:header message="tns:requestHeader" part="service" use="literal"/>
+            <soap:header message="tns:requestHeader" part="id" use="literal"/>
+            <soap:header message="tns:requestHeader" part="userId" use="literal"/>
+            <soap:header message="tns:requestHeader" part="issue" use="literal"/>
+            <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"/>
+          </mime:part>
+        </mime:multipartRelated>
+      </output>
+    </operation>
+
+    <operation name="muudatusteLogi">
+      <xrd:version>v1</xrd:version>
+      <soap:operation/>
+      <input>
+        <soap:body parts="body" use="literal"/>
+        <soap:header message="tns:requestHeader" part="client" use="literal"/>
+        <soap:header message="tns:requestHeader" part="service" use="literal"/>
+        <soap:header message="tns:requestHeader" part="id" use="literal"/>
+        <soap:header message="tns:requestHeader" part="userId" use="literal"/>
+        <soap:header message="tns:requestHeader" part="issue" use="literal"/>
+        <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"/>
+      </input>
+      <output>
+        <mime:multipartRelated>
+          <mime:part>
+            <soap:body parts="body" use="literal"/>
+            <soap:header message="tns:requestHeader" part="client" use="literal"/>
+            <soap:header message="tns:requestHeader" part="service" use="literal"/>
+            <soap:header message="tns:requestHeader" part="id" use="literal"/>
+            <soap:header message="tns:requestHeader" part="userId" use="literal"/>
+            <soap:header message="tns:requestHeader" part="issue" use="literal"/>
+            <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"/>
+          </mime:part>
+        </mime:multipartRelated>
+      </output>
+    </operation>
+
+    <operation name="muudaAndmed">
+      <xrd:version>v1</xrd:version>
+      <soap:operation/>
+      <input>
+        <mime:multipartRelated>
+          <mime:part>
+            <soap:body parts="body" use="literal"/>
+            <soap:header message="tns:requestHeader" part="client" use="literal"/>
+            <soap:header message="tns:requestHeader" part="service" use="literal"/>
+            <soap:header message="tns:requestHeader" part="id" use="literal"/>
+            <soap:header message="tns:requestHeader" part="userId" use="literal"/>
+            <soap:header message="tns:requestHeader" part="issue" use="literal"/>
+            <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"/>
+          </mime:part>
+        </mime:multipartRelated>
+      </input>
+      <output>
+        <mime:multipartRelated>
+          <mime:part>
+            <soap:body parts="body" use="literal"/>
+            <soap:header message="tns:requestHeader" part="client" use="literal"/>
+            <soap:header message="tns:requestHeader" part="service" use="literal"/>
+            <soap:header message="tns:requestHeader" part="id" use="literal"/>
+            <soap:header message="tns:requestHeader" part="userId" use="literal"/>
+            <soap:header message="tns:requestHeader" part="issue" use="literal"/>
+            <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"/>
+          </mime:part>
+        </mime:multipartRelated>
+      </output>
+    </operation>
+
+    <operation name="grupiOigused">
+      <xrd:version>v1</xrd:version>
+      <soap:operation/>
+      <input>
+        <soap:body parts="body" use="literal"/>
+        <soap:header message="tns:requestHeader" part="client" use="literal"/>
+        <soap:header message="tns:requestHeader" part="service" use="literal"/>
+        <soap:header message="tns:requestHeader" part="id" use="literal"/>
+        <soap:header message="tns:requestHeader" part="userId" use="literal"/>
+        <soap:header message="tns:requestHeader" part="issue" use="literal"/>
+        <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"/>
+      </input>
+      <output>
+        <soap:body parts="body" use="literal"/>
+        <soap:header message="tns:requestHeader" part="client" use="literal"/>
+        <soap:header message="tns:requestHeader" part="service" use="literal"/>
+        <soap:header message="tns:requestHeader" part="id" use="literal"/>
+        <soap:header message="tns:requestHeader" part="userId" use="literal"/>
+        <soap:header message="tns:requestHeader" part="issue" use="literal"/>
+        <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"/>
+      </output>
+    </operation>
+
+    <operation name="kasutajaGrupid">
+      <xrd:version>v1</xrd:version>
+      <soap:operation/>
+      <input>
+        <soap:body parts="body" use="literal"/>
+        <soap:header message="tns:requestHeader" part="client" use="literal"/>
+        <soap:header message="tns:requestHeader" part="service" use="literal"/>
+        <soap:header message="tns:requestHeader" part="id" use="literal"/>
+        <soap:header message="tns:requestHeader" part="userId" use="literal"/>
+        <soap:header message="tns:requestHeader" part="issue" use="literal"/>
+        <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"/>
+      </input>
+      <output>
+        <soap:body parts="body" use="literal"/>
+        <soap:header message="tns:requestHeader" part="client" use="literal"/>
+        <soap:header message="tns:requestHeader" part="service" use="literal"/>
+        <soap:header message="tns:requestHeader" part="id" use="literal"/>
+        <soap:header message="tns:requestHeader" part="userId" use="literal"/>
+        <soap:header message="tns:requestHeader" part="issue" use="literal"/>
+        <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"/>
+      </output>
+    </operation>
+
+  </binding>
+
+  <service name="aar">
+    <port binding="tns:aar_soapbinding" name="aar">
+      <soap:address location="http://example.org/xroad-endpoint"/>
+    </port>
+  </service>
+
+</definitions>
