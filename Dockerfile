@@ -18,8 +18,8 @@ RUN mvn clean install
 RUN mvn clean -U package
 RUN mvn clean -U package -Pservices
 
-RUN mkdir ./xtr/services
-COPY ./${PROJECT_DIR}/target/${PROJECT_DIR}*/* ./xtr/services/
+RUN mkdir ${WORKDIR}/xtr/services
+RUN cp ${WORKDIR}/${PROJECT_DIR}/target/${PROJECT_DIR}*/* ${WORKDIR}/xtr/services/
 
 WORKDIR ${WORKDIR}/xtr
 ENTRYPOINT ["mvn","spring-boot:run"]
