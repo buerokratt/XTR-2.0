@@ -4,6 +4,14 @@ The purpose of this application is to provide an json api interface on top of x-
 can be found and added at the time of writing at https://www.riha.ee. The wsdl files are used to generate yaml configuration 
 files as well as jar packages used by the given application to provide the services.
 
+### Deploy with Docker
+
+To run application using Docker run:
+
+```docker-compose up -d```
+
+*Note!* First deployment may take 5-15 minutes, depending on your computer. This is due to the amount of samples provided.
+
 ### Building the project
 
 Project can be compiled and packaged with the command below. 
