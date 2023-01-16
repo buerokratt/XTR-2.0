@@ -1,0 +1,14 @@
+version: '3.9'
+services:
+  xtr:
+    container_name: xtr
+    build:
+      context: .
+    ports:
+      - 8080:8080
+    networks:
+      - xtr
+
+networks:
+  xtr:
+    driver: bridge
