@@ -1,5 +1,7 @@
 ###Installation guide for XTR component full installation from the scratch to debian based linux. 
 
+*Note!* Ignore this if you are using Docker to deploy and follow [README](README.md#deploy-with-docker) instructions instead.
+
 1.**Update dependencies**
 ```
 sudo apt update -y
