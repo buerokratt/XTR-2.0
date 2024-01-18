@@ -1,4 +1,4 @@
-FROM openjdk:11-jdk as build
+FROM eclipse-temurin:11-jdk as build
 
 ARG WORKDIR="/workspace/app"
 ARG PROJECT_DIR="xtee-samples"
@@ -13,10 +13,10 @@ COPY common common
 COPY xgen xgen
 COPY ${PROJECT_DIR} ${PROJECT_DIR}
 COPY xtr xtr
+COPY conf conf
 
-RUN mvn clean install
-RUN mvn clean -U package
-RUN mvn clean -U package -Pservices
+RUN mvn -q clean install
+RUN mvn -q package -Pservices
 
 RUN mkdir ${WORKDIR}/xtr/services
 RUN cp ${WORKDIR}/${PROJECT_DIR}/target/${PROJECT_DIR}*/* ${WORKDIR}/xtr/services/
