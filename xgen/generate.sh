@@ -35,7 +35,7 @@ EOF
 
         echo "Moving configuration files to $2"
 
-#        mv *.yaml $2
+        mv *.yaml $2
 
         cd ${CUR_DIR}
 
@@ -43,6 +43,4 @@ EOF
 
 #        rm -rf ${OUTPUT}
     fi
-
-    cp target/xtee-samples-1.0.0-SNAPSHOT/*.yaml $2
 done
