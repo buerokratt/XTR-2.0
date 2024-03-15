@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 import java.util.Collection;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * Service that performs  XtrRequests
@@ -44,6 +45,10 @@ public class XtrServiceWrapperImpl implements XtrServiceWrapper, IdCodeLookup, A
         this.xtrDatabases = confLoader.loadConf();
         this.responseConverter = responseConverter;
         this.requestConverter = requestConverter;
+
+        log.info("XTR registered databases:" +
+                xtrDatabases.stream().map(db -> "[" + db.getRegistryCode() + ":" + db.getServiceCode() + "]")
+                        .collect(Collectors.joining(",")));
     }
 
     /**

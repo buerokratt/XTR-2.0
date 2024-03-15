@@ -1,6 +1,7 @@
 package ee.ria.xtr_2_0.service;
 
 import com.nortal.jroad.client.service.BaseXRoadDatabaseService;
+import com.nortal.jroad.client.service.XRoadDatabaseService;
 import ee.ria.xtr_2_0.model.XtrDatabase;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeansException;
@@ -25,7 +26,6 @@ import java.util.stream.Collectors;
 @Component
 @Slf4j
 public class XtrDatabaseConfLoaderImpl implements XtrDatabaseConfLoader, ApplicationContextAware {
-
     private static final String YAML_EXTENSION = ".yaml";
 
     @Value("${xtr.xtee.services.path:services}")
@@ -46,6 +46,9 @@ public class XtrDatabaseConfLoaderImpl implements XtrDatabaseConfLoader, Applica
 
         final Yaml yaml = new Yaml();
         Set<String> xteeServiceBeans = ctx.getBeansOfType(BaseXRoadDatabaseService.class).keySet();
+        //log.info("all service beans: "+String.join(",",ctx.getBeanDefinitionNames()));
+
+        log.info("xtee service beans: "+xteeServiceBeans.stream().collect(Collectors.joining(", ")));
 
         xteeServiceBeans.forEach(bean -> log.debug("Found X-Tee service bean: {}", bean));
 
@@ -78,11 +81,11 @@ public class XtrDatabaseConfLoaderImpl implements XtrDatabaseConfLoader, Applica
                 .collect(Collectors.toSet());
 
         StringBuilder sb = new StringBuilder();
-        result.stream().sorted(
+        String sbs = result.stream().sorted(
                 Comparator.comparing(XtrDatabase::getRegistryCode).thenComparing(XtrDatabase::getServiceCode)
-        ).map(db -> "\t" + db + "\n").forEach(sb::append);
+        ).map(db -> "\t" + db + "\n").collect(Collectors.joining());
 
-        log.info("X-Tee services:\n\n{}", sb.toString());
+        log.info("X-Tee services:\n\n{}", sbs.toString());
 
         return result;
     }

@@ -28,6 +28,7 @@
             <version>${project.version}</version>
         </dependency>
 
+
         <dependency>
             <groupId>com.nortal.jroad</groupId>
             <artifactId>xtee-client-transport</artifactId>
@@ -74,6 +75,17 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <version>2.6.7</version>
+                <configuration>  <!-- added -->
+                    <mainClass>ee.ria.xtr_2_0.XtrApplication</mainClass>
+                    <layout>ZIP</layout>
+                </configuration>
+                <executions>
+                    <execution>
+                        <configuration>
+                            <mainClass>ee.ria.xtr_2_0.XtrApplication</mainClass>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
