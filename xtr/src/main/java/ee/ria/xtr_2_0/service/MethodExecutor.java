@@ -141,7 +141,10 @@ public class MethodExecutor {
 
             }
             catch (Throwable t) {
-                log.error("Error while performing request {}", t.getCause().getMessage(), t);
+                if (t.getCause()!= null)
+                    log.error("Error while performing request {}", t.getCause().getMessage(), t);
+                else
+                    log.error("Error while performing request ", t);
                 throw new MethodInvocationException(method, t);
             }
         });
